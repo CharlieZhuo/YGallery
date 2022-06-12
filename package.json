@@ -6,12 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "libgen": "oazapfts C:/Users/ZZ/reactProject/mystrapi/src/extensions/documentation/documentation/1.0.0/full_documentation.json ./lib/strapiLib.ts"
   },
   "dependencies": {
+    "formik": "^2.2.9",
     "next": "12.1.6",
+    "oazapfts": "^3.6.0",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.41",
