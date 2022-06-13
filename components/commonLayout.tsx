@@ -21,7 +21,7 @@ export default function CommonLayout({ children }: { children: any }) {
             <Link href={"/"}>关于</Link>
           </li>
           <li>
-            <Link href={"/"}>联系</Link>
+            <Link href={"/contact"}>联系</Link>
           </li>
         </ul>
       </header>

@@ -42,9 +42,6 @@ export default function Post({
 Post.getLayout = (page: any) => <CommonLayout>{page} </CommonLayout>;
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  checkAndSetEV(api.defaults);
-  api.defaults.headers = { ...api.defaults.headers, populate: "*" };
-
   const id = context.params?.id;
   if (typeof id === "string") {
     const response = await fetch(

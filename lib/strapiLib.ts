@@ -15,6 +15,254 @@ export const servers = {
     stagingServer: "YOUR_STAGING_SERVER",
     productionServer: "YOUR_PRODUCTION_SERVER"
 };
+export type FeedbackListResponse = {
+    data?: {
+        id?: string;
+        attributes?: {
+            name?: string;
+            email?: string;
+            message?: string;
+            ipAddress?: string;
+            createdAt?: string;
+            updatedAt?: string;
+            publishedAt?: string;
+            createdBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {
+                        firstname?: string;
+                        lastname?: string;
+                        username?: string;
+                        email?: string;
+                        resetPasswordToken?: string;
+                        registrationToken?: string;
+                        isActive?: boolean;
+                        roles?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {
+                                    name?: string;
+                                    code?: string;
+                                    description?: string;
+                                    users?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    permissions?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {
+                                                action?: string;
+                                                subject?: string;
+                                                properties?: any;
+                                                conditions?: any;
+                                                role?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                updatedBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                            };
+                                        }[];
+                                    };
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    createdBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    updatedBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                };
+                            }[];
+                        };
+                        blocked?: boolean;
+                        preferedLanguage?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                        updatedBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                    };
+                };
+            };
+            updatedBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {};
+                };
+            };
+        };
+    }[];
+    meta?: {
+        pagination?: {
+            page?: number;
+            pageSize?: number;
+            pageCount?: number;
+            total?: number;
+        };
+    };
+};
+export type Error = {
+    data?: (object | any[]) | null;
+    error: {
+        status?: number;
+        name?: string;
+        message?: string;
+        details?: object;
+    };
+};
+export type FeedbackRequest = {
+    data: {
+        name?: string;
+        email?: string;
+        message?: string;
+        ipAddress?: string;
+    };
+};
+export type FeedbackResponse = {
+    data?: {
+        id?: string;
+        attributes?: {
+            name?: string;
+            email?: string;
+            message?: string;
+            ipAddress?: string;
+            createdAt?: string;
+            updatedAt?: string;
+            publishedAt?: string;
+            createdBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {
+                        firstname?: string;
+                        lastname?: string;
+                        username?: string;
+                        email?: string;
+                        resetPasswordToken?: string;
+                        registrationToken?: string;
+                        isActive?: boolean;
+                        roles?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {
+                                    name?: string;
+                                    code?: string;
+                                    description?: string;
+                                    users?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    permissions?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {
+                                                action?: string;
+                                                subject?: string;
+                                                properties?: any;
+                                                conditions?: any;
+                                                role?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                updatedBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                            };
+                                        }[];
+                                    };
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    createdBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    updatedBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                };
+                            }[];
+                        };
+                        blocked?: boolean;
+                        preferedLanguage?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                        updatedBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                    };
+                };
+            };
+            updatedBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {};
+                };
+            };
+        };
+    };
+    meta?: object;
+};
 export type PostListResponse = {
     data?: {
         id?: string;
@@ -256,15 +504,6 @@ export type PostListResponse = {
             pageCount?: number;
             total?: number;
         };
-    };
-};
-export type Error = {
-    data?: (object | any[]) | null;
-    error: {
-        status?: number;
-        name?: string;
-        message?: string;
-        details?: object;
     };
 };
 export type PostRequest = {
@@ -2291,6 +2530,144 @@ export type UsersPermissionsUserRequest = {
         role?: number | string;
     };
 };
+export function getFeedbacks({ sort, paginationWithCount, paginationPage, paginationPageSize, paginationStart, paginationLimit, fields, populate }: {
+    sort?: string;
+    paginationWithCount?: boolean;
+    paginationPage?: number;
+    paginationPageSize?: number;
+    paginationStart?: number;
+    paginationLimit?: number;
+    fields?: string;
+    populate?: string;
+} = {}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: FeedbackListResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/feedbacks${QS.query(QS.form({
+        sort,
+        "pagination[withCount]": paginationWithCount,
+        "pagination[page]": paginationPage,
+        "pagination[pageSize]": paginationPageSize,
+        "pagination[start]": paginationStart,
+        "pagination[limit]": paginationLimit,
+        fields,
+        populate
+    }))}`, {
+        ...opts
+    });
+}
+export function postFeedbacks(feedbackRequest: FeedbackRequest, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: FeedbackResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>("/feedbacks", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: feedbackRequest
+    }));
+}
+export function getFeedbacksById(id: string, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: FeedbackResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/feedbacks/${id}`, {
+        ...opts
+    });
+}
+export function putFeedbacksById(id: string, feedbackRequest: FeedbackRequest, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: FeedbackResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/feedbacks/${id}`, oazapfts.json({
+        ...opts,
+        method: "PUT",
+        body: feedbackRequest
+    }));
+}
+export function deleteFeedbacksById(id: string, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: number;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/feedbacks/${id}`, {
+        ...opts,
+        method: "DELETE"
+    });
+}
 export function getPosts({ sort, paginationWithCount, paginationPage, paginationPageSize, paginationStart, paginationLimit, fields, populate }: {
     sort?: string;
     paginationWithCount?: boolean;

@@ -46,7 +46,7 @@ const Home = ({
               <Link href={"/"}>关于</Link>
             </li>
             <li>
-              <Link href={"/"}>联系</Link>
+              <Link href={"/contact"}>联系</Link>
             </li>
           </ul>
           <p>中国画爱好者</p>
