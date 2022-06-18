@@ -37,6 +37,7 @@ div.backdrop {
   right: 0%;
   top: 80vh;
   transform: translateY(var(--yvalue));
+  z-index: -1;
 }
 
 .main ul {

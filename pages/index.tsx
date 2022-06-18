@@ -4,9 +4,8 @@ import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import Card from "../components/card";
 import * as api from "../lib/strapiLib";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import CommonLayout from "../components/commonLayout";
 import { checkAndSetEV } from "../lib/strapiUtil";
 
 const Home = ({
@@ -16,12 +15,17 @@ const Home = ({
   postList: api.PostListResponse;
   assetEndpoint: string;
 }) => {
+  const backdropRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const main = document.querySelector(`:root`) as HTMLElement;
     const callback = function (e: any) {
-      main.style.setProperty("--yvalue", `${window.scrollY / 2}px`);
+      backdropRef.current?.style.setProperty(
+        "--yvalue",
+        `${window.scrollY / 2}px`
+      );
     };
-    if (main) window.addEventListener("scroll", callback);
+    if (backdropRef) {
+      window.addEventListener("scroll", callback);
+    }
     return () => {
       window.removeEventListener("scroll", callback);
     };
@@ -74,7 +78,7 @@ const Home = ({
           </div>
           <p className={styles.copyright}>© 2022 网站所有者 版权所有</p>
         </footer>
-        <div className={styles.backdrop}>
+        <div className={styles.backdrop} ref={backdropRef}>
           <Image
             src={"/mmexport1651723454162.colorjpg.jpg"}
             width="128"
