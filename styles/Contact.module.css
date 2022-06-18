@@ -3,6 +3,15 @@
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 2rem;
 }
+.container * {
+  --shadow-color: 0deg 0% 0%;
+  --shadow-elevation-medium: -0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.11),
+    -1.2px 1.4px 2.1px -0.8px hsl(var(--shadow-color) / 0.11),
+    -3.1px 3.4px 5.2px -1.7px hsl(var(--shadow-color) / 0.11),
+    -7.6px 8.3px 12.7px -2.5px hsl(var(--shadow-color) / 0.11);
+  box-shadow: var(--shadow-elevation-medium);
+
+}
 .title {
   font-size: 4rem;
   text-align: center;
@@ -100,4 +109,55 @@
 .form button[disabled] {
   background: #d7e8cd;
   box-shadow: var(--shadow-elevation-low);
+}
+#resultDialog {
+  border: 1px solid #dddddd;
+  border-radius: 1rem;
+  padding: 0;
+}
+#resultDialog header > p {
+  padding: 0.5rem 1rem;
+  margin: 0;
+
+  border-radius: 1rem 1rem 0 0;
+  background-color: #bcebee;
+}
+#resultDialog article > p {
+  padding: 1rem;
+  margin: 0;
+
+  background-color: #efffff;
+}
+#resultDialog footer {
+  padding: 0.3rem 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  border-radius: 0 0 1rem 1rem;
+  background-color: #bcebee;
+}
+#resultDialog button {
+  /* font-size: 1.3rem; */
+  padding: 0.4rem;
+  background: #a2f78e;
+  color: #002200;
+  border: 1px solid #bbcbb2;
+  box-shadow: var(--shadow-elevation-low);
+  border-radius: 0.3em;
+}
+/* hover */
+#resultDialog button:where(:not(:active):hover) {
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+/* focus */
+#resultDialog button:where(:not(:active)):focus-visible {
+  outline-offset: 5px;
+}
+
+.showDialog {
+}
+
+.hideDialog {
+  opacity: 0;
+  pointer-events: none;
 }

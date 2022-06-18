@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { contactValidationSchema, contactMessage } from "../contact";
 import * as api from "../../lib/strapiLib";
 import { checkAndSetEV } from "../../lib/strapiUtil";
+import {} from "../contact";
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,7 +27,18 @@ export default async function handler(
       res.status(+feedbacksResponse.status).json(feedbacksResponse);
       // res.status(200).json({ success: true });
     } else {
-      res.status(400).send("message not valid .");
+      res.status(400).send({
+        status: 400,
+        data: {
+          data: null,
+          error: {
+            status: 400,
+            name: "无效的请求对象",
+            message: "",
+            details: req.body,
+          },
+        },
+      });
     }
   }
 }
