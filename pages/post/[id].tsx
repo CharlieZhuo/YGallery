@@ -1,10 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { useRouter } from "next/router";
 import CommonLayout from "../../components/commonLayout";
 import * as api from "../../lib/strapiLib";
 import { checkAndSetEV } from "../../lib/strapiUtil";
 import styles from "../../styles/Post.module.css";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import Viewer from "viewerjs";
+import "viewerjs/dist/viewer.css";
 export default function Post({
   post,
   assetEndpoint,
@@ -12,11 +14,18 @@ export default function Post({
   post: api.PostResponse;
   assetEndpoint: string;
 }) {
+  const viewContainer = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const viewer = new Viewer(viewContainer.current!);
+  });
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{post.data?.attributes?.title}</h1>
-      <p className={styles.discription}>{post.data?.attributes?.discription}</p>
-      <ul>
+      <p className={styles.discription}>
+        {post.data?.attributes?.discription}{" "}
+      </p>
+      <ul ref={viewContainer}>
         {post.data?.attributes?.Images?.data?.map((img) => {
           const url = img.attributes?.url!;
           const width = img.attributes?.width!;
@@ -30,12 +39,12 @@ export default function Post({
                 height={height}
                 // layout="fill"
                 objectFit="contain"
-                sizes="600px"
               ></Image>
             </li>
           );
         })}
       </ul>
+      <p className={styles.time}>发表于{post.data?.attributes?.createdAt}</p>
     </div>
   );
 }

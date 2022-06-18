@@ -15,6 +15,7 @@
     "oazapfts": "^3.6.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "viewerjs": "^1.10.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {

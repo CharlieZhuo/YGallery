@@ -7,12 +7,18 @@
   font-size: 4rem;
   font-weight: 300;
 }
+.container p{
+  text-align:center;
+}
+.container ul{
+  padding-inline:5rem;
+}
 .discription {
 }
 .listItem {
   list-style-type: none;
-  /* display: flex;
-  width: 100%; */
+  /* display: flex; */
+  /* width: 100%; */
 }
 .container ul {
   gap: 2rem;
