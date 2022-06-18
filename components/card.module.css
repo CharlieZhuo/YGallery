@@ -1,12 +1,16 @@
 .container {
-  /* display: grid; */
   --border-radius: 15px;
 
   /* background: linear-gradient(to left, red, 20%, blue); */
+  appearance: none;
+  border-style: none;
+
+  background: white;
   aspect-ratio: 1;
-  /* height: 400px; */
   display: flex;
+  align-items: stretch;
   width: 100%;
+  padding: 0;
   flex-direction: column-reverse;
   position: relative;
   border-radius: var(--border-radius);
@@ -32,23 +36,32 @@
   box-shadow: var(--shadow-elevation-medium);
 }
 
-.container:hover {
+.container:where(:hover:not(:active)) {
   transform: scale(1.03);
 }
+
+.container:focus {
+  outline-offset: 0.3rem;
+}
+
 .container img {
   border-radius: var(--border-radius);
 }
 .container p {
   position: relative;
+
   padding-inline: 2rem;
   padding-block: 1rem;
   margin-block: 0;
+
   background: linear-gradient(
     to bottom,
     hsla(235, 100%, 0%, 0.3),
     hsla(235, 100%, 0%, 1)
   );
+
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   font-size: 1.2rem;
+  font-weight: 500;
   color: hsla(235, 0%, 90%, 1);
 }

@@ -15,18 +15,20 @@ export default function Card({
   const height = post?.attributes?.Images?.data![0].attributes?.height!;
 
   return (
-    <Link href={`./post/${post?.id}`}>
-      <li className={styles.container}>
-        <Image
-          src={`${assetEndpoint}${url}`}
-          // width={width}
-          // height={height}
-          layout="fill"
-          sizes="600px"
-          objectFit="contain"
-        ></Image>
-        <p>{post?.attributes?.title}</p>
-      </li>
-    </Link>
+    <li>
+      <Link href={`./post/${post?.id}`} passHref>
+        <a className={styles.container}>
+          <Image
+            src={`${assetEndpoint}${url}`}
+            // width={width}
+            // height={height}
+            layout="fill"
+            sizes="600px"
+            objectFit="contain"
+          ></Image>
+          <p>{post?.attributes?.title}</p>
+        </a>
+      </Link>
+    </li>
   );
 }
