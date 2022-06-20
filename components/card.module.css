@@ -12,6 +12,7 @@
   position: relative;
   border-radius: var(--border-radius);
   transition: transform 0.5s;
+  z-index: 1;
 
   --shadow-color: 286deg 36% 65%;
   --shadow-elevation-low: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.24),
