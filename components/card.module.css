@@ -1,11 +1,8 @@
 .container {
   --border-radius: 15px;
-
-  /* background: linear-gradient(to left, red, 20%, blue); */
   appearance: none;
   border-style: none;
-
-  background: white;
+  background-color: hsl(0, 0%, 94%);
   aspect-ratio: 1;
   display: flex;
   align-items: stretch;
