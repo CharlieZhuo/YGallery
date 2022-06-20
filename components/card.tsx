@@ -16,7 +16,7 @@ export default function Card({
 
   return (
     <li>
-      <Link href={`./post/${post?.id}`} passHref>
+      <Link href={`/post/${post?.id}`} passHref>
         <a className={styles.container}>
           <Image
             src={`${assetEndpoint}${url}`}
