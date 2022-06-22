@@ -1,19 +1,5 @@
 .container {
   --border-radius: 15px;
-  appearance: none;
-  border-style: none;
-  background-color: hsl(0, 0%, 94%);
-  aspect-ratio: 1;
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-  padding: 0;
-  flex-direction: column-reverse;
-  position: relative;
-  border-radius: var(--border-radius);
-  transition: transform 0.5s;
-  z-index: 1;
-
   --shadow-color: 286deg 36% 65%;
   --shadow-elevation-low: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.24),
     0.4px 0.8px 1px -1.2px hsl(var(--shadow-color) / 0.24),
@@ -31,11 +17,22 @@
     11.9px 23.8px 29.9px -2.1px hsl(var(--shadow-color) / 0.23),
     17.5px 35px 44px -2.5px hsl(var(--shadow-color) / 0.23);
 
-  box-shadow: var(--shadow-elevation-medium);
-}
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 1;
+  padding: 0;
 
-.container:where(:hover:not(:active)) {
-  transform: scale(1.03);
+  position: relative;
+  z-index: 1;
+
+  background-color: hsl(0, 0%, 94%);
+
+  appearance: none;
+  border-style: none;
+
+  box-shadow: var(--shadow-elevation-medium);
 }
 
 .container:focus {
@@ -43,23 +40,37 @@
 }
 
 .container img {
-  border-radius: var(--border-radius);
-}
-.container p {
   position: relative;
+  inset: 0;
+
+  /* border-radius: var(--border-radius); */
+
+  transition: transform 1.5s cubic-bezier(0, 0, 0.7, 1);
+}
+.container:hover img {
+  transform: scale(1.1);
+}
+
+.container p {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  margin-block: 0;
 
   padding-inline: 2rem;
   padding-block: 1rem;
-  margin-block: 0;
 
-  background: linear-gradient(
-    to bottom,
-    hsla(235, 100%, 0%, 0.3),
-    hsla(235, 100%, 0%, 1)
-  );
+  text-align: center;
 
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: hsla(235, 0%, 90%, 1);
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+
+  opacity: 0;
+  background: hsla(235, 0%, 100%, 0.3);
+  backdrop-filter: blur(10px);
+
+  transition: opacity 0.6s ease-out;
+}
+.container:hover p {
+  opacity: 1;
 }
