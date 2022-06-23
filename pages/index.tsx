@@ -83,6 +83,7 @@ const Home = ({
             src={"/mmexport1651723454162.colorjpg.jpg"}
             width="128"
             height="128"
+            alt={"birdBackdrop"}
           ></Image>
         </div>
       </div>

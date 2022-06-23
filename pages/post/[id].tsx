@@ -35,6 +35,7 @@ export default function Post({
             <li className={styles.listItem} key={img.id}>
               <Image
                 src={`${assetEndpoint}${url}`}
+                alt={img.attributes?.alternativeText}
                 width={width}
                 height={height}
                 // layout="fill"

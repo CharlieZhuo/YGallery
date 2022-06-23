@@ -20,6 +20,7 @@ export default function Card({
         <a className={styles.container}>
           <Image
             src={`${assetEndpoint}${url}`}
+            alt={post?.attributes?.Images?.data![0].attributes?.alternativeText}
             // width={width}
             // height={height}
             layout="fill"
