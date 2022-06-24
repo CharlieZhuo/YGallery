@@ -2,7 +2,7 @@ import type { GetStaticProps } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import Card from "../components/card";
+import IndexCard from "../components/indexCard";
 import * as api from "../lib/strapiLib";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
@@ -65,7 +65,11 @@ const Home = ({
           {" "}
           <ul>
             {postList.data?.map((p) => (
-              <Card post={p} assetEndpoint={assetEndpoint} key={p.id}></Card>
+              <IndexCard
+                post={p}
+                assetEndpoint={assetEndpoint}
+                key={p.id}
+              ></IndexCard>
             ))}
           </ul>
         </main>
