@@ -4,7 +4,7 @@ import * as api from "../../lib/strapiLib";
 import { checkAndSetEV } from "../../lib/strapiUtil";
 import styles from "../../styles/Post.module.css";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Viewer from "viewerjs";
 import "viewerjs/dist/viewer.css";
 export default function Post({
@@ -16,8 +16,16 @@ export default function Post({
 }) {
   const viewContainer = useRef<HTMLUListElement>(null);
 
+  let viewer;
+  const [loadingComplete, setLoaingComplete] = useState(false);
   useEffect(() => {
-    const viewer = new Viewer(viewContainer.current!);
+    const imgs = document.querySelectorAll("img:not([alt])");
+    viewer = new Viewer(viewContainer.current!, {
+      filter: (img: HTMLElement) => {
+        // return true;
+        return img.hasAttribute("decoding");
+      },
+    });
   });
   return (
     <div className={styles.container}>
@@ -38,6 +46,7 @@ export default function Post({
                 alt={img.attributes?.alternativeText}
                 width={width}
                 height={height}
+                loading={"eager"}
                 // layout="fill"
                 objectFit="contain"
               ></Image>
