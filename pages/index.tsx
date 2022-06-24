@@ -35,24 +35,27 @@ const Home = ({
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <h2>悠画廊</h2>
-          <ul className={styles.links}>
-            <li>
-              <Link href={"/"}>花</Link>
-            </li>
-            <li>
-              <Link href={"/"}>鸟</Link>
-            </li>
-            <li>
-              <Link href={"/"}>山水</Link>
-            </li>
-            <li>
-              <Link href={"/"}>关于</Link>
-            </li>
-            <li>
-              <Link href={"/contact"}>联系</Link>
-            </li>
-          </ul>
+          <section>
+            <h1>悠画廊</h1>{" "}
+            <ul className={styles.links}>
+              <li>
+                <Link href={"/"}>花</Link>
+              </li>
+              <li>
+                <Link href={"/"}>鸟</Link>
+              </li>
+              <li>
+                <Link href={"/"}>山水</Link>
+              </li>
+              <li>
+                <Link href={"/"}>关于</Link>
+              </li>
+              <li>
+                <Link href={"/contact"}>联系</Link>
+              </li>
+            </ul>
+          </section>
+
           <p>中国画爱好者</p>
         </header>
         <Head>
@@ -82,14 +85,14 @@ const Home = ({
           </div>
           <p className={styles.copyright}>© 2022 网站所有者 版权所有</p>
         </footer>
-        <div className={styles.backdrop} ref={backdropRef}>
+        {/* <div className={styles.backdrop} ref={backdropRef}>
           <Image
             src={"/mmexport1651723454162.colorjpg.jpg"}
             width="128"
             height="128"
             alt={"birdBackdrop"}
           ></Image>
-        </div>
+        </div> */}
       </div>
     );
 };

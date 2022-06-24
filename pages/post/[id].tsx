@@ -47,6 +47,7 @@ export default function Post({
                 width={width}
                 height={height}
                 loading={"eager"}
+                className="customclassname"
                 // layout="fill"
                 objectFit="contain"
               ></Image>
