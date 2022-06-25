@@ -35,28 +35,24 @@ const Home = ({
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <section>
-            <h1>悠画廊</h1>{" "}
-            <ul className={styles.links}>
-              <li>
-                <Link href={"/"}>花</Link>
-              </li>
-              <li>
-                <Link href={"/"}>鸟</Link>
-              </li>
-              <li>
-                <Link href={"/"}>山水</Link>
-              </li>
-              <li>
-                <Link href={"/"}>关于</Link>
-              </li>
-              <li>
-                <Link href={"/contact"}>联系</Link>
-              </li>
-            </ul>
-          </section>
-
-          <p>中国画爱好者</p>
+          <h1>悠画廊</h1>{" "}
+          <ul className={styles.links}>
+            <li>
+              <Link href={"/"}>花</Link>
+            </li>
+            <li>
+              <Link href={"/"}>鸟</Link>
+            </li>
+            <li>
+              <Link href={"/"}>山水</Link>
+            </li>
+            <li>
+              <Link href={"/"}>关于</Link>
+            </li>
+            <li>
+              <Link href={"/contact"}>联系</Link>
+            </li>
+          </ul>
         </header>
         <Head>
           <title>悠画廊</title>
@@ -65,7 +61,7 @@ const Home = ({
         </Head>
 
         <main className={styles.main}>
-          {" "}
+          <p className={styles.intro}>中国画爱好者</p>
           <ul>
             {postList.data?.map((p) => (
               <IndexCard
@@ -83,7 +79,7 @@ const Home = ({
             <Link href={"/"}>关于</Link>
             <Link href={"/"}>联系</Link>
           </div>
-          <p className={styles.copyright}>© 2022 网站所有者 版权所有</p>
+          <p className={styles.copyright}>© 2022 悠画廊 版权所有</p>
         </footer>
         {/* <div className={styles.backdrop} ref={backdropRef}>
           <Image
