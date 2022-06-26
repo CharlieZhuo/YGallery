@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { useRef } from "react";
 import styles from "./commonLayout.module.css";
@@ -6,6 +7,9 @@ export default function CommonLayout({ children }: { children: any }) {
   const btn = useRef<HTMLButtonElement>(null);
   return (
     <div className={styles.container}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <header className={styles.header}>
         <h2 className={styles.title}>
           <Link href={"/"}>悠画廊</Link>
@@ -34,7 +38,7 @@ export default function CommonLayout({ children }: { children: any }) {
             strokeLinejoin="round"
             className="feather feather-menu"
           >
-            <line className={styles.top} x1="3" y1="3" x2="21" y2="3"></line>
+            <line className={styles.top} x1="3" y1="6" x2="21" y2="6"></line>
             <line className={styles.mid} x1="3" y1="12" x2="21" y2="12"></line>
             <line className={styles.btm} x1="3" y1="18" x2="21" y2="18"></line>
           </svg>

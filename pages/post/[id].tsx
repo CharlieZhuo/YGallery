@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Viewer from "viewerjs";
 import "viewerjs/dist/viewer.css";
+import Head from "next/head";
 export default function Post({
   post,
   assetEndpoint,
@@ -16,11 +17,10 @@ export default function Post({
 }) {
   const viewContainer = useRef<HTMLUListElement>(null);
 
-  let viewer;
   const [loadingComplete, setLoaingComplete] = useState(false);
   useEffect(() => {
     const imgs = document.querySelectorAll("img:not([alt])");
-    viewer = new Viewer(viewContainer.current!, {
+    let viewer = new Viewer(viewContainer.current!, {
       filter: (img: HTMLElement) => {
         // return true;
         return img.hasAttribute("decoding");
@@ -28,35 +28,42 @@ export default function Post({
     });
   });
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>{post.data?.attributes?.title}</h1>
-      <p className={styles.discription}>
-        {post.data?.attributes?.discription}{" "}
-      </p>
-      <ul ref={viewContainer}>
-        {post.data?.attributes?.Images?.data?.map((img) => {
-          const url = img.attributes?.url!;
-          const width = img.attributes?.width!;
-          const height = img.attributes?.height!;
+    <>
+      <Head>
+        {" "}
+        <title>{`${post.data?.attributes?.title} - 悠画廊`}</title>
+      </Head>
+      <div className={styles.container}>
+        <h1 className={styles.title}>{post.data?.attributes?.title}</h1>
+        <p className={styles.discription}>
+          {post.data?.attributes?.discription}{" "}
+        </p>
+        <ul ref={viewContainer}>
+          {post.data?.attributes?.Images?.data?.map((img, index) => {
+            const url = img.attributes?.url!;
+            const width = img.attributes?.width!;
+            const height = img.attributes?.height!;
 
-          return (
-            <li className={styles.listItem} key={img.id}>
-              <Image
-                src={`${assetEndpoint}${url}`}
-                alt={img.attributes?.alternativeText}
-                width={width}
-                height={height}
-                loading={"eager"}
-                className="customclassname"
-                // layout="fill"
-                objectFit="contain"
-              ></Image>
-            </li>
-          );
-        })}
-      </ul>
-      <p className={styles.time}>发表于{post.data?.attributes?.createdAt}</p>
-    </div>
+            return (
+              <li className={styles.listItem} key={img.id}>
+                <Image
+                  src={`${assetEndpoint}${url}`}
+                  alt={img.attributes?.alternativeText}
+                  width={width}
+                  height={height}
+                  loading={"eager"}
+                  className="customclassname"
+                  priority={index === 0}
+                  // layout="fill"
+                  objectFit="contain"
+                ></Image>
+              </li>
+            );
+          })}
+        </ul>
+        <p className={styles.time}>发表于{post.data?.attributes?.createdAt}</p>
+      </div>
+    </>
   );
 }
 Post.getLayout = (page: any) => <CommonLayout>{page} </CommonLayout>;
