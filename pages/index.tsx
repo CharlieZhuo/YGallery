@@ -63,10 +63,11 @@ const Home = ({
         <main className={styles.main}>
           <p className={styles.intro}>中国画爱好者</p>
           <ul>
-            {postList.data?.map((p) => (
+            {postList.data?.map((p, index) => (
               <IndexCard
                 post={p}
                 assetEndpoint={assetEndpoint}
+                priority={index === 0}
                 key={p.id}
               ></IndexCard>
             ))}

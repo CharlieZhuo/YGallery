@@ -7,14 +7,16 @@ type post = strapilib.PostResponse["data"];
 export default function IndexCard({
   post,
   assetEndpoint,
+  priority,
 }: {
   post: post;
   assetEndpoint: string;
+  priority: boolean;
 }) {
   const url = post?.attributes?.Images?.data![0].attributes?.url!;
   const width = post?.attributes?.Images?.data![0].attributes?.width!;
   const height = post?.attributes?.Images?.data![0].attributes?.height!;
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(priority);
 
   const ref = useRef(null);
   return (
@@ -29,6 +31,7 @@ export default function IndexCard({
             layout="fill"
             sizes="600px"
             objectFit="contain"
+            priority={priority}
             style={{ opacity: loaded ? 1 : 0 }}
             onLoad={(e) => {
               setLoaded(true);
