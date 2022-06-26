@@ -5,7 +5,8 @@
 
 @font-face {
   font-family: "XiaoJiuShouXieTi";
-  src: url("/XiaoJiuShouXieTi.ttf");
+  src: url("/小九手写体-悠画廊.ttf");
+  font-display: swap;
 }
 
 .header {
@@ -51,8 +52,8 @@
   transition: background-color 0.25s ease-out, box-shadow 0.5s ease-out;
 }
 .links a:hover:not(:active) {
-  background-color: white;
-  box-shadow: 0px 0px 3px 2px hsla(50, 0%, 85%, 1);
+  background-color: hsla(50, 0%, 94%, 0.8);
+  box-shadow: 0px 0px 3px 1px hsla(50, 0%, 55%, 1);
 }
 .title {
   flex: 1 1;

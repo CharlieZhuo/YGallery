@@ -7,7 +7,8 @@
 
 @font-face {
   font-family: "XiaoJiuShouXieTi";
-  src: url("/XiaoJiuShouXieTi.ttf");
+  src: url("/小九手写体-悠画廊.ttf");
+  font-display: swap;
 }
 
 .header {

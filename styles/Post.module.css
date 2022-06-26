@@ -7,11 +7,17 @@
   font-size: 4rem;
   font-weight: 300;
 }
-.container p{
-  text-align:center;
+.container p {
+  text-align: center;
 }
-.container ul{
-  padding-inline:5rem;
+
+.container ul {
+  padding-inline: 1rem;
+}
+@media (min-width: 800px) {
+  .container ul {
+    padding-inline: 4rem;
+  }
 }
 .discription {
 }
