@@ -5,8 +5,8 @@ import Link from "next/link";
 import IndexCard from "../components/indexCard";
 import * as api from "../lib/strapiLib";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { checkAndSetEV } from "../lib/strapiUtil";
+import MultiFlexList from "../components/multiFlexList";
 
 const Home = ({
   postList,
@@ -31,7 +31,26 @@ const Home = ({
     };
   });
 
-  if (postList)
+  if (postList) {
+    const images = postList.data?.map((p, index) => {
+      return {
+        aspectRatio:
+          p?.attributes?.Images?.data![0].attributes?.width! /
+          p?.attributes?.Images?.data![0].attributes?.height!,
+        card: (
+          <IndexCard
+            src={`${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
+              ?.url!}`}
+            alt={p?.attributes?.Images?.data![0].attributes?.alternativeText!}
+            title={p?.attributes?.title!}
+            id={p.id!}
+            priority={index === 0}
+            key={p.id}
+          ></IndexCard>
+        ),
+      };
+    });
+
     return (
       <div className={styles.container}>
         <header className={styles.header}>
@@ -62,16 +81,13 @@ const Home = ({
 
         <main className={styles.main}>
           <p className={styles.intro}>中国画爱好者</p>
-          <ul>
-            {postList.data?.map((p, index) => (
-              <IndexCard
-                post={p}
-                assetEndpoint={assetEndpoint}
-                priority={index === 0}
-                key={p.id}
-              ></IndexCard>
-            ))}
-          </ul>
+          {/* <MultiFlexList
+            gap={30}
+            maxColumns={3}
+            minColumnWidthInPx={300}
+            content={images!}
+          ></MultiFlexList> */}
+          <ul className={styles.mainList}>{images?.map((i) => i.card)}</ul>
         </main>
 
         <footer className={styles.footer}>
@@ -92,6 +108,7 @@ const Home = ({
         </div> */}
       </div>
     );
+  }
 };
 export default Home;
 

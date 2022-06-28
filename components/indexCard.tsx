@@ -2,32 +2,30 @@ import styles from "./indexCard.module.css";
 import * as strapilib from "../lib/strapiLib";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 type post = strapilib.PostResponse["data"];
 export default function IndexCard({
-  post,
-  assetEndpoint,
+  id,
+  src,
+  alt,
+  title,
   priority,
 }: {
-  post: post;
-  assetEndpoint: string;
+  id: string;
+  src: string;
+  alt: string;
+  title: string;
   priority: boolean;
 }) {
-  const url = post?.attributes?.Images?.data![0].attributes?.url!;
-  const width = post?.attributes?.Images?.data![0].attributes?.width!;
-  const height = post?.attributes?.Images?.data![0].attributes?.height!;
   const [loaded, setLoaded] = useState(priority);
 
-  const ref = useRef(null);
   return (
     <li>
-      <Link href={`/post/${post?.id}`} passHref>
+      <Link href={`/post/${id}`} passHref>
         <a className={styles.container}>
           <Image
-            src={`${assetEndpoint}${url}`}
-            alt={post?.attributes?.Images?.data![0].attributes?.alternativeText}
-            // width={width}
-            // height={height}
+            src={src}
+            alt={alt}
             layout="fill"
             sizes="600px"
             objectFit="contain"
@@ -37,7 +35,7 @@ export default function IndexCard({
               setLoaded(true);
             }}
           ></Image>
-          <p>{post?.attributes?.title}</p>
+          <p>{title}</p>
         </a>
       </Link>
     </li>
