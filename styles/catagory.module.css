@@ -1,0 +1,40 @@
+.catagoryInfo h2 {
+  margin-block-start: 3rem;
+  margin-block-end: 1rem;
+
+  text-align: center;
+
+  font-size: 3rem;
+  font-weight: 300;
+}
+
+.catagoryInfo p {
+  text-align: center;
+
+  margin-block-end: 4rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+}
+.quantity p {
+  text-align: right;
+  padding-inline: 1rem;
+
+  font-size: 0.8rem;
+  text-style: italic;
+
+  /* color: hsla(0, 0%, 10%, 1); */
+}
+
+.quantity span {
+}
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 0;
+
+  padding-inline: 1rem;
+
+  list-style-type: none;
+}

@@ -2,18 +2,19 @@ import type { GetStaticProps } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import IndexCard from "../components/indexCard";
+import PostListCard from "../components/postListCard";
 import * as api from "../lib/strapiLib";
 import { useEffect, useRef } from "react";
 import { checkAndSetEV } from "../lib/strapiUtil";
-import MultiFlexList from "../components/multiFlexList";
 
 const Home = ({
   postList,
   assetEndpoint,
+  catagories,
 }: {
   postList: api.PostListResponse;
   assetEndpoint: string;
+  catagories: api.CatagoryListResponse;
 }) => {
   const backdropRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -38,7 +39,7 @@ const Home = ({
           p?.attributes?.Images?.data![0].attributes?.width! /
           p?.attributes?.Images?.data![0].attributes?.height!,
         card: (
-          <IndexCard
+          <PostListCard
             src={`${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
               ?.url!}`}
             alt={p?.attributes?.Images?.data![0].attributes?.alternativeText!}
@@ -46,32 +47,29 @@ const Home = ({
             id={p.id!}
             priority={index === 0}
             key={p.id}
-          ></IndexCard>
+          ></PostListCard>
         ),
       };
     });
 
+    const catagoriesItems = (
+      <ul className={styles.links}>
+        {catagories.data?.map((c) => {
+          return (
+            <li key={c.id}>
+              <Link href={`/catagory/${c.attributes?.url}`}>
+                {c.attributes?.name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    );
+
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1>悠画廊</h1>{" "}
-          <ul className={styles.links}>
-            <li>
-              <Link href={"/"}>花</Link>
-            </li>
-            <li>
-              <Link href={"/"}>鸟</Link>
-            </li>
-            <li>
-              <Link href={"/"}>山水</Link>
-            </li>
-            <li>
-              <Link href={"/"}>关于</Link>
-            </li>
-            <li>
-              <Link href={"/contact"}>联系</Link>
-            </li>
-          </ul>
+          <h1>悠画廊</h1> {catagoriesItems}
         </header>
         <Head>
           <title>悠画廊</title>
@@ -115,11 +113,13 @@ export default Home;
 export const getStaticProps: GetStaticProps = async (context) => {
   checkAndSetEV(api.defaults);
   const allposts = await api.getPosts({ populate: "*" });
-  if (allposts.status === 200)
+  const catagories = await api.getCatagories({ sort: "id" });
+  if (allposts.status === 200 && catagories.status === 200)
     return {
       props: {
         postList: allposts.data,
         assetEndpoint: process.env.STRAPI_ENDPOINT_ASSET,
+        catagories: catagories.data,
       },
     };
   else {

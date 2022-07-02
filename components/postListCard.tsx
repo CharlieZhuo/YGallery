@@ -1,10 +1,10 @@
-import styles from "./indexCard.module.css";
+import styles from "./postListCard.module.css";
 import * as strapilib from "../lib/strapiLib";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 type post = strapilib.PostResponse["data"];
-export default function IndexCard({
+export default function PostListCard({
   id,
   src,
   alt,
