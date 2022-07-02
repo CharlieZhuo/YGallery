@@ -45,16 +45,16 @@ export default function CommonLayout({ children }: { children: any }) {
         </button>
         <ul ref={links} className={styles.links}>
           <li>
-            <Link href={"/"}>花</Link>
+            <Link href={"/catagory/huaniao"}>花&#38;鸟</Link>
           </li>
           <li>
-            <Link href={"/"}>鸟</Link>
+            <Link href={"/catagory/shanshui"}>山&#38;水</Link>
           </li>
           <li>
-            <Link href={"/"}>山水</Link>
+            <Link href={"/catagory/other"}>其他</Link>
           </li>
           <li>
-            <Link href={"/"}>关于</Link>
+            <Link href={"/about"}>关于</Link>
           </li>
           <li>
             <Link href={"/contact"}>联系</Link>
@@ -66,9 +66,9 @@ export default function CommonLayout({ children }: { children: any }) {
 
       <footer className={styles.footer}>
         <div>
-          <p className={styles.footertitle}>悠画廊</p>
-          <Link href={"/"}>关于</Link>
-          <Link href={"/"}>联系</Link>
+          <p className={styles.footertitle}>悠画廊</p>{" "}
+          <Link href={"/about"}>关于</Link>
+          <Link href={"/contact"}>联系</Link>
         </div>
         <p className={styles.copyright}>© 2022 悠画廊 版权所有</p>
       </footer>
