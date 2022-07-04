@@ -5,6 +5,7 @@ import styles from "../../styles/catagory.module.css";
 import * as api from "../../lib/strapiLib";
 import PostListCard from "../../components/postListCard";
 import CommonLayout from "../../components/commonLayout";
+import PhotoAlbum from "react-photo-album";
 
 export default function Catagory({
   catagories,
@@ -35,7 +36,7 @@ export default function Catagory({
     <main>
       {catagoryElement}
       {quantityElement}
-      <ul className={styles.list}>
+      {/* <ul className={styles.list}>
         {posts.data?.map((p, index) => {
           return (
             <PostListCard
@@ -47,10 +48,58 @@ export default function Catagory({
               priority={index === 0}
               key={p.id}
               quantity={p.attributes?.Images?.data?.length ?? 1}
+              aspectRatio={
+                (p?.attributes?.Images?.data![0].attributes?.width ?? 0) /
+                (p?.attributes?.Images?.data![0].attributes?.height ?? 1)
+              }
             ></PostListCard>
           );
         })}
-      </ul>
+      </ul> */}
+      <PhotoAlbum
+        layout="masonry"
+        photos={posts.data!.map((p, index) => {
+          return {
+            height: p?.attributes?.Images?.data![0].attributes?.height!,
+            width: p?.attributes?.Images?.data![0].attributes?.width!,
+            src: `${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
+              ?.url!}`,
+            alt: p?.attributes?.Images?.data![0].attributes?.alternativeText!,
+            title: p?.attributes?.title!,
+            id: p.id!,
+            priority: index === 0,
+            key: p.id,
+            quantity: p.attributes?.Images?.data?.length ?? 1,
+            aspectRatio:
+              p?.attributes?.Images?.data![0].attributes?.width! /
+              p?.attributes?.Images?.data![0].attributes?.height!,
+          };
+        })}
+        columns={(containerWidth) => {
+          if (containerWidth < 500) return 1;
+          if (containerWidth < 1000) return 2;
+          return 3;
+        }}
+        renderPhoto={(prop) => {
+          return <PostListCard {...prop.photo}></PostListCard>;
+        }}
+        renderColumnContainer={(props) => {
+          return (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: `column`,
+                alignItems: `flex-start`,
+                width: ` calc((100% - 15px) / 2)`,
+                justifyContent: `flex-start`,
+                gap: `${props.layoutOptions.spacing}px`,
+              }}
+            >
+              {props.children}
+            </div>
+          );
+        }}
+      ></PhotoAlbum>
     </main>
   );
 }

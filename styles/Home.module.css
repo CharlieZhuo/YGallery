@@ -84,6 +84,9 @@
 
   list-style-type: none;
 }
+.mainList li {
+  aspect-ratio: 1;
+}
 
 .footer {
   padding: 1rem 2rem;

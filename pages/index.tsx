@@ -6,6 +6,7 @@ import PostListCard from "../components/postListCard";
 import * as api from "../lib/strapiLib";
 import { useEffect, useRef } from "react";
 import { checkAndSetEV } from "../lib/strapiUtil";
+import { PhotoAlbum } from "react-photo-album";
 
 const Home = ({
   postList,
@@ -35,6 +36,7 @@ const Home = ({
   if (postList) {
     const images = postList.data?.map((p, index) => {
       return {
+        key: p.id,
         aspectRatio:
           p?.attributes?.Images?.data![0].attributes?.width! /
           p?.attributes?.Images?.data![0].attributes?.height!,
@@ -46,8 +48,11 @@ const Home = ({
             title={p?.attributes?.title!}
             id={p.id!}
             priority={index === 0}
-            key={p.id}
             quantity={p.attributes?.Images?.data?.length ?? 1}
+            aspectRatio={
+              p?.attributes?.Images?.data![0].attributes?.width! /
+              p?.attributes?.Images?.data![0].attributes?.height!
+            }
           ></PostListCard>
         ),
       };
@@ -80,13 +85,68 @@ const Home = ({
 
         <main className={styles.main}>
           <p className={styles.intro}>中国画爱好者</p>
-          {/* <MultiFlexList
-            gap={30}
-            maxColumns={3}
-            minColumnWidthInPx={300}
-            content={images!}
-          ></MultiFlexList> */}
-          <ul className={styles.mainList}>{images?.map((i) => i.card)}</ul>
+          {/*  css grid layout with  repeat(auto-fit, minmax(300px, 1fr))  */}
+          {/* <ul className={styles.mainList}>
+            {images?.map((i) => (
+              <li key={i.key}>{i.card}</li>
+            ))}
+          </ul> */}
+
+          <PhotoAlbum
+            layout="masonry"
+            photos={postList.data!.map((p, index) => {
+              return {
+                height: p?.attributes?.Images?.data![0].attributes?.height!,
+                width: p?.attributes?.Images?.data![0].attributes?.width!,
+                src: `${assetEndpoint}${p?.attributes?.Images?.data![0]
+                  .attributes?.url!}`,
+                alt: p?.attributes?.Images?.data![0].attributes
+                  ?.alternativeText!,
+                title: p?.attributes?.title!,
+                id: p.id!,
+                priority: index === 0,
+                key: p.id,
+                quantity: p.attributes?.Images?.data?.length ?? 1,
+                aspectRatio:
+                  p?.attributes?.Images?.data![0].attributes?.width! /
+                  p?.attributes?.Images?.data![0].attributes?.height!,
+              };
+            })}
+            columns={(containerWidth) => {
+              if (containerWidth < 500) return 1;
+              if (containerWidth < 1000) return 2;
+              return 3;
+            }}
+            renderPhoto={(prop) => {
+              return (
+                <PostListCard
+                  {...prop.photo}
+                  // src={prop.photo.src}
+                  // alt={prop.photo.alt}
+                  // id={prop.photo.id}
+                  // priority={prop.photo.priority}
+                  // quantity={prop.photo.quantity}
+                  // title={prop.photo.title}
+                ></PostListCard>
+              );
+            }}
+            renderColumnContainer={(props) => {
+              return (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: `column`,
+                    alignItems: `flex-start`,
+                    width: ` calc((100% - 15px) / 2)`,
+                    justifyContent: `flex-start`,
+                    gap: `${props.layoutOptions.spacing}px`,
+                  }}
+                >
+                  {props.children}
+                </div>
+              );
+            }}
+          ></PhotoAlbum>
         </main>
 
         <footer className={styles.footer}>
