@@ -46,6 +46,7 @@ export default function Catagory({
               id={p.id!}
               priority={index === 0}
               key={p.id}
+              quantity={p.attributes?.Images?.data?.length ?? 1}
             ></PostListCard>
           );
         })}

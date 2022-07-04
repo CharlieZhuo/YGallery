@@ -10,12 +10,14 @@ export default function PostListCard({
   alt,
   title,
   priority,
+  quantity,
 }: {
   id: string;
   src: string;
   alt: string;
   title: string;
   priority: boolean;
+  quantity: number;
 }) {
   const [loaded, setLoaded] = useState(priority);
 
@@ -35,7 +37,12 @@ export default function PostListCard({
               setLoaded(true);
             }}
           ></Image>
-          <p>{title}</p>
+          <p className={styles.title}>{title}</p>
+          {quantity > 1 ? (
+            <p className={styles.quantityBadge}>{quantity}+</p>
+          ) : (
+            ""
+          )}
         </a>
       </Link>
     </li>
