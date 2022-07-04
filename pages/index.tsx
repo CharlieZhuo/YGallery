@@ -112,7 +112,10 @@ export default Home;
 
 export const getStaticProps: GetStaticProps = async (context) => {
   checkAndSetEV(api.defaults);
-  const allposts = await api.getPosts({ populate: "*" });
+  const allposts = await api.getPosts({
+    populate: "*",
+    sort: "publishedAt:desc",
+  });
   const catagories = await api.getCatagories({ sort: "id" });
   if (allposts.status === 200 && catagories.status === 200)
     return {

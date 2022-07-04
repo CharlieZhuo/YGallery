@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     );
     const response = await fetch(
       `${process.env
-        .STRAPI_ENDPOINT!}/posts?filters[catagory][url][$eq]=${catagoryurl}&populate=*`,
+        .STRAPI_ENDPOINT!}/posts?filters[catagory][url][$eq]=${catagoryurl}&populate=*&sort=publishedAt%3Adesc`,
       {
         headers: { Authorization: `bearer ${process.env.STRAPI_ACCESS_TOKEN}` },
       }
@@ -75,7 +75,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       const rj = await response.json();
       const crj = await catagoryResponse.json();
 
-      console.log(crj);
       return {
         props: {
           catagories: crj,
