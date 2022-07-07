@@ -4,7 +4,6 @@ import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import PostListCard from "../components/postListCard";
 import * as api from "../lib/strapiLib";
-import { useEffect, useRef } from "react";
 import { checkAndSetEV } from "../lib/strapiUtil";
 import { PhotoAlbum } from "react-photo-album";
 
@@ -17,47 +16,7 @@ const Home = ({
   assetEndpoint: string;
   catagories: api.CatagoryListResponse;
 }) => {
-  const backdropRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const callback = function (e: any) {
-      backdropRef.current?.style.setProperty(
-        "--yvalue",
-        `${window.scrollY / 2}px`
-      );
-    };
-    if (backdropRef) {
-      window.addEventListener("scroll", callback);
-    }
-    return () => {
-      window.removeEventListener("scroll", callback);
-    };
-  });
-
   if (postList) {
-    const images = postList.data?.map((p, index) => {
-      return {
-        key: p.id,
-        aspectRatio:
-          p?.attributes?.Images?.data![0].attributes?.width! /
-          p?.attributes?.Images?.data![0].attributes?.height!,
-        card: (
-          <PostListCard
-            src={`${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
-              ?.url!}`}
-            alt={p?.attributes?.Images?.data![0].attributes?.alternativeText!}
-            title={p?.attributes?.title!}
-            id={p.id!}
-            priority={index === 0}
-            quantity={p.attributes?.Images?.data?.length ?? 1}
-            aspectRatio={
-              p?.attributes?.Images?.data![0].attributes?.width! /
-              p?.attributes?.Images?.data![0].attributes?.height!
-            }
-          ></PostListCard>
-        ),
-      };
-    });
-
     const catagoriesItems = (
       <ul className={styles.links}>
         {catagories.data?.map((c) => {
@@ -85,12 +44,6 @@ const Home = ({
 
         <main className={styles.main}>
           <p className={styles.intro}>中国画爱好者</p>
-          {/*  css grid layout with  repeat(auto-fit, minmax(300px, 1fr))  */}
-          {/* <ul className={styles.mainList}>
-            {images?.map((i) => (
-              <li key={i.key}>{i.card}</li>
-            ))}
-          </ul> */}
 
           <PhotoAlbum
             layout="masonry"
@@ -121,31 +74,11 @@ const Home = ({
               return (
                 <PostListCard
                   {...prop.photo}
-                  // src={prop.photo.src}
-                  // alt={prop.photo.alt}
-                  // id={prop.photo.id}
-                  // priority={prop.photo.priority}
-                  // quantity={prop.photo.quantity}
-                  // title={prop.photo.title}
+                  style={{ marginBlock: `${prop.layoutOptions.spacing / 2}px` }}
                 ></PostListCard>
               );
             }}
-            renderColumnContainer={(props) => {
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: `column`,
-                    alignItems: `flex-start`,
-                    width: ` calc((100% - 15px) / 2)`,
-                    justifyContent: `flex-start`,
-                    gap: `${props.layoutOptions.spacing}px`,
-                  }}
-                >
-                  {props.children}
-                </div>
-              );
-            }}
+            spacing={15}
           ></PhotoAlbum>
         </main>
 
@@ -157,14 +90,6 @@ const Home = ({
           </div>
           <p className={styles.copyright}>© 2022 悠画廊 版权所有</p>
         </footer>
-        {/* <div className={styles.backdrop} ref={backdropRef}>
-          <Image
-            src={"/mmexport1651723454162.colorjpg.jpg"}
-            width="128"
-            height="128"
-            alt={"birdBackdrop"}
-          ></Image>
-        </div> */}
       </div>
     );
   }

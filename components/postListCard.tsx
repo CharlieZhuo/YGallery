@@ -1,7 +1,7 @@
 import styles from "./postListCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 export default function PostListCard({
   id,
   src,
@@ -10,6 +10,7 @@ export default function PostListCard({
   priority,
   quantity,
   aspectRatio,
+  style,
 }: {
   id: string;
   src: string;
@@ -18,12 +19,16 @@ export default function PostListCard({
   priority: boolean;
   quantity: number;
   aspectRatio: number;
+  style: CSSProperties;
 }) {
   const [loaded, setLoaded] = useState(priority);
 
   return (
     <Link href={`/post/${id}`} passHref>
-      <a className={styles.container} style={{ aspectRatio: `${aspectRatio}` }}>
+      <a
+        className={styles.container}
+        style={{ aspectRatio: `${aspectRatio}`, ...style }}
+      >
         <Image
           src={src}
           alt={alt}
