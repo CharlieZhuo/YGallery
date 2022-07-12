@@ -1,13 +1,13 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import CommonLayout from "../../components/commonLayout";
 import * as api from "../../lib/strapiLib";
 import { checkAndSetEV } from "../../lib/strapiUtil";
-import styles from "../../styles/Post.module.css";
+
+import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import Viewer from "viewerjs";
-import "viewerjs/dist/viewer.css";
 import Head from "next/head";
+import { useEffect, useRef, useState } from "react";
+
+import styles from "../../styles/Post.module.css";
+
 export default function Post({
   post,
   assetEndpoint,
@@ -15,59 +15,106 @@ export default function Post({
   post: api.PostResponse;
   assetEndpoint: string;
 }) {
-  const viewContainer = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const [selected, setSelected] = useState("0");
+  useEffect(() => {}, [post, listRef.current]);
+  const images = post.data?.attributes?.Images?.data;
+  if (images)
+    return (
+      <>
+        <Head>
+          {" "}
+          <title>{`${post.data?.attributes?.title} - 悠画廊`}</title>
+        </Head>
+        <div className={styles.container}>
+          <header className={styles.header}>
+            <p>
+              {+selected + 1} / {images.length}
+            </p>
 
-  const [loadingComplete, setLoaingComplete] = useState(false);
-  useEffect(() => {
-    const imgs = document.querySelectorAll("img:not([alt])");
-    let viewer = new Viewer(viewContainer.current!, {
-      filter: (img: HTMLElement) => {
-        // return true;
-        return img.hasAttribute("decoding");
-      },
-    });
-  });
-  return (
-    <>
-      <Head>
-        {" "}
-        <title>{`${post.data?.attributes?.title} - 悠画廊`}</title>
-      </Head>
-      <div className={styles.container}>
-        <h1 className={styles.title}>{post.data?.attributes?.title}</h1>
-        <p className={styles.discription}>
-          {post.data?.attributes?.discription}{" "}
-        </p>
-        <ul ref={viewContainer}>
-          {post.data?.attributes?.Images?.data?.map((img, index) => {
-            const url = img.attributes?.url!;
-            const width = img.attributes?.width!;
-            const height = img.attributes?.height!;
+            <div className={styles.buttons}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                className={styles.close}
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                className={styles.download}
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+          </header>
+          <main className={styles.main}>
+            <div className={styles.viewer}>
+              <ul className={styles.thumbnailList} ref={listRef}>
+                {" "}
+                {post.data?.attributes?.Images?.data?.map((img, index) => {
+                  const url = img.attributes?.url!;
+                  const width = img.attributes?.width!;
+                  const height = img.attributes?.height!;
 
-            return (
-              <li className={styles.listItem} key={img.id}>
-                <Image
-                  src={`${assetEndpoint}${url}`}
-                  alt={img.attributes?.alternativeText}
-                  width={width}
-                  height={height}
-                  loading={"eager"}
-                  className="customclassname"
-                  priority={index === 0}
-                  // layout="fill"
-                  objectFit="contain"
-                ></Image>
-              </li>
-            );
-          })}
-        </ul>
-        <p className={styles.time}>发表于{post.data?.attributes?.createdAt}</p>
-      </div>
-    </>
-  );
+                  return (
+                    <li
+                      className={`${styles.thumbnail} ${
+                        img.id === selected ? styles.focus : ""
+                      }`}
+                      key={img.id}
+                    >
+                      <img
+                        src={`${assetEndpoint}${url}`}
+                        alt={img.attributes?.alternativeText}
+                        className={styles.img}
+                      ></img>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <h1 className={styles.title}>{post.data?.attributes?.title}</h1>
+            <p className={styles.discription}>
+              {post.data?.attributes?.discription}{" "}
+              <span className={styles.time}>
+                发表于{post.data?.attributes?.createdAt}
+              </span>
+            </p>
+          </main>
+          <footer className={styles.footer}>
+            <ul className={styles.thumbnailList} ref={listRef}>
+              {" "}
+              {post.data?.attributes?.Images?.data?.map((img, index) => {
+                const url = img.attributes?.url!;
+                const width = img.attributes?.width!;
+                const height = img.attributes?.height!;
+
+                return (
+                  <li
+                    className={`${styles.thumbnail} ${
+                      img.id === selected ? styles.focus : ""
+                    }`}
+                    key={img.id}
+                  >
+                    <img
+                      src={`${assetEndpoint}${url}`}
+                      alt={img.attributes?.alternativeText}
+                      className={styles.img}
+                    ></img>
+                  </li>
+                );
+              })}
+            </ul>
+          </footer>
+        </div>
+      </>
+    );
 }
-Post.getLayout = (page: any) => <CommonLayout>{page} </CommonLayout>;
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id;
   if (typeof id === "string") {

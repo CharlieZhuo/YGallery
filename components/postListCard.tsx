@@ -33,7 +33,7 @@ export default function PostListCard({
           src={src}
           alt={alt}
           layout="fill"
-          sizes="600px"
+          sizes="40vw"
           objectFit="contain"
           priority={priority}
           style={{ opacity: loaded ? 1 : 0 }}
