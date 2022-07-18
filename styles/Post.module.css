@@ -1,15 +1,23 @@
 .container {
   block-size: 100vh;
   inline-size: 100vw;
+
   display: grid;
-  grid-template-rows: auto 1fr 15vh;
+  place-items: center;
 
   padding: 0;
   margin: 0;
   position: fixed;
+
+  background: hsla(0, 0%, 70%, 0.4);
 }
 .header {
   --itemSize: 1.4rem;
+
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  z-index: 1;
 
   display: grid;
   grid-template-columns: auto 1fr;
@@ -20,7 +28,7 @@
   padding-block: calc(0.5 * var(--itemSize));
   padding-inline: var(--itemSize);
 
-  background: hsl(0, 0%, 90%);
+  /* background: hsla(0, 0%, 90%, 0.3); */
 }
 .header p {
   margin-block: 0rem;
@@ -50,23 +58,44 @@
   display: grid;
   grid-template-rows: 1fr auto auto;
 }
+.mainList {
+  /* display: flex;
+  flex-wrap: nowrap;
+  gap: 2vw; */
+
+  margin-block: 0;
+  margin-inline: 0;
+  padding-inline: 0;
+
+  list-style-type: none;
+}
+.mainList li {
+  position: absolute;
+  inset: 0;
+}
+.img {
+  inline-size: 100%;
+  max-block-size: 100vh;
+  object-fit: contain;
+}
 .title {
   text-align: center;
   font-size: 1.2rem;
   font-weight: 500;
   margin-block: 0.2rem;
 }
-.main p {
+.discription {
   text-align: center;
 }
 .footer {
-  block-size: 100%;
-  margin-block: 0;
-  margin-inline: 0;
   padding: 2vh;
-  position: relative;
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
 
-  background: hsl(0, 0%, 70%);
+  z-index: 1;
+
+  /* background: hsla(0, 0%, 70%, 0.4); */
 }
 
 .thumbnailList {
@@ -92,9 +121,4 @@
   border-radius: 5%;
 
   background: transparent;
-}
-.img {
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
 }

@@ -2,11 +2,11 @@ import * as api from "../../lib/strapiLib";
 import { checkAndSetEV } from "../../lib/strapiUtil";
 
 import { GetStaticPaths, GetStaticProps } from "next";
-import Image from "next/image";
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 
 import styles from "../../styles/Post.module.css";
+import { usePointerEvents } from "../../lib/hook/usePointerEvents";
 
 export default function Post({
   post,
@@ -15,9 +15,154 @@ export default function Post({
   post: api.PostResponse;
   assetEndpoint: string;
 }) {
+  const enterAnimation = new KeyframeEffect(
+    null,
+    [
+      {
+        offset: 0,
+        transform: `translate(-800px,0px) scale(0.2,0.2)`,
+      },
+    ],
+    2000
+  );
+
+  const leaveAnimation = new KeyframeEffect(
+    null,
+    [
+      {
+        offset: 0,
+        opacity: 1,
+      },
+    ],
+    2000
+  );
+
+  function getNaturalKeyframe(
+    index: number,
+    totalNumber: number,
+    selected: number,
+    windowWidth: number
+  ): { [property: string]: string | number | null | undefined } {
+    let transform = `translate(${
+      (index - selected) * windowWidth * 0.5
+    }px,0px)`;
+
+    let opacity = index === selected ? `1` : `0`;
+    let display = "hidden";
+    return { transform, opacity, display };
+  }
+
+  //movement smaller or equal this value will be treated as click.
+  const clickThreshold = 0;
+
+  const swipeThresholdPercentage = 20;
+
+  const animationThreshold = 50;
+
   const listRef = useRef<HTMLUListElement>(null);
-  const [selected, setSelected] = useState("0");
-  useEffect(() => {}, [post, listRef.current]);
+  const [selected, setSelected] = useState(0);
+
+  const numOfImage = post.data?.attributes?.Images?.data?.length ?? 0;
+
+  function useListItems() {
+    const [items, setItems] = useState<Array<HTMLLIElement>>();
+    useEffect(() => {
+      const list = listRef.current;
+      if (list) {
+        const collection = list.getElementsByTagName("li");
+        const itemArray = [];
+        for (let i = 0; i != collection.length; ++i) {
+          const item = collection.item(i);
+          item && itemArray.push(item);
+        }
+        setItems(itemArray);
+        itemArray.forEach((ele, index) => {
+          const initialKeyframe = getNaturalKeyframe(
+            index,
+            itemArray.length,
+            selected,
+            window.innerWidth
+          );
+
+          console.log(JSON.stringify(initialKeyframe));
+          const initialAnimation = ele.animate(
+            [{ ...initialKeyframe, offset: 1 }],
+            { fill: "forwards", duration: 10 }
+          );
+          initialAnimation.finish();
+          initialAnimation.commitStyles();
+        });
+      }
+    }, [post]);
+    return items;
+  }
+  const listItems = useListItems();
+  console.log(JSON.stringify(listItems?.length));
+
+  const selectedElement = listItems?.at(selected);
+
+  const [xPox, setXPox] = useState(0);
+  usePointerEvents(selectedElement, {
+    onDown(e) {},
+    onMove(e) {
+      setXPox(xPox + e.movementX);
+      selectedElement?.style.cursor &&
+        (selectedElement.style.cursor = "grabbing");
+      const animation = selectedElement?.animate(
+        [
+          {
+            transform: `translate(${xPox}px,0px)`,
+            offset: 1,
+          },
+        ],
+        { duration: 100, fill: "forwards" }
+      );
+      if (Math.abs(xPox) > animationThreshold) {
+      } else {
+        const animation = selectedElement?.animate(
+          [
+            {
+              transform: `translate(${xPox}px,0px)`,
+              offset: 1,
+            },
+          ],
+          { duration: 100, fill: "forwards" }
+        );
+      }
+    },
+    onUp(e) {
+      selectedElement?.style.cursor && (selectedElement.style.cursor = "grab");
+
+      if (Math.abs(xPox) <= clickThreshold) {
+        console.log("clicked");
+      } else if (
+        Math.abs(xPox) <=
+        (window.innerWidth * swipeThresholdPercentage) / 100
+      ) {
+        setXPox(0);
+        const animation = selectedElement?.animate(
+          [
+            {
+              transform: `translate(0px,0px)`,
+            },
+          ],
+          { duration: 200, fill: "forwards", easing: "ease-out" }
+        );
+      } else {
+        if (xPox > 0) {
+          console.log("swipe right triggerd.");
+        } else {
+          console.log("swipe left triggered");
+          if (selected < numOfImage - 1)
+            setSelected((v) => {
+              return v + 1;
+            });
+        }
+      }
+    },
+    onCancel(e) {},
+  });
+
   const images = post.data?.attributes?.Images?.data;
   if (images)
     return (
@@ -29,7 +174,7 @@ export default function Post({
         <div className={styles.container}>
           <header className={styles.header}>
             <p>
-              {+selected + 1} / {images.length}
+              {selected + 1} / {images.length}
             </p>
 
             <div className={styles.buttons}>
@@ -53,31 +198,27 @@ export default function Post({
             </div>
           </header>
           <main className={styles.main}>
-            <div className={styles.viewer}>
-              <ul className={styles.thumbnailList} ref={listRef}>
-                {" "}
-                {post.data?.attributes?.Images?.data?.map((img, index) => {
-                  const url = img.attributes?.url!;
-                  const width = img.attributes?.width!;
-                  const height = img.attributes?.height!;
+            <ul className={styles.mainList} ref={listRef}>
+              {" "}
+              {post.data?.attributes?.Images?.data?.map((img, index) => {
+                const url = img.attributes?.url!;
+                // const width = img.attributes?.width!;
+                // const height = img.attributes?.height!;
 
-                  return (
-                    <li
-                      className={`${styles.thumbnail} ${
-                        img.id === selected ? styles.focus : ""
-                      }`}
-                      key={img.id}
-                    >
-                      <img
-                        src={`${assetEndpoint}${url}`}
-                        alt={img.attributes?.alternativeText}
-                        className={styles.img}
-                      ></img>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                return (
+                  <li key={img.id}>
+                    <img
+                      src={`${assetEndpoint}${url}`}
+                      alt={img.attributes?.alternativeText}
+                      className={styles.img}
+                    ></img>
+                  </li>
+                );
+              })}
+            </ul>
+          </main>
+
+          <footer className={styles.footer}>
             <h1 className={styles.title}>{post.data?.attributes?.title}</h1>
             <p className={styles.discription}>
               {post.data?.attributes?.discription}{" "}
@@ -85,8 +226,9 @@ export default function Post({
                 发表于{post.data?.attributes?.createdAt}
               </span>
             </p>
-          </main>
-          <footer className={styles.footer}>
+          </footer>
+
+          {/* <footer className={styles.footer}>
             <ul className={styles.thumbnailList} ref={listRef}>
               {" "}
               {post.data?.attributes?.Images?.data?.map((img, index) => {
@@ -110,7 +252,7 @@ export default function Post({
                 );
               })}
             </ul>
-          </footer>
+          </footer> */}
         </div>
       </>
     );
