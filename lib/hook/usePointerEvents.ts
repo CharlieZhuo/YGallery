@@ -36,6 +36,7 @@ export function usePointerEvents<refType extends HTMLElement>(
         ref.releasePointerCapture(e.pointerId);
       };
       ref.onpointercancel = (e) => {
+        console.log("canceled");
         setMoving(false);
         callbacks.onCancel(e);
         ref.releasePointerCapture(e.pointerId);
@@ -46,6 +47,12 @@ export function usePointerEvents<refType extends HTMLElement>(
       };
       //To prevent triggering unwanted pointer cancel events.
       ref.ondragstart = (e) => {
+        e.preventDefault();
+      };
+      ref.ontouchstart = (e) => {
+        e.preventDefault();
+      };
+      ref.onclick = (e) => {
         e.preventDefault();
       };
     }
