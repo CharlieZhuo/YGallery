@@ -2,6 +2,17 @@ import styles from "./postListCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties, useState } from "react";
+type PostListCardPropType = {
+  id: string;
+  src: string;
+  alt: string;
+  title: string;
+  priority: boolean;
+  quantity: number;
+  aspectRatio: number;
+  style?: CSSProperties;
+  sizeVw: number;
+};
 export default function PostListCard({
   id,
   src,
@@ -11,16 +22,8 @@ export default function PostListCard({
   quantity,
   aspectRatio,
   style,
-}: {
-  id: string;
-  src: string;
-  alt: string;
-  title: string;
-  priority: boolean;
-  quantity: number;
-  aspectRatio: number;
-  style: CSSProperties;
-}) {
+  sizeVw,
+}: PostListCardPropType) {
   const [loaded, setLoaded] = useState(priority);
 
   return (
@@ -33,7 +36,7 @@ export default function PostListCard({
           src={src}
           alt={alt}
           layout="fill"
-          sizes="40vw"
+          sizes={`${sizeVw}vw`}
           objectFit="contain"
           priority={priority}
           style={{ opacity: loaded ? 1 : 0 }}

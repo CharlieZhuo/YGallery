@@ -75,13 +75,14 @@ export default function Catagory({
               p?.attributes?.Images?.data![0].attributes?.height!,
           };
         })}
-        columns={(containerWidth) => {
-          if (containerWidth < 500) return 1;
-          if (containerWidth < 1000) return 2;
-          return 3;
-        }}
+        columns={getColoumnNumber}
         renderPhoto={(prop) => {
-          return <PostListCard {...prop.photo}></PostListCard>;
+          return (
+            <PostListCard
+              {...prop.photo}
+              sizeVw={100 / getColoumnNumber(prop.layoutOptions.containerWidth)}
+            ></PostListCard>
+          );
         }}
         renderColumnContainer={(props) => {
           return (
@@ -165,3 +166,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 Catagory.getLayout = (page: any) => <CommonLayout>{page} </CommonLayout>;
+function getColoumnNumber(containerWidth: number) {
+  if (containerWidth < 500) return 1;
+  if (containerWidth < 1000) return 2;
+  return 3;
+}

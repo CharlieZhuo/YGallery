@@ -57,24 +57,23 @@ const Home = ({
                   ?.alternativeText!,
                 title: p?.attributes?.title!,
                 id: p.id!,
-                priority: index === 0,
                 key: p.id,
                 quantity: p.attributes?.Images?.data?.length ?? 1,
                 aspectRatio:
                   p?.attributes?.Images?.data![0].attributes?.width! /
                   p?.attributes?.Images?.data![0].attributes?.height!,
+                priority: index < 5,
               };
             })}
-            columns={(containerWidth) => {
-              if (containerWidth < 500) return 1;
-              if (containerWidth < 1000) return 2;
-              return 3;
-            }}
+            columns={getColoumnNumber}
             renderPhoto={(prop) => {
               return (
                 <PostListCard
                   {...prop.photo}
                   style={{ marginBlock: `${prop.layoutOptions.spacing / 2}px` }}
+                  sizeVw={
+                    100 / getColoumnNumber(prop.layoutOptions.containerWidth)
+                  }
                 ></PostListCard>
               );
             }}
@@ -118,3 +117,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return { props: {} };
   }
 };
+
+function getColoumnNumber(containerWidth: number) {
+  if (containerWidth < 500) return 1;
+  if (containerWidth < 1000) return 2;
+  return 3;
+}
