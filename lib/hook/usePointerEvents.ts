@@ -14,6 +14,7 @@ export function usePointerEvents<refType extends HTMLElement>(
 
   useEffect(() => {
     if (ref) {
+      ref.style.touchAction = "none";
       ref.onpointerdown = (e) => {
         setMoving(true);
         callbacks.onDown(e);
@@ -47,9 +48,6 @@ export function usePointerEvents<refType extends HTMLElement>(
       };
       //To prevent triggering unwanted pointer cancel events.
       ref.ondragstart = (e) => {
-        e.preventDefault();
-      };
-      ref.ontouchstart = (e) => {
         e.preventDefault();
       };
       ref.onclick = (e) => {

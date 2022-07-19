@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import styles from "../../styles/Post.module.css";
 import SwipeComponent from "../../components/swipeComponent";
+import { useRouter } from "next/router";
 
 export default function Post({
   post,
@@ -17,6 +18,7 @@ export default function Post({
 }) {
   const loop = false;
   const listRef = useRef<HTMLUListElement>(null);
+
   const [selected, setSelected] = useState(0);
 
   const numOfImage = post.data?.attributes?.Images?.data?.length ?? 0;
@@ -38,7 +40,6 @@ export default function Post({
     return items;
   }
   const listItems = useListItems();
-  console.log(JSON.stringify(listItems?.length));
 
   let selectedElement = null;
   let priorElement = null;
@@ -110,7 +111,20 @@ export default function Post({
               selectedElement={selectedElement}
               nextElement={nextElement}
               priorElement={priorElement}
-              callbacks={{ onSwipeLeft() {}, onSwipeRight() {} }}
+              callbacks={{
+                onSwipeLeft() {
+                  if (selected < numOfImage - 1)
+                    setSelected((v) => {
+                      return v + 1;
+                    });
+                },
+                onSwipeRight() {
+                  if (selected > 0)
+                    setSelected((v) => {
+                      return v - 1;
+                    });
+                },
+              }}
             ></SwipeComponent>
           ) : (
             <></>

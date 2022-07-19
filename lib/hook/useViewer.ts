@@ -20,7 +20,7 @@ export default function useViewer<eleType extends HTMLElement>({
     onSwipeRight: () => void;
   };
 }) {
-  const duration = 2000;
+  const duration = 1000;
 
   const getEnterAnimationKeyframe: KeyframeEffectGenerator = (
     width,
@@ -29,14 +29,15 @@ export default function useViewer<eleType extends HTMLElement>({
     return [
       {
         offset: 0,
-        display: "block",
+        opacity: 1,
         transform: `translate(${
-          width * (direction === "left" ? -1 : 1)
-        }px,0px)`,
+          direction === "left" ? "-" : ""
+        }${width}px,0px)`,
       },
       {
         offset: 1,
-        display: "block",
+        opacity: 1,
+        transform: `translate(0px,0px) scale(1)`,
       },
     ];
   };
@@ -48,7 +49,8 @@ export default function useViewer<eleType extends HTMLElement>({
     return [
       {
         offset: 0,
-        display: "block",
+        opacity: 1,
+        transform: `translate(0px,0px) scale(1)`,
       },
       {
         offset: 1,
@@ -65,7 +67,7 @@ export default function useViewer<eleType extends HTMLElement>({
     px: number,
     percentageOfWindow: number
   ) {
-    let offset = (percentageOfWindow / 100) * 0.5;
+    let offset = percentageOfWindow / 100;
     if (offset < 0) offset = 0;
     else if (offset > 1) offset = 1;
     return offset;
@@ -87,15 +89,15 @@ export default function useViewer<eleType extends HTMLElement>({
         if (type === "enter") {
           animation = element.animate(
             getEnterAnimationKeyframe(window.innerWidth, direction),
-            { duration }
+            { duration, fill: `both` }
           );
         } else {
           animation = element.animate(
             getLeaveAnimationKeyframe(window.innerWidth, direction),
-            { duration }
+            { duration, fill: `both` }
           );
         }
-        if (type === "enter") animation.currentTime = 0;
+        // if (type === "enter") animation.currentTime = 0;
         animation.id = `SwipeViewer${direction}${type}`;
         animation.pause();
       }
@@ -103,11 +105,14 @@ export default function useViewer<eleType extends HTMLElement>({
     return animation;
   }
 
-  const priorAnimation = getAnimation(priorElement, "left", "enter");
-  const nextAnimation = getAnimation(nextElement, "right", "enter");
+  selectedElement.style.zIndex = `0`;
+  if (nextElement) nextElement.style.zIndex = `1`;
+  if (priorElement) priorElement.style.zIndex = `1`;
 
-  const LeftAnimation = getAnimation(selectedElement, "left", "leave");
-  const rightAnimation = getAnimation(selectedElement, "right", "leave");
+  let priorAnimation = getAnimation(priorElement, "left", "enter");
+  let nextAnimation = getAnimation(nextElement, "right", "enter");
+  let LeftAnimation = getAnimation(selectedElement, "left", "leave");
+  let rightAnimation = getAnimation(selectedElement, "right", "leave");
 
   //movement smaller or equal this value will be treated as click.
   const clickThreshold = 0;
@@ -126,14 +131,12 @@ export default function useViewer<eleType extends HTMLElement>({
         (Math.abs(xPox) / window.innerWidth) * 100
       );
 
-      console.log(`xPox:${xPox},currentPosition:${currentPosition}`);
-      console.log(rightAnimation);
-      // console.log(rightAnimation);
-
       LeftAnimation?.pause();
       rightAnimation?.pause();
       nextAnimation?.pause();
       priorAnimation?.pause();
+
+      console.log(currentPosition);
 
       if (xPox < 0) {
         if (nextAnimation) {
@@ -160,7 +163,9 @@ export default function useViewer<eleType extends HTMLElement>({
         Math.abs(xPox) <=
         (window.innerWidth * swipeThresholdPercentage) / 100
       ) {
+        //smallSwipe
         if (xPox > 0) {
+          console.log(rightAnimation);
           if (priorAnimation) {
             priorAnimation.playbackRate = -1;
             priorAnimation.play();
@@ -179,10 +184,12 @@ export default function useViewer<eleType extends HTMLElement>({
         if (xPox > 0) {
           console.log("swipe right triggerd.");
 
-          if (priorElement) {
-            priorAnimation!.play();
-            rightAnimation!.play();
-            rightAnimation!.onfinish = (e) => {
+          if (priorElement && priorAnimation && rightAnimation) {
+            priorAnimation.playbackRate = 1;
+            priorAnimation.play();
+            rightAnimation.playbackRate = 1;
+            rightAnimation.play();
+            rightAnimation.onfinish = (e) => {
               callbacks.onSwipeRight();
             };
           }
@@ -194,16 +201,21 @@ export default function useViewer<eleType extends HTMLElement>({
           }
         } else {
           console.log("swipe left triggered");
-          if (nextElement) {
-            nextAnimation!.play();
-            LeftAnimation!.play();
-            LeftAnimation!.onfinish = (e) => {
+          console.log(nextAnimation);
+          console.log(LeftAnimation);
+          if (nextElement && nextAnimation && LeftAnimation) {
+            console.log(`playing animation`);
+            nextAnimation.playbackRate = 1;
+            nextAnimation.play();
+            LeftAnimation.playbackRate = 1;
+            LeftAnimation.play();
+            LeftAnimation.onfinish = (e) => {
               callbacks.onSwipeLeft();
             };
           }
           //no next element,return to normal position.
           else {
-            console.log(`no `);
+            console.log(`no next element,returning to origin position`);
             LeftAnimation!.playbackRate = -1;
             LeftAnimation!.play();
           }
