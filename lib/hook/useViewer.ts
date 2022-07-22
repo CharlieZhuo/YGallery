@@ -99,6 +99,7 @@ export default function useViewer<eleType extends HTMLElement>({
         }
         // if (type === "enter") animation.currentTime = 0;
         animation.id = `SwipeViewer${direction}${type}`;
+        animation.persist();
         animation.pause();
       }
     }
@@ -144,6 +145,11 @@ export default function useViewer<eleType extends HTMLElement>({
         }
         if (priorAnimation) priorAnimation.currentTime = 0;
         LeftAnimation!.currentTime = duration * currentPosition;
+        rightAnimation?.cancel();
+        console.log(`left animation:${LeftAnimation?.id}`);
+        const key = LeftAnimation?.effect as KeyframeEffect;
+        console.log(`target:${key.target?.id}`);
+        console.log(LeftAnimation);
         rightAnimation!.currentTime = 0;
       } else {
         if (priorAnimation)
@@ -152,6 +158,11 @@ export default function useViewer<eleType extends HTMLElement>({
           nextAnimation.currentTime = 0;
         }
         rightAnimation!.currentTime = duration * currentPosition;
+        LeftAnimation?.cancel();
+        console.log(`right animation:${rightAnimation?.id}`);
+        const key = rightAnimation?.effect as KeyframeEffect;
+        console.log(`target:${key.target?.id}`);
+        console.log(rightAnimation);
         LeftAnimation!.currentTime = 0;
       }
     },

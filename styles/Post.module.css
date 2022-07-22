@@ -64,16 +64,12 @@
 .mainList li {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
 
-  background-color: green;
+  /* background-color: green; */
 
   border-radius: 20px;
 
-  box-shadow: 0px 0px 1px 3px black;
-
-  transform: translate(-100vw, 0);
+  outline: 3px solid black;
 }
 .img {
   inline-size: 100%;
@@ -88,6 +84,24 @@
 }
 .discription {
   text-align: center;
+}
+.nextbutton {
+  position: fixed;
+  inset-inline-end: 0;
+  inset-block-end: 30vh;
+  z-index: 20;
+}
+.lastbutton {
+  position: fixed;
+  inset-block-end: 30vh;
+  inset-inline-start: 0;
+  z-index: 20;
+}
+.detailButton {
+  position: fixed;
+  inset-block-start: 20vh;
+  inset-inline-start: 50vh;
+  z-index: 20;
 }
 .footer {
   padding: 2vh;

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import styles from "../../styles/Post.module.css";
 import SwipeComponent from "../../components/swipeComponent";
-import { useRouter } from "next/router";
+import useGallery, { imperativeHandleType } from "../../lib/hook/useGallery";
 
 export default function Post({
   post,
@@ -20,10 +20,11 @@ export default function Post({
   const listRef = useRef<HTMLUListElement>(null);
 
   const [selected, setSelected] = useState(0);
+  const [target, setTarget] = useState(0);
 
   const numOfImage = post.data?.attributes?.Images?.data?.length ?? 0;
 
-  function useListItems() {
+  function useLiElements() {
     const [items, setItems] = useState<Array<HTMLLIElement>>();
     useEffect(() => {
       const list = listRef.current;
@@ -39,20 +40,64 @@ export default function Post({
     }, [post]);
     return items;
   }
-  const listItems = useListItems();
+  const ItemElements = useLiElements();
 
   let selectedElement = null;
   let priorElement = null;
   let nextElement = null;
-  if (listItems) {
-    selectedElement = listItems[selected];
-    if (selected < listItems.length - 1) {
-      nextElement = listItems[selected + 1];
+  if (ItemElements) {
+    selectedElement = ItemElements[selected];
+    if (selected < ItemElements.length - 1) {
+      nextElement = ItemElements[selected + 1];
     }
     if (selected > 0) {
-      priorElement = listItems[selected - 1];
+      priorElement = ItemElements[selected - 1];
     }
   }
+
+  const galleryImperativeHandle = useRef<imperativeHandleType>(null);
+
+  const kfe = {
+    enter: [
+      {
+        offset: 0,
+        opacity: 1,
+        transform: `translate(50vw,0px)`,
+      },
+      {
+        offset: 1,
+        opacity: 1,
+        transform: `translate(0px,0px) scale(1)`,
+      },
+    ],
+
+    leave: [
+      {
+        offset: 0,
+        opacity: 1,
+        transform: `translate(0px,0px) scale(1)`,
+      },
+      {
+        offset: 1,
+        opacity: 0,
+        transform: `translate(30vw,0px) scale(0.2,0.2)`,
+      },
+    ],
+  };
+
+  const [inDetailView, setInDetailView] = useState(false);
+  useGallery({
+    allElements: ItemElements,
+    activeIndex: target,
+    detailView: inDetailView,
+    callbacks: {
+      onAnimationFinished(oldIndex, newIndex) {
+        setSelected(newIndex);
+      },
+    },
+    imperativeHandle: galleryImperativeHandle,
+    keyFrameEffects: kfe,
+  });
 
   const images = post.data?.attributes?.Images?.data;
   if (images)
@@ -96,7 +141,7 @@ export default function Post({
               // const height = img.attributes?.height!;
 
               return (
-                <li key={img.id}>
+                <li key={img.id} id={img.id}>
                   <img
                     src={`${assetEndpoint}${url}`}
                     alt={img.attributes?.alternativeText}
@@ -106,7 +151,42 @@ export default function Post({
               );
             })}
           </ul>
-          {selectedElement ? (
+          <button
+            className={styles.nextbutton}
+            onClick={(e) => {
+              if (
+                ItemElements &&
+                selected < ItemElements.length - 1 &&
+                target === selected
+              ) {
+                setTarget(selected + 1);
+              }
+            }}
+          >
+            下一张
+          </button>
+
+          <button
+            className={styles.lastbutton}
+            onClick={(e) => {
+              if (ItemElements && selected > 0 && target === selected) {
+                setTarget(selected - 1);
+              }
+            }}
+          >
+            上一张
+          </button>
+          <button
+            className={styles.detailButton}
+            onClick={(e) => {
+              if (ItemElements && target === selected) {
+                setInDetailView(!selected);
+              }
+            }}
+          >
+            浏览大图
+          </button>
+          {/* {selectedElement ? (
             <SwipeComponent
               selectedElement={selectedElement}
               nextElement={nextElement}
@@ -128,7 +208,7 @@ export default function Post({
             ></SwipeComponent>
           ) : (
             <></>
-          )}
+          )} */}
         </main>
 
         <footer className={styles.footer}>
