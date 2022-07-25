@@ -1,7 +1,7 @@
 import styles from "./postListCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useRef, useState } from "react";
 type PostListCardPropType = {
   id: string;
   src: string;
@@ -26,9 +26,12 @@ export default function PostListCard({
 }: PostListCardPropType) {
   const [loaded, setLoaded] = useState(priority);
 
+  const containerRef = useRef<HTMLAnchorElement>(null);
+
   return (
     <Link href={`/post/${id}`} passHref>
       <a
+        ref={containerRef}
         className={styles.container}
         style={{ aspectRatio: `${aspectRatio}`, ...style }}
       >
@@ -39,8 +42,21 @@ export default function PostListCard({
           sizes={`${sizeVw}vw`}
           objectFit="contain"
           priority={priority}
-          style={{ opacity: loaded ? 1 : 0 }}
+          // style={{ opacity: loaded ? 1 : 0 }}
           onLoad={(e) => {
+            const container = containerRef.current;
+            if (container) {
+              container.animate(
+                [
+                  {
+                    transform: `translate(0,2rem)`,
+                    opacity: `0`,
+                    offset: 0,
+                  },
+                ],
+                { duration: 500, easing: `ease-out`, fill: "both" }
+              );
+            }
             setLoaded(true);
           }}
         ></Image>

@@ -20,7 +20,11 @@
   padding-block: calc(0.5 * var(--itemSize));
   padding-inline: var(--itemSize);
 
-  background: hsla(0, 0%, 70%, 0.3);
+  background: linear-gradient(
+    to top,
+    hsla(0, 0%, 70%, 0),
+    hsla(0, 0%, 70%, 0.3)
+  );
 }
 .header p {
   margin-block: 0rem;
@@ -147,12 +151,20 @@
   z-index: 20;
 }
 .footer {
-  padding: 2vh;
   position: absolute;
   inset-inline: 0;
   inset-block-end: 0;
+  z-index: 10;
 
-  z-index: 1;
-
-  /* background: hsla(0, 0%, 70%, 0.4); */
+  display: grid;
+  place-items: center;
+  background: linear-gradient(
+    to bottom,
+    hsla(0, 0%, 70%, 0),
+    hsla(0, 0%, 70%, 0.3)
+  );
+}
+.seriesName {
+  font-size: 1.5em;
+  font-weight: 500;
 }

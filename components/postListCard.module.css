@@ -32,7 +32,16 @@
   border-style: none;
 
   box-shadow: var(--shadow-elevation-medium);
+
+  /* animation: upshow 0.3s; */
 }
+
+/* @keyframes upshow {
+  from {
+    opacity: 0;
+    transform: tranlate(0, -2rem);
+  }
+} */
 
 .container:focus {
   outline-offset: 0.3rem;

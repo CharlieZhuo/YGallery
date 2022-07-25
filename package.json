@@ -10,6 +10,7 @@
     "libgen": "oazapfts C:/Users/ZZ/reactProject/mystrapi/src/extensions/documentation/documentation/1.0.0/full_documentation.json ./lib/strapiLib.ts"
   },
   "dependencies": {
+    "date-fns": "^2.29.1",
     "formik": "^2.2.9",
     "next": "12.1.6",
     "react": "18.1.0",

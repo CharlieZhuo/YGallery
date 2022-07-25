@@ -11,6 +11,8 @@ interface propType {
         title: string;
       }[]
     | undefined;
+  seriesName?: string;
+  publishDate?: string;
   keyFrameEffects?: any;
   imperativeHandle?: RefObject<any>;
 }
@@ -74,7 +76,7 @@ const kfe = {
 };
 
 const duration = 1000;
-export default function Gallery({ imgs }: propType) {
+export default function Gallery({ imgs, seriesName, publishDate }: propType) {
   const [active, setActive] = useState<number>(0);
   const [target, setTarget] = useState<number>(0);
 
@@ -134,8 +136,8 @@ export default function Gallery({ imgs }: propType) {
 
   useEffect(() => {
     const handler = (ev: { code: any }) => {
-      console.log(ev.code);
-      console.log(`active:${active},inDetail:${inDetail}`);
+      // console.log(ev.code);
+      // console.log(`active:${active},inDetail:${inDetail}`);
       switch (ev.code) {
         case `ArrowRight`: {
           if (
@@ -253,7 +255,10 @@ export default function Gallery({ imgs }: propType) {
           <></>
         )}
 
-        <footer className={styles.footer}></footer>
+        <footer className={styles.footer}>
+          <h1 className={styles.seriesName}>{seriesName}</h1>
+          <p>发布于 {publishDate}</p>
+        </footer>
       </div>
 
       <main className={styles.main}>

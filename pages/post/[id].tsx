@@ -4,6 +4,9 @@ import { checkAndSetEV } from "../../lib/strapiUtil";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Gallery from "../../components/gallery";
 import Head from "next/head";
+import parseISO from "date-fns/parseISO";
+import { format } from "date-fns";
+import { zhCN } from "date-fns/locale";
 
 export default function Post({
   post,
@@ -12,7 +15,7 @@ export default function Post({
   post: api.PostResponse;
   assetEndpoint: string;
 }) {
-  const imageData = post.data?.attributes?.Images?.data?.map((img, index) => {
+  const imgs = post.data?.attributes?.Images?.data?.map((img, index) => {
     const url = img.attributes?.url!;
     return {
       src: `${assetEndpoint}${url}`,
@@ -22,8 +25,10 @@ export default function Post({
     };
   });
 
-  const options = {
-    dataSource: imageData,
+  const galleryProp = {
+    imgs,
+    seriesName: post.data?.attributes?.title,
+    publishDate: post.data?.attributes?.publishedAt,
   };
   const images = post.data?.attributes?.Images?.data;
   if (images)
@@ -36,7 +41,7 @@ export default function Post({
             content="initial-scale=1.0, width=device-width"
           />
         </Head>
-        <Gallery imgs={imageData}></Gallery>
+        <Gallery {...galleryProp}></Gallery>
       </>
     );
 }
@@ -50,14 +55,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
     );
 
-    if (response.status === 200)
+    if (response.status === 200) {
+      const post = (await response.json()) as api.PostResponse;
+      if (post.data?.attributes?.publishedAt) {
+        const date = parseISO(post.data?.attributes?.publishedAt);
+        const formatedDate = format(date, "PPP", { locale: zhCN });
+        // console.log(formatedDate);
+        post.data.attributes.publishedAt = formatedDate;
+      }
       return {
         props: {
-          post: await response.json(),
+          post,
           assetEndpoint: process.env.STRAPI_ENDPOINT_ASSET,
         },
       };
-    else {
+    } else {
       console.log(
         `Error code:${response.status} ,Error:${JSON.stringify(
           await response.json()
