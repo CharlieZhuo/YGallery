@@ -6,6 +6,7 @@ import PostListCard from "../components/postListCard";
 import * as api from "../lib/strapiLib";
 import { checkAndSetEV } from "../lib/strapiUtil";
 import { PhotoAlbum } from "react-photo-album";
+import { useEffect, useState } from "react";
 
 const Home = ({
   postList,
@@ -16,6 +17,19 @@ const Home = ({
   assetEndpoint: string;
   catagories: api.CatagoryListResponse;
 }) => {
+  const [columnNum, setColumnNum] = useState<number | null>(null);
+  useEffect(() => {
+    if (!columnNum) {
+      setColumnNum(getColoumnNumber(window.innerWidth));
+    }
+    const resizeHandler = (e: UIEvent) => {
+      console.log("onResize");
+      setColumnNum(getColoumnNumber(window.innerWidth));
+    };
+    window.onresize = resizeHandler;
+    return window.removeEventListener("resize", resizeHandler);
+  }, []);
+
   if (postList) {
     const catagoriesItems = (
       <ul className={styles.links}>
@@ -42,53 +56,60 @@ const Home = ({
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className={styles.main}>
-          <p className={styles.intro}>中国画爱好者</p>
-
-          <PhotoAlbum
-            layout="masonry"
-            photos={postList.data!.map((p, index) => {
-              return {
-                height: p?.attributes?.Images?.data![0].attributes?.height!,
-                width: p?.attributes?.Images?.data![0].attributes?.width!,
-                src: `${assetEndpoint}${p?.attributes?.Images?.data![0]
-                  .attributes?.url!}`,
-                alt: p?.attributes?.Images?.data![0].attributes
-                  ?.alternativeText!,
-                title: p?.attributes?.title!,
-                id: p.id!,
-                key: p.id,
-                quantity: p.attributes?.Images?.data?.length ?? 1,
-                aspectRatio:
-                  p?.attributes?.Images?.data![0].attributes?.width! /
-                  p?.attributes?.Images?.data![0].attributes?.height!,
-                priority: index < 5,
-              };
-            })}
-            columns={getColoumnNumber}
-            renderPhoto={(prop) => {
-              return (
-                <PostListCard
-                  {...prop.photo}
-                  style={{ marginBlock: `${prop.layoutOptions.spacing / 2}px` }}
-                  sizeVw={
-                    100 / getColoumnNumber(prop.layoutOptions.containerWidth)
-                  }
-                ></PostListCard>
-              );
-            }}
-            spacing={15}
-          ></PhotoAlbum>
-        </main>
-
-        <footer className={styles.footer}>
-          <div>
-            <p className={styles.footertitle}>悠画廊</p>
-            <Link href={"/about"}>关于</Link>
-            <Link href={"/contact"}>联系</Link>
-          </div>
-          <p className={styles.copyright}>© 2022 悠画廊 版权所有</p>
-        </footer>
+        {columnNum ? (
+          <>
+            <main className={styles.main}>
+              <p className={styles.intro}>中国画爱好者</p>
+              <PhotoAlbum
+                layout="masonry"
+                photos={postList.data!.map((p, index) => {
+                  return {
+                    height: p?.attributes?.Images?.data![0].attributes?.height!,
+                    width: p?.attributes?.Images?.data![0].attributes?.width!,
+                    src: `${assetEndpoint}${p?.attributes?.Images?.data![0]
+                      .attributes?.url!}`,
+                    alt: p?.attributes?.Images?.data![0].attributes
+                      ?.alternativeText!,
+                    title: p?.attributes?.title!,
+                    id: p.id!,
+                    key: p.id,
+                    quantity: p.attributes?.Images?.data?.length ?? 1,
+                    aspectRatio:
+                      p?.attributes?.Images?.data![0].attributes?.width! /
+                      p?.attributes?.Images?.data![0].attributes?.height!,
+                    priority: index < 5,
+                  };
+                })}
+                columns={columnNum}
+                renderPhoto={(prop) => {
+                  return (
+                    <PostListCard
+                      {...prop.photo}
+                      style={{
+                        marginBlock: `${prop.layoutOptions.spacing / 2}px`,
+                      }}
+                      sizeVw={
+                        100 /
+                        getColoumnNumber(prop.layoutOptions.containerWidth)
+                      }
+                    ></PostListCard>
+                  );
+                }}
+                spacing={15}
+              ></PhotoAlbum>
+            </main>
+            <footer className={styles.footer}>
+              <div>
+                <p className={styles.footertitle}>悠画廊</p>
+                <Link href={"/about"}>关于</Link>
+                <Link href={"/contact"}>联系</Link>
+              </div>
+              <p className={styles.copyright}>© 2022 悠画廊 版权所有</p>
+            </footer>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     );
   }

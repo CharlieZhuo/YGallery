@@ -53,12 +53,6 @@ export default function CommonLayout({ children }: { children: any }) {
           <li>
             <Link href={"/catagory/other"}>其他</Link>
           </li>
-          <li>
-            <Link href={"/about"}>关于</Link>
-          </li>
-          <li>
-            <Link href={"/contact"}>联系</Link>
-          </li>
         </ul>
       </header>
 

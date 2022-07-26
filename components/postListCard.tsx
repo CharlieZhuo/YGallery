@@ -1,7 +1,7 @@
 import styles from "./postListCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { CSSProperties, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 type PostListCardPropType = {
   id: string;
   src: string;
@@ -25,8 +25,57 @@ export default function PostListCard({
   sizeVw,
 }: PostListCardPropType) {
   const [loaded, setLoaded] = useState(priority);
+  const [animationPlayed, setAnimationPlayed] = useState(priority);
 
   const containerRef = useRef<HTMLAnchorElement>(null);
+  const [animation, setAnimation] = useState<Animation>();
+  useEffect(() => {
+    const element = containerRef.current;
+
+    if (element) {
+      const ani = element.animate(
+        [
+          {
+            transform: `translate(0,2rem)`,
+            opacity: `0.5`,
+            offset: 0,
+          },
+          {
+            transform: `translate(0,0)`,
+            opacity: `1`,
+            offset: 1,
+          },
+        ],
+        { duration: 500, easing: `ease-out`, fill: "both" }
+      );
+      ani.pause();
+      if (animationPlayed) ani.finish();
+      setAnimation(ani);
+    }
+  }, []);
+  useEffect(() => {
+    const element = containerRef.current;
+
+    if (element && animation) {
+      const intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            if (!animationPlayed) {
+              animation.play();
+              setAnimationPlayed(true);
+            }
+          }
+        },
+        {
+          threshold: 0.5,
+        }
+      );
+      intersectionObserver.observe(element);
+      return () => {
+        intersectionObserver.disconnect();
+      };
+    }
+  }, [animationPlayed, animation]);
 
   return (
     <Link href={`/post/${id}`} passHref>
@@ -42,23 +91,6 @@ export default function PostListCard({
           sizes={`${sizeVw}vw`}
           objectFit="contain"
           priority={priority}
-          // style={{ opacity: loaded ? 1 : 0 }}
-          onLoad={(e) => {
-            const container = containerRef.current;
-            if (container) {
-              container.animate(
-                [
-                  {
-                    transform: `translate(0,2rem)`,
-                    opacity: `0`,
-                    offset: 0,
-                  },
-                ],
-                { duration: 500, easing: `ease-out`, fill: "both" }
-              );
-            }
-            setLoaded(true);
-          }}
         ></Image>
         <p className={styles.title}>{title}</p>
         {quantity > 1 ? (

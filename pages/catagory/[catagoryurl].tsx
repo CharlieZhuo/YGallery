@@ -36,26 +36,7 @@ export default function Catagory({
     <main>
       {catagoryElement}
       {quantityElement}
-      {/* <ul className={styles.list}>
-        {posts.data?.map((p, index) => {
-          return (
-            <PostListCard
-              src={`${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
-                ?.url!}`}
-              alt={p?.attributes?.Images?.data![0].attributes?.alternativeText!}
-              title={p?.attributes?.title!}
-              id={p.id!}
-              priority={index === 0}
-              key={p.id}
-              quantity={p.attributes?.Images?.data?.length ?? 1}
-              aspectRatio={
-                (p?.attributes?.Images?.data![0].attributes?.width ?? 0) /
-                (p?.attributes?.Images?.data![0].attributes?.height ?? 1)
-              }
-            ></PostListCard>
-          );
-        })}
-      </ul> */}
+
       <PhotoAlbum
         layout="masonry"
         photos={posts.data!.map((p, index) => {
@@ -80,26 +61,12 @@ export default function Catagory({
           return (
             <PostListCard
               {...prop.photo}
+              style={{ marginBlock: `${prop.layoutOptions.spacing / 2}px` }}
               sizeVw={100 / getColoumnNumber(prop.layoutOptions.containerWidth)}
             ></PostListCard>
           );
         }}
-        renderColumnContainer={(props) => {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: `column`,
-                alignItems: `flex-start`,
-                width: ` calc((100% - 15px) / 2)`,
-                justifyContent: `flex-start`,
-                gap: `${props.layoutOptions.spacing}px`,
-              }}
-            >
-              {props.children}
-            </div>
-          );
-        }}
+        spacing={15}
       ></PhotoAlbum>
     </main>
   );
