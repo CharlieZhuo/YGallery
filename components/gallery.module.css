@@ -105,6 +105,31 @@
   max-block-size: 100vh;
   max-inline-size: 100%;
 }
+.loadingEffect {
+  position: absolute;
+  display: inline;
+  max-block-size: 100vh;
+  max-inline-size: 100%;
+  outline: solid 2px gray;
+  filter: blur(1px);
+  z-index: -1;
+  background-image: linear-gradient(
+    to bottom,
+    hsla(0, 0%, 0%, 0) 0%,
+    hsla(0, 0%, 0%, 0.6) 20%,
+    hsla(0, 0%, 0%, 0) 40%
+  );
+  animation: sweepDown 1.5s linear infinite;
+  transition: opacity 0.5s;
+}
+@keyframes sweepDown {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100vh;
+  }
+}
 .mainlist span {
   transition: transform 1s ease-out;
 }

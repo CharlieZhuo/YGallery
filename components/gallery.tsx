@@ -270,6 +270,13 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
                 key={index}
                 style={{ cursor: inDetail ? "zoom-out" : "zoom-in" }}
               >
+                <div
+                  className={styles.loadingEffect}
+                  style={{
+                    aspectRatio: `${img.width / img.height}`,
+                    blockSize: `100%`,
+                  }}
+                ></div>
                 <Image
                   src={img.src}
                   width={img.width}
