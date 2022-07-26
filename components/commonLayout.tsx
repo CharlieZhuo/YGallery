@@ -12,7 +12,7 @@ export default function CommonLayout({ children }: { children: any }) {
       </Head>
       <header className={styles.header}>
         <h2 className={styles.title}>
-          <Link href={"/"}>悠画廊</Link>
+          <Link href={"/"}>悠悠画廊</Link>
         </h2>
         <button
           ref={btn}
@@ -60,11 +60,11 @@ export default function CommonLayout({ children }: { children: any }) {
 
       <footer className={styles.footer}>
         <div>
-          <p className={styles.footertitle}>悠画廊</p>{" "}
+          <p className={styles.footertitle}>悠悠画廊</p>{" "}
           <Link href={"/about"}>关于</Link>
           <Link href={"/contact"}>联系</Link>
         </div>
-        <p className={styles.copyright}>© 2022 悠画廊 版权所有</p>
+        <p className={styles.copyright}>© 2022 悠悠画廊 版权所有</p>
       </footer>
     </div>
   );

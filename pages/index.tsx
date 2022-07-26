@@ -54,10 +54,10 @@ const Home = ({
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1>悠画廊</h1> {catagoriesItems}
+          <h1>悠悠画廊</h1> {catagoriesItems}
         </header>
         <Head>
-          <title>悠画廊</title>
+          <title>悠悠画廊</title>
           <meta name="description" content="一个中国画爱好者的网站" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
@@ -84,7 +84,7 @@ const Home = ({
                       p?.attributes?.Images?.data![0].attributes?.width! /
                       p?.attributes?.Images?.data![0].attributes?.height!,
                     priority: index < 3,
-                    sizeVw: index === 1 ? 100 : 100 / columnNum,
+                    sizeVw: index === 1 ? 100 / 2 : 100 / columnNum,
                   };
                 })}
                 columns={columnNum}
@@ -103,7 +103,7 @@ const Home = ({
             </main>
             <footer className={styles.footer}>
               <div>
-                <p className={styles.footertitle}>悠画廊</p>
+                <p className={styles.footertitle}>悠悠画廊</p>
                 <Link href={"/about"}>关于</Link>
                 <Link href={"/contact"}>联系</Link>
               </div>
