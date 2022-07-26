@@ -1,4 +1,5 @@
-import * as api from "../../lib/strapiLib";
+import { PostResponse, defaults, getPosts } from "../../lib/strapiLib";
+
 import { checkAndSetEV } from "../../lib/strapiUtil";
 
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -12,7 +13,7 @@ export default function Post({
   post,
   assetEndpoint,
 }: {
-  post: api.PostResponse;
+  post: PostResponse;
   assetEndpoint: string;
 }) {
   const imgs = post.data?.attributes?.Images?.data?.map((img, index) => {
@@ -56,7 +57,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     );
 
     if (response.status === 200) {
-      const post = (await response.json()) as api.PostResponse;
+      const post = (await response.json()) as PostResponse;
       if (post.data?.attributes?.publishedAt) {
         const date = parseISO(post.data?.attributes?.publishedAt);
         const formatedDate = format(date, "PPP", { locale: zhCN });
@@ -68,6 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
           post,
           assetEndpoint: process.env.STRAPI_ENDPOINT_ASSET,
         },
+        revalidate: 600,
       };
     } else {
       console.log(
@@ -83,8 +85,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  checkAndSetEV(api.defaults);
-  const response = await api.getPosts();
+  checkAndSetEV(defaults);
+  const response = await getPosts();
   if (response.status === 200 && response.data.data) {
     const paths = response.data.data
       .filter((p) => typeof p.id === "string")
@@ -93,7 +95,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       });
     return {
       paths: paths,
-      fallback: "blocking", // See the "fallback" section below
+      fallback: "blocking",
     };
   } else
     throw Error(

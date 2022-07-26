@@ -37,7 +37,7 @@ export default function PostListCard({
         [
           {
             transform: `translate(0,2rem)`,
-            opacity: `0.5`,
+            opacity: `0.7`,
             offset: 0,
           },
           {

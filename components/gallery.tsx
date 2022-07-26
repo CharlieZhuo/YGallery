@@ -104,7 +104,7 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
           });
         });
     }
-  }, [liElements, active, target]);
+  }, [liElements, active, target, imgs]);
 
   const [inDetail, setInDetail] = useState(false);
 
@@ -171,7 +171,7 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
     return () => {
       window.removeEventListener("keydown", handler);
     };
-  }, [active, target, inDetail]);
+  }, [active, target, inDetail, imgs]);
 
   return (
     <>

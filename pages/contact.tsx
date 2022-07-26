@@ -5,7 +5,7 @@ import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 
-import * as api from "../lib/strapiLib";
+import { FeedbackResponse } from "../lib/strapiLib";
 
 export interface contactMessage {
   name: string;
@@ -16,7 +16,7 @@ export interface contactMessage {
 export type resultType =
   | {
       status: 200;
-      data: api.FeedbackResponse;
+      data: FeedbackResponse;
     }
   | {
       status: 400;

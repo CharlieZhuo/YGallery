@@ -3,7 +3,13 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import PostListCard from "../components/postListCard";
-import * as api from "../lib/strapiLib";
+import {
+  PostListResponse,
+  CatagoryListResponse,
+  defaults,
+  getPosts,
+  getCatagories,
+} from "../lib/strapiLib";
 import { checkAndSetEV } from "../lib/strapiUtil";
 import { PhotoAlbum } from "react-photo-album";
 import { useEffect, useState } from "react";
@@ -13,9 +19,9 @@ const Home = ({
   assetEndpoint,
   catagories,
 }: {
-  postList: api.PostListResponse;
+  postList: PostListResponse;
   assetEndpoint: string;
-  catagories: api.CatagoryListResponse;
+  catagories: CatagoryListResponse;
 }) => {
   const [columnNum, setColumnNum] = useState<number | null>(null);
   useEffect(() => {
@@ -23,12 +29,12 @@ const Home = ({
       setColumnNum(getColoumnNumber(window.innerWidth));
     }
     const resizeHandler = (e: UIEvent) => {
-      console.log("onResize");
-      setColumnNum(getColoumnNumber(window.innerWidth));
+      const newColumnNum = getColoumnNumber(window.innerWidth);
+      if (newColumnNum !== columnNum) setColumnNum(newColumnNum);
     };
     window.onresize = resizeHandler;
     return window.removeEventListener("resize", resizeHandler);
-  }, []);
+  }, [columnNum]);
 
   if (postList) {
     const catagoriesItems = (
@@ -77,7 +83,8 @@ const Home = ({
                     aspectRatio:
                       p?.attributes?.Images?.data![0].attributes?.width! /
                       p?.attributes?.Images?.data![0].attributes?.height!,
-                    priority: index < 5,
+                    priority: index < 3,
+                    sizeVw: index === 1 ? 100 : 100 / columnNum,
                   };
                 })}
                 columns={columnNum}
@@ -88,10 +95,6 @@ const Home = ({
                       style={{
                         marginBlock: `${prop.layoutOptions.spacing / 2}px`,
                       }}
-                      sizeVw={
-                        100 /
-                        getColoumnNumber(prop.layoutOptions.containerWidth)
-                      }
                     ></PostListCard>
                   );
                 }}
@@ -117,12 +120,12 @@ const Home = ({
 export default Home;
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  checkAndSetEV(api.defaults);
-  const allposts = await api.getPosts({
+  checkAndSetEV(defaults);
+  const allposts = await getPosts({
     populate: "*",
     sort: "publishedAt:desc",
   });
-  const catagories = await api.getCatagories({ sort: "id" });
+  const catagories = await getCatagories({ sort: "id" });
   if (allposts.status === 200 && catagories.status === 200)
     return {
       props: {

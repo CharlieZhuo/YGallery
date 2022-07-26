@@ -2,7 +2,12 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { checkAndSetEV } from "../../lib/strapiUtil";
 import styles from "../../styles/catagory.module.css";
 
-import * as api from "../../lib/strapiLib";
+import {
+  CatagoryListResponse,
+  PostListResponse,
+  defaults,
+  getCatagories,
+} from "../../lib/strapiLib";
 import PostListCard from "../../components/postListCard";
 import CommonLayout from "../../components/commonLayout";
 import PhotoAlbum from "react-photo-album";
@@ -12,8 +17,8 @@ export default function Catagory({
   posts,
   assetEndpoint,
 }: {
-  catagories: api.CatagoryListResponse;
-  posts: api.PostListResponse;
+  catagories: CatagoryListResponse;
+  posts: PostListResponse;
   assetEndpoint: string;
 }) {
   const catagory = catagories.data && catagories.data[0];
@@ -114,8 +119,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  checkAndSetEV(api.defaults);
-  const response = await api.getCatagories();
+  checkAndSetEV(defaults);
+  const response = await getCatagories();
   if (response.status === 200 && response.data.data) {
     const paths = response.data.data.map((catagory) => {
       return { params: { catagoryurl: catagory.attributes?.url } };

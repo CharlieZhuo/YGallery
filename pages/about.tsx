@@ -4,14 +4,14 @@ import { checkAndSetEV } from "../lib/strapiUtil";
 import Image from "next/image";
 import styles from "../styles/about.module.css";
 
-import * as api from "../lib/strapiLib";
+import { AboutResponse, defaults } from "../lib/strapiLib";
 
 export default function About({
   assetEndpoint,
   aboutInfo,
 }: {
   assetEndpoint: string;
-  aboutInfo: api.AboutResponse;
+  aboutInfo: AboutResponse;
 }) {
   const data = aboutInfo?.data;
   const imageElement = data?.attributes?.avatar?.data?.attributes?.url ? (
@@ -38,7 +38,7 @@ export default function About({
     );
 }
 export const getStaticProps: GetStaticProps = async (context) => {
-  checkAndSetEV(api.defaults);
+  checkAndSetEV(defaults);
 
   const response = await fetch(
     `${process.env.STRAPI_ENDPOINT!}/about?populate=*`,
