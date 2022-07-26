@@ -87,6 +87,8 @@
   margin-inline: 0;
   padding-inline: 0;
 
+  block-size: 100vh;
+
   list-style-type: none;
 }
 .mainList li {
@@ -102,7 +104,8 @@
 .mainList img {
   max-block-size: 100vh;
   max-inline-size: 100%;
-
+}
+.mainlist span {
   transition: transform 1s ease-out;
 }
 .title {

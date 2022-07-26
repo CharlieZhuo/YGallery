@@ -1,6 +1,7 @@
 import { RefObject, useEffect, useRef, useState } from "react";
 import { usePointerEvents } from "../lib/hook/usePointerEvents";
 import styles from "./gallery.module.css";
+import Image from "next/image";
 
 interface propType {
   imgs:
@@ -269,7 +270,16 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
                 key={index}
                 style={{ cursor: inDetail ? "zoom-out" : "zoom-in" }}
               >
-                <img src={img.src} alt={img.title} className={styles.img}></img>
+                <Image
+                  src={img.src}
+                  width={img.width}
+                  height={img.height}
+                  priority={index === 0}
+                  layout={"intrinsic"}
+                  quality={100}
+                  className={styles.img}
+                  objectFit={"contain"}
+                ></Image>
               </li>
             );
           })}
@@ -280,14 +290,15 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
   function playEnlargeAnimation() {
     setPos([0, 0]);
     if (liElements && imgs && target === active) {
-      const imgElement = liElements[active].querySelector("img");
+      const spanElement = liElements[active].querySelector("span");
       if (!inDetail) {
         console.log(`enlarging`);
-        if (imgElement) {
-          const rect = imgElement.getBoundingClientRect();
+        if (spanElement) {
+          const rect = spanElement.getBoundingClientRect();
           console.log(rect);
           console.log(`enlargeScale:${imgs[active].width / rect.width}`);
-          imgElement.style.transform = `scale(${
+          spanElement.style.transition = `transform 1s ease-out`;
+          spanElement.style.transform = `scale(${
             imgs[active].width / rect.width
           })`;
           setInDetail(true);
@@ -298,8 +309,8 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
           { transform: "translate(0,0)" },
           { duration: 200, fill: "forwards" }
         );
-        if (imgElement) {
-          imgElement.style.transform = `scale(1)`;
+        if (spanElement) {
+          spanElement.style.transform = `scale(1)`;
         }
         setInDetail(false);
       }
