@@ -5,17 +5,16 @@ export default function Document() {
   return (
     <Html lang="zh-Hans-CN">
       <Head>
-        <Script
+        <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-SZKP3XYDBS"
-          strategy="afterInteractive"
-        ></Script>
-        <Script id="gtag" strategy="afterInteractive">
+        ></script>
+        <script>
           {`window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-SZKP3XYDBS');`}
-        </Script>
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-SZKP3XYDBS');`}
+        </script>
       </Head>
       <body>
         <Main />
