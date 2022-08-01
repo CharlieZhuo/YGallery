@@ -133,6 +133,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         assetEndpoint: process.env.STRAPI_ENDPOINT_ASSET,
         catagories: catagories.data,
       },
+      revalidate: 600,
     };
   else {
     console.log(
