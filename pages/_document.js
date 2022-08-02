@@ -9,12 +9,16 @@ export default function Document() {
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-SZKP3XYDBS"
         ></script>
-        <script>
-          {`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-SZKP3XYDBS');`}
-        </script>
+
+        <script
+          id={"gtag"}
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag("js", new Date());
+            gtag("config", "G-SZKP3XYDBS");`,
+          }}
+        ></script>
       </Head>
       <body>
         <Main />
