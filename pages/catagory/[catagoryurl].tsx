@@ -11,6 +11,8 @@ import {
 import PostListCard from "../../components/postListCard";
 import CommonLayout from "../../components/commonLayout";
 import PhotoAlbum from "react-photo-album";
+import { useFragmentScrollPosition } from "../../lib/hook/useFragmentScrollPosition";
+import { useState, useEffect } from "react";
 
 export default function Catagory({
   catagories,
@@ -37,42 +39,63 @@ export default function Catagory({
     </div>
   );
 
+  const [columnNum, setColumnNum] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!columnNum) {
+      setColumnNum(getColoumnNumber(window.innerWidth));
+    }
+    const resizeHandler = (e: UIEvent) => {
+      const newColumnNum = getColoumnNumber(window.innerWidth);
+      if (newColumnNum !== columnNum) setColumnNum(newColumnNum);
+    };
+    window.onresize = resizeHandler;
+    return window.removeEventListener("resize", resizeHandler);
+  }, [columnNum]);
+
+  useFragmentScrollPosition(columnNum);
+
   return (
     <main>
       {catagoryElement}
       {quantityElement}
-
-      <PhotoAlbum
-        layout="masonry"
-        photos={posts.data!.map((p, index) => {
-          return {
-            height: p?.attributes?.Images?.data![0].attributes?.height!,
-            width: p?.attributes?.Images?.data![0].attributes?.width!,
-            src: `${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
-              ?.url!}`,
-            alt: p?.attributes?.Images?.data![0].attributes?.alternativeText!,
-            title: p?.attributes?.title!,
-            id: p.id!,
-            priority: index === 0,
-            key: p.id,
-            quantity: p.attributes?.Images?.data?.length ?? 1,
-            aspectRatio:
-              p?.attributes?.Images?.data![0].attributes?.width! /
-              p?.attributes?.Images?.data![0].attributes?.height!,
-          };
-        })}
-        columns={getColoumnNumber}
-        renderPhoto={(prop) => {
-          return (
-            <PostListCard
-              {...prop.photo}
-              style={{ marginBlock: `${prop.layoutOptions.spacing / 2}px` }}
-              sizeVw={100 / getColoumnNumber(prop.layoutOptions.containerWidth)}
-            ></PostListCard>
-          );
-        }}
-        spacing={15}
-      ></PhotoAlbum>
+      {columnNum ? (
+        <PhotoAlbum
+          layout="masonry"
+          photos={posts.data!.map((p, index) => {
+            return {
+              height: p?.attributes?.Images?.data![0].attributes?.height!,
+              width: p?.attributes?.Images?.data![0].attributes?.width!,
+              src: `${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
+                ?.url!}`,
+              alt: p?.attributes?.Images?.data![0].attributes?.alternativeText!,
+              title: p?.attributes?.title!,
+              id: p.id!,
+              priority: index === 0,
+              key: p.id,
+              quantity: p.attributes?.Images?.data?.length ?? 1,
+              aspectRatio:
+                p?.attributes?.Images?.data![0].attributes?.width! /
+                p?.attributes?.Images?.data![0].attributes?.height!,
+            };
+          })}
+          columns={columnNum}
+          renderPhoto={(prop) => {
+            return (
+              <PostListCard
+                {...prop.photo}
+                style={{ marginBlock: `${prop.layoutOptions.spacing / 2}px` }}
+                sizeVw={
+                  100 / getColoumnNumber(prop.layoutOptions.containerWidth)
+                }
+              ></PostListCard>
+            );
+          }}
+          spacing={15}
+        ></PhotoAlbum>
+      ) : (
+        <></>
+      )}
     </main>
   );
 }

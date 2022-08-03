@@ -13,6 +13,8 @@ import {
 import { checkAndSetEV } from "../lib/strapiUtil";
 import { PhotoAlbum } from "react-photo-album";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useFragmentScrollPosition } from "../lib/hook/useFragmentScrollPosition";
 
 const Home = ({
   postList,
@@ -24,6 +26,7 @@ const Home = ({
   catagories: CatagoryListResponse;
 }) => {
   const [columnNum, setColumnNum] = useState<number | null>(null);
+
   useEffect(() => {
     if (!columnNum) {
       setColumnNum(getColoumnNumber(window.innerWidth));
@@ -35,6 +38,8 @@ const Home = ({
     window.onresize = resizeHandler;
     return window.removeEventListener("resize", resizeHandler);
   }, [columnNum]);
+
+  useFragmentScrollPosition(columnNum);
 
   if (postList) {
     const catagoriesItems = (
