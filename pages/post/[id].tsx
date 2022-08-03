@@ -44,13 +44,13 @@ export default function Post({
     return (
       <>
         <Head>
-          <title>{post.data?.attributes?.title}</title>
+          <title>{`${post.data?.attributes?.title}-悠悠画廊`}</title>
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
         </Head>
-        <Gallery {...galleryProp}></Gallery>
+        <Gallery key={post.data?.id} {...galleryProp}></Gallery>
       </>
     );
 }
