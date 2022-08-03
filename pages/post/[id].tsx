@@ -9,11 +9,17 @@ import parseISO from "date-fns/parseISO";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 
+export type neightbourPostType = { title: string; id: string };
+
 export default function Post({
   post,
+  nextPost,
+  previousPost,
   assetEndpoint,
 }: {
   post: PostResponse;
+  nextPost: neightbourPostType | null;
+  previousPost: neightbourPostType | null;
   assetEndpoint: string;
 }) {
   const imgs = post.data?.attributes?.Images?.data?.map((img, index) => {
@@ -30,6 +36,8 @@ export default function Post({
     imgs,
     seriesName: post.data?.attributes?.title,
     publishDate: post.data?.attributes?.publishedAt,
+    nextPost,
+    previousPost,
   };
   const images = post.data?.attributes?.Images?.data;
   if (images)
@@ -56,8 +64,33 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
     );
 
-    if (response.status === 200) {
+    checkAndSetEV(defaults);
+    const allPosts = await getPosts({ sort: `publishedAt:desc` });
+
+    if (
+      response.status === 200 &&
+      allPosts.status === 200 &&
+      allPosts.data.data
+    ) {
       const post = (await response.json()) as PostResponse;
+
+      const index = allPosts.data.data.findIndex((p) => {
+        return p.id === post.data?.id;
+      });
+      // console.debug(allPosts.data.data);
+      let nextPost: neightbourPostType | null = null;
+      let previousPost: neightbourPostType | null = null;
+      if (index > 0) {
+        const title = allPosts.data.data.at(index - 1)?.attributes?.title;
+        const id = allPosts.data.data.at(index - 1)?.id;
+        if (title && id) previousPost = { title, id };
+      }
+      if (index < allPosts.data.data.length - 1) {
+        const title = allPosts.data.data.at(index + 1)?.attributes?.title;
+        const id = allPosts.data.data.at(index + 1)?.id;
+        if (title && id) nextPost = { title, id };
+      }
+
       if (post.data?.attributes?.publishedAt) {
         const date = parseISO(post.data?.attributes?.publishedAt);
         const formatedDate = format(date, "PPP", { locale: zhCN });
@@ -67,6 +100,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       return {
         props: {
           post,
+          previousPost,
+          nextPost,
           assetEndpoint: process.env.STRAPI_ENDPOINT_ASSET,
         },
         revalidate: 600,

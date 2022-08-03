@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { usePointerEvents } from "../lib/hook/usePointerEvents";
+import { neightbourPostType } from "../pages/post/[id]";
 import styles from "./gallery.module.css";
 import GalleryItem from "./galleryItem";
 
@@ -9,6 +11,8 @@ interface propType {
   publishDate?: string;
   keyFrameEffects?: any;
   imperativeHandle?: RefObject<any>;
+  nextPost: neightbourPostType | null;
+  previousPost: neightbourPostType | null;
 }
 export interface imgType {
   src: string;
@@ -81,7 +85,13 @@ const enlargeDuration = 400;
 
 const swipeThreshold = 50;
 
-export default function Gallery({ imgs, seriesName, publishDate }: propType) {
+export default function Gallery({
+  imgs,
+  seriesName,
+  publishDate,
+  nextPost,
+  previousPost,
+}: propType) {
   //Index of image being viewed.
   const [activeIndex, setActive] = useState<number>(0);
   //Index of image to be viewed.
@@ -283,8 +293,35 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
         )}
 
         <footer className={styles.footer}>
-          <h1 className={styles.seriesName}>{seriesName}</h1>
-          <p>发布于 {publishDate}</p>
+          <div className={styles.nextLink + " " + styles.link}>
+            {nextPost ? (
+              <Link href={`./${nextPost.id}`}>
+                <a>
+                  <p className={styles.linkTitle}>{nextPost.title}</p>
+                  <p>下一组图</p>
+                </a>
+              </Link>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className={styles.currentSeriesInfo}>
+            <h1 className={styles.seriesName}>{seriesName}</h1>
+            <p>发布于 {publishDate}</p>
+          </div>
+
+          <div className={styles.previousLink + " " + styles.link}>
+            {previousPost ? (
+              <Link href={`./${previousPost.id}`}>
+                <a>
+                  <p className={styles.linkTitle}>{previousPost.title}</p>
+                  <p>上一组图</p>
+                </a>
+              </Link>
+            ) : (
+              <></>
+            )}
+          </div>
         </footer>
       </div>
 
