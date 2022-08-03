@@ -1,21 +1,20 @@
 import { RefObject, useEffect, useRef, useState } from "react";
 import { usePointerEvents } from "../lib/hook/usePointerEvents";
 import styles from "./gallery.module.css";
-import Image from "next/image";
+import GalleryItem from "./galleryItem";
 
 interface propType {
-  imgs:
-    | {
-        src: string;
-        height: number;
-        width: number;
-        title: string;
-      }[]
-    | undefined;
+  imgs: imgType[] | undefined;
   seriesName?: string;
   publishDate?: string;
   keyFrameEffects?: any;
   imperativeHandle?: RefObject<any>;
+}
+interface imgType {
+  src: string;
+  height: number;
+  width: number;
+  title: string;
 }
 
 export type imperativeHandleType = {
@@ -59,7 +58,7 @@ const kfe = {
     {
       offset: 1,
       opacity: 0,
-      transform: `translate(0,0px) scale(0.2,0.2)`,
+      transform: `translate(-100vw,0px) scale(0.2,0.2)`,
     },
   ],
   leaveRight: [
@@ -71,15 +70,19 @@ const kfe = {
     {
       offset: 1,
       opacity: 0,
-      transform: `translate(0,0px) scale(0.2,0.2)`,
+      transform: `translate(100vw,0px) scale(0.2,0.2)`,
     },
   ],
 };
 
-const duration = 1000;
+const duration = 600;
+
+const enlargeDuration = 400;
 export default function Gallery({ imgs, seriesName, publishDate }: propType) {
-  const [active, setActive] = useState<number>(0);
-  const [target, setTarget] = useState<number>(0);
+  //Index of image being viewed.
+  const [activeIndex, setActive] = useState<number>(0);
+  //Index of image to be viewed.
+  const [targetIndex, setTarget] = useState<number>(0);
 
   const listRef = useRef<HTMLUListElement>(null);
   const overlayUIRef = useRef<HTMLDivElement>(null);
@@ -88,16 +91,16 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
 
   useEffect(() => {
     if (imgs && liElements) {
-      if (active !== target) {
+      if (activeIndex !== targetIndex) {
         //play enter and leave animation on new active Index
-        playAnimation(liElements, target, active, (t) => {
-          setActive(target);
+        playAnimation(liElements, targetIndex, activeIndex, (t) => {
+          setActive(targetIndex);
         });
       }
       //hide irrelevent imgs
       liElements
         .filter((e, index) => {
-          return index !== active && index !== target;
+          return index !== activeIndex && index !== targetIndex;
         })
         .forEach((ele) => {
           ele.animate([{ transform: `translate(-110vw,0px)`, offset: 1 }], {
@@ -105,18 +108,19 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
           });
         });
     }
-  }, [liElements, active, target, imgs]);
+  }, [liElements, activeIndex, targetIndex, imgs]);
 
   const [inDetail, setInDetail] = useState(false);
 
   const [Pos, setPos] = useState([0, 0]);
   const [initialPos, setInitialPos] = useState([0, 0]);
-  usePointerEvents(liElements?.at(active), {
+
+  usePointerEvents(liElements?.at(activeIndex), {
     onDown(e) {
       setInitialPos([e.clientX, e.clientY]);
     },
     onMove(e) {
-      const liEle = liElements?.at(active);
+      const liEle = liElements?.at(activeIndex);
       if (liEle && inDetail) {
         setPos([Pos[0] + e.movementX, Pos[1] + e.movementY]);
         const translate = `translate(${Pos[0]}px,${Pos[1]}px)`;
@@ -135,44 +139,51 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
     onCancel(e) {},
   });
 
-  useEffect(() => {
-    const handler = (ev: { code: any }) => {
-      // console.log(ev.code);
-      // console.log(`active:${active},inDetail:${inDetail}`);
-      switch (ev.code) {
-        case `ArrowRight`: {
-          if (
-            imgs &&
-            active < imgs.length - 1 &&
-            active === target &&
-            !inDetail
-          ) {
-            setTarget(active + 1);
+  function useKeyboard() {
+    useEffect(() => {
+      const handler = (ev: { code: any }) => {
+        console.debug(`keycode:${ev.code}`);
+        switch (ev.code) {
+          case `ArrowRight`: {
+            if (
+              imgs &&
+              activeIndex < imgs.length - 1 &&
+              activeIndex === targetIndex &&
+              !inDetail
+            ) {
+              setTarget(activeIndex + 1);
+            }
+            break;
           }
-          break;
-        }
 
-        case `ArrowLeft`: {
-          if (imgs && active > 0 && active === target && !inDetail) {
-            console.log("left");
-            setTarget(active - 1);
+          case `ArrowLeft`: {
+            if (
+              imgs &&
+              activeIndex > 0 &&
+              activeIndex === targetIndex &&
+              !inDetail
+            ) {
+              setTarget(activeIndex - 1);
+            }
+            break;
           }
-          break;
-        }
-        case `Escape`: {
-          if (inDetail) {
-            playEnlargeAnimation();
+          case `Escape`: {
+            if (inDetail) {
+              playEnlargeAnimation();
+            }
           }
+          default:
+            break;
         }
-        default:
-          break;
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => {
-      window.removeEventListener("keydown", handler);
-    };
-  }, [active, target, inDetail, imgs]);
+      };
+      window.addEventListener("keydown", handler);
+      return () => {
+        window.removeEventListener("keydown", handler);
+      };
+    }, [activeIndex, targetIndex, inDetail, imgs]);
+  }
+
+  useKeyboard();
 
   return (
     <>
@@ -183,7 +194,7 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
       >
         <header className={styles.header}>
           <p>
-            {active + 1} / {imgs?.length}
+            {activeIndex + 1} / {imgs?.length}
           </p>
           <div></div>
           <div className={styles.headerButtons}>
@@ -220,8 +231,8 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
             <button
               className={styles.slideButton + " " + styles.next}
               onClick={(e) => {
-                if (imgs && active < imgs.length - 1 && !inDetail)
-                  setTarget(active + 1);
+                if (imgs && activeIndex < imgs.length - 1 && !inDetail)
+                  setTarget(activeIndex + 1);
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -231,7 +242,8 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
             <button
               className={styles.slideButton + " " + styles.prior}
               onClick={(e) => {
-                if (imgs && active > 0 && !inDetail) setTarget(active - 1);
+                if (imgs && activeIndex > 0 && !inDetail)
+                  setTarget(activeIndex - 1);
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -253,28 +265,12 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
         <ul className={styles.mainList} ref={listRef}>
           {imgs?.map((img, index) => {
             return (
-              <li
-                key={index}
-                style={{ cursor: inDetail ? "zoom-out" : "zoom-in" }}
-              >
-                <div
-                  className={styles.loadingEffect}
-                  style={{
-                    aspectRatio: `${img.width / img.height}`,
-                    blockSize: `100%`,
-                  }}
-                ></div>
-                <Image
-                  src={img.src}
-                  width={img.width}
-                  height={img.height}
-                  priority={index === 0}
-                  layout={"intrinsic"}
-                  quality={100}
-                  className={styles.img}
-                  objectFit={"contain"}
-                ></Image>
-              </li>
+              <GalleryItem
+                key={JSON.stringify(img)}
+                img={img}
+                inDetail={inDetail}
+                priority={index === 0}
+              ></GalleryItem>
             );
           })}
         </ul>
@@ -283,28 +279,40 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
   );
   function playEnlargeAnimation() {
     setPos([0, 0]);
-    if (liElements && imgs && target === active) {
-      const spanElement = liElements[active].querySelector("span");
+    if (liElements && imgs && targetIndex === activeIndex) {
+      const spanElement = liElements[activeIndex].querySelector("span");
       if (!inDetail) {
-        console.log(`enlarging`);
+        console.debug(`enlarging`);
         if (spanElement) {
           const rect = spanElement.getBoundingClientRect();
-          console.log(rect);
-          console.log(`enlargeScale:${imgs[active].width / rect.width}`);
-          spanElement.style.transition = `transform 1s ease-out`;
-          spanElement.style.transform = `scale(${
-            imgs[active].width / rect.width
-          })`;
+          console.debug(`bounding element rect:${rect}`);
+          console.debug(`enlargeScale:${imgs[activeIndex].width / rect.width}`);
+          spanElement.animate(
+            [
+              {
+                transform: `scale(${imgs[activeIndex].width / rect.width}`,
+              },
+            ],
+            { duration: enlargeDuration, fill: "forwards" }
+          );
           setInDetail(true);
         }
       } else {
-        console.log("shrinking");
-        liElements[active].animate(
-          { transform: "translate(0,0)" },
-          { duration: 200, fill: "forwards" }
-        );
+        console.debug("shrinking");
+        liElements[activeIndex].animate([{ transform: "translate(0,0)" }], {
+          duration: enlargeDuration,
+          fill: "forwards",
+          easing: "ease-out",
+        });
         if (spanElement) {
-          spanElement.style.transform = `scale(1)`;
+          spanElement.animate(
+            [
+              {
+                transform: `scale(1)`,
+              },
+            ],
+            { duration: 200, easing: "ease-out", fill: "forwards" }
+          );
         }
         setInDetail(false);
       }
