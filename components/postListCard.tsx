@@ -2,6 +2,7 @@ import styles from "./postListCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 type PostListCardPropType = {
   id: string;
   src: string;
@@ -24,6 +25,8 @@ export default function PostListCard({
   style,
   sizeVw,
 }: PostListCardPropType) {
+  const router = useRouter();
+
   const [animationPlayed, setAnimationPlayed] = useState(priority);
 
   const containerRef = useRef<HTMLAnchorElement>(null);
@@ -79,9 +82,20 @@ export default function PostListCard({
   return (
     <Link href={`/post/${id}`} passHref>
       <a
+        id={`card${id}`}
         ref={containerRef}
         className={styles.container}
         style={{ aspectRatio: `${aspectRatio}`, ...style }}
+        onClick={(e) => {
+          let currentRoute = router.asPath;
+          if (currentRoute.includes("#"))
+            currentRoute = currentRoute.substring(0, currentRoute.indexOf("#"));
+          console.log(currentRoute);
+          window.sessionStorage.setItem(
+            "enterRoute",
+            `${currentRoute}#card${id}`
+          );
+        }}
       >
         <Image
           src={src}

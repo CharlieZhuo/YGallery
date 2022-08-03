@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { usePointerEvents } from "../lib/hook/usePointerEvents";
 import { neightbourPostType } from "../pages/post/[id]";
@@ -101,6 +102,8 @@ export default function Gallery({
   const overlayUIRef = useRef<HTMLDivElement>(null);
 
   const liElements = useLiElements(listRef);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (imgs && liElements) {
@@ -240,7 +243,10 @@ export default function Gallery({
             </button>
             <button
               onClick={(e) => {
-                window.history.back();
+                const enterRoute = window.sessionStorage.getItem("enterRoute");
+                if (enterRoute) {
+                  router.push(enterRoute, undefined, { scroll: false });
+                } else router.push("/");
               }}
             >
               <svg
