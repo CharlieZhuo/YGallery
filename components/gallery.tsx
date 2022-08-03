@@ -10,7 +10,7 @@ interface propType {
   keyFrameEffects?: any;
   imperativeHandle?: RefObject<any>;
 }
-interface imgType {
+export interface imgType {
   src: string;
   height: number;
   width: number;
@@ -293,7 +293,7 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
                 transform: `scale(${imgs[activeIndex].width / rect.width}`,
               },
             ],
-            { duration: enlargeDuration, fill: "forwards" }
+            { duration: enlargeDuration, fill: "forwards", easing: "ease-out" }
           );
           setInDetail(true);
         }
