@@ -78,6 +78,9 @@ const kfe = {
 const duration = 600;
 
 const enlargeDuration = 400;
+
+const swipeThreshold = 50;
+
 export default function Gallery({ imgs, seriesName, publishDate }: propType) {
   //Index of image being viewed.
   const [activeIndex, setActive] = useState<number>(0);
@@ -134,6 +137,21 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
     onUp(e) {
       if (e.clientX === initialPos[0] && e.clientY === initialPos[1]) {
         playEnlargeAnimation();
+      } else if (Math.abs(e.clientX - initialPos[0]) > swipeThreshold) {
+        if (
+          e.clientX < initialPos[0] &&
+          imgs &&
+          activeIndex < imgs.length - 1 &&
+          !inDetail
+        ) {
+          setTarget(activeIndex + 1);
+        } else if (
+          e.clientX > initialPos[0] &&
+          imgs &&
+          activeIndex > 0 &&
+          !inDetail
+        )
+          setTarget(activeIndex - 1);
       }
     },
     onCancel(e) {},
@@ -228,28 +246,37 @@ export default function Gallery({ imgs, seriesName, publishDate }: propType) {
         </header>
         {imgs && imgs.length > 1 ? (
           <>
-            <button
-              className={styles.slideButton + " " + styles.next}
-              onClick={(e) => {
-                if (imgs && activeIndex < imgs.length - 1 && !inDetail)
-                  setTarget(activeIndex + 1);
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </button>
-            <button
-              className={styles.slideButton + " " + styles.prior}
-              onClick={(e) => {
-                if (imgs && activeIndex > 0 && !inDetail)
-                  setTarget(activeIndex - 1);
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </button>
+            {activeIndex < imgs.length - 1 ? (
+              <button
+                className={styles.slideButton + " " + styles.next}
+                onClick={(e) => {
+                  if (imgs && activeIndex < imgs.length - 1 && !inDetail)
+                    setTarget(activeIndex + 1);
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            ) : (
+              <></>
+            )}
+
+            {activeIndex > 0 ? (
+              <button
+                className={styles.slideButton + " " + styles.prior}
+                onClick={(e) => {
+                  if (imgs && activeIndex > 0 && !inDetail)
+                    setTarget(activeIndex - 1);
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+            ) : (
+              <></>
+            )}
           </>
         ) : (
           <></>
