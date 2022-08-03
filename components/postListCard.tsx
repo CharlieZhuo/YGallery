@@ -24,7 +24,6 @@ export default function PostListCard({
   style,
   sizeVw,
 }: PostListCardPropType) {
-  const [loaded, setLoaded] = useState(priority);
   const [animationPlayed, setAnimationPlayed] = useState(priority);
 
   const containerRef = useRef<HTMLAnchorElement>(null);
@@ -37,7 +36,7 @@ export default function PostListCard({
         [
           {
             transform: `translate(0,2rem)`,
-            opacity: `0.7`,
+            opacity: `0.85`,
             offset: 0,
           },
           {
@@ -67,7 +66,7 @@ export default function PostListCard({
           }
         },
         {
-          threshold: 0.5,
+          threshold: 0.3,
         }
       );
       intersectionObserver.observe(element);

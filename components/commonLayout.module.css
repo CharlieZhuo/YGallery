@@ -64,7 +64,7 @@
     sans-serif;
 }
 .main {
-  max-inline-size: 1024px;
+  max-inline-size: 1600px;
   margin-inline: auto;
   /* margin-block-start: 10rem; */
   background-color: hsla(50, 33%, 100%, 1);
