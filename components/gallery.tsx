@@ -84,7 +84,7 @@ const duration = 600;
 
 const enlargeDuration = 400;
 
-const swipeThreshold = 50;
+const swipeThreshold = 30;
 
 export default function Gallery({
   imgs,
@@ -128,43 +128,58 @@ export default function Gallery({
 
   const [inDetail, setInDetail] = useState(false);
 
-  const [Pos, setPos] = useState([0, 0]);
-  const [initialPos, setInitialPos] = useState([0, 0]);
+  const [initialPos, setInitialPos] = useState<[number, number]>([0, 0]);
+  const [cumulativeTranslate, setCumulativeTranslate] = useState<
+    [number, number]
+  >([0, 0]);
 
   usePointerEvents(liElements?.at(activeIndex), {
     onDown(e) {
       setInitialPos([e.clientX, e.clientY]);
+      console.debug(`initialPos:${initialPos}`);
     },
     onMove(e) {
       const liEle = liElements?.at(activeIndex);
       if (liEle && inDetail) {
-        setPos([Pos[0] + e.movementX, Pos[1] + e.movementY]);
-        const translate = `translate(${Pos[0]}px,${Pos[1]}px)`;
-        // liEle.style.transform = `${translate}`;
-        liEle.animate([{ transform: translate, offset: 1 }], {
-          duration: 20,
+        const translate = `translate(${
+          cumulativeTranslate[0] + e.clientX - (initialPos?.at(0) ?? 0)
+        }px,${
+          cumulativeTranslate[1] + e.clientY - (initialPos?.at(1) ?? 0)
+        }px)`;
+        console.debug(translate);
+        const ani = liEle.animate([{ transform: translate, offset: 1 }], {
+          duration: 50,
           fill: "forwards",
         });
+        ani.play();
       }
     },
     onUp(e) {
-      if (e.clientX === initialPos[0] && e.clientY === initialPos[1]) {
-        playEnlargeAnimation();
-      } else if (Math.abs(e.clientX - initialPos[0]) > swipeThreshold) {
-        if (
-          e.clientX < initialPos[0] &&
-          imgs &&
-          activeIndex < imgs.length - 1 &&
-          !inDetail
+      if (initialPos) {
+        //click,toggle detail view
+        if (e.clientX === initialPos[0] && e.clientY === initialPos[1]) {
+          setCumulativeTranslate([0, 0]);
+          playEnlargeAnimation();
+        }
+        //swipe page change
+        else if (
+          Math.abs(e.clientX - initialPos[0]) > swipeThreshold &&
+          !inDetail &&
+          imgs
         ) {
-          setTarget(activeIndex + 1);
-        } else if (
-          e.clientX > initialPos[0] &&
-          imgs &&
-          activeIndex > 0 &&
-          !inDetail
-        )
-          setTarget(activeIndex - 1);
+          setCumulativeTranslate([0, 0]);
+          if (e.clientX < initialPos[0] && activeIndex < imgs.length - 1) {
+            setTarget(activeIndex + 1);
+          } else if (e.clientX > initialPos[0] && activeIndex > 0)
+            setTarget(activeIndex - 1);
+        }
+        //set new cumulative position
+        else if (inDetail) {
+          setCumulativeTranslate([
+            e.clientX - initialPos[0] + cumulativeTranslate[0],
+            e.clientY - initialPos[1] + cumulativeTranslate[1],
+          ]);
+        }
       }
     },
     onCancel(e) {},
@@ -348,7 +363,6 @@ export default function Gallery({
     </>
   );
   function playEnlargeAnimation() {
-    setPos([0, 0]);
     if (liElements && imgs && targetIndex === activeIndex) {
       const spanElement = liElements[activeIndex].querySelector("span");
       if (!inDetail) {
@@ -442,4 +456,11 @@ function playAnimation(
     console.log("playback Finished");
     onAnimationComplete(target);
   });
+}
+
+function hasNextImage(): boolean {
+  return false;
+}
+function hasPreviousImage(): boolean {
+  return false;
 }
