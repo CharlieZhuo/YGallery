@@ -44,46 +44,131 @@ export type AboutListResponse = {
                                 attributes?: {};
                             }[];
                         };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
+                        folder?: {
                             data?: {
                                 id?: string;
                                 attributes?: {
-                                    firstname?: string;
-                                    lastname?: string;
-                                    username?: string;
-                                    email?: string;
-                                    resetPasswordToken?: string;
-                                    registrationToken?: string;
-                                    isActive?: boolean;
-                                    roles?: {
+                                    name?: string;
+                                    pathId?: number;
+                                    parent?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    children?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    files?: {
                                         data?: {
                                             id?: string;
                                             attributes?: {
                                                 name?: string;
-                                                code?: string;
-                                                description?: string;
-                                                users?: {
+                                                alternativeText?: string;
+                                                caption?: string;
+                                                width?: number;
+                                                height?: number;
+                                                formats?: any;
+                                                hash?: string;
+                                                ext?: string;
+                                                mime?: string;
+                                                size?: number;
+                                                url?: string;
+                                                previewUrl?: string;
+                                                provider?: string;
+                                                provider_metadata?: any;
+                                                related?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {};
                                                     }[];
                                                 };
-                                                permissions?: {
+                                                folder?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                folderPath?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {
-                                                            action?: string;
-                                                            subject?: string;
-                                                            properties?: any;
-                                                            conditions?: any;
-                                                            role?: {
+                                                            firstname?: string;
+                                                            lastname?: string;
+                                                            username?: string;
+                                                            email?: string;
+                                                            resetPasswordToken?: string;
+                                                            registrationToken?: string;
+                                                            isActive?: boolean;
+                                                            roles?: {
                                                                 data?: {
                                                                     id?: string;
-                                                                    attributes?: {};
-                                                                };
+                                                                    attributes?: {
+                                                                        name?: string;
+                                                                        code?: string;
+                                                                        description?: string;
+                                                                        users?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            }[];
+                                                                        };
+                                                                        permissions?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {
+                                                                                    action?: string;
+                                                                                    subject?: string;
+                                                                                    properties?: any;
+                                                                                    conditions?: any;
+                                                                                    role?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    createdAt?: string;
+                                                                                    updatedAt?: string;
+                                                                                    createdBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    updatedBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                };
+                                                                            }[];
+                                                                        };
+                                                                        createdAt?: string;
+                                                                        updatedAt?: string;
+                                                                        createdBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                        updatedBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                    };
+                                                                }[];
                                                             };
+                                                            blocked?: boolean;
+                                                            preferedLanguage?: string;
                                                             createdAt?: string;
                                                             updatedAt?: string;
                                                             createdBy?: {
@@ -99,14 +184,6 @@ export type AboutListResponse = {
                                                                 };
                                                             };
                                                         };
-                                                    }[];
-                                                };
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
                                                     };
                                                 };
                                                 updatedBy?: {
@@ -118,8 +195,7 @@ export type AboutListResponse = {
                                             };
                                         }[];
                                     };
-                                    blocked?: boolean;
-                                    preferedLanguage?: string;
+                                    path?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
                                     createdBy?: {
@@ -135,6 +211,15 @@ export type AboutListResponse = {
                                         };
                                     };
                                 };
+                            };
+                        };
+                        folderPath?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
                             };
                         };
                         updatedBy?: {
@@ -303,46 +388,131 @@ export type AboutResponse = {
                                 attributes?: {};
                             }[];
                         };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
+                        folder?: {
                             data?: {
                                 id?: string;
                                 attributes?: {
-                                    firstname?: string;
-                                    lastname?: string;
-                                    username?: string;
-                                    email?: string;
-                                    resetPasswordToken?: string;
-                                    registrationToken?: string;
-                                    isActive?: boolean;
-                                    roles?: {
+                                    name?: string;
+                                    pathId?: number;
+                                    parent?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    children?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    files?: {
                                         data?: {
                                             id?: string;
                                             attributes?: {
                                                 name?: string;
-                                                code?: string;
-                                                description?: string;
-                                                users?: {
+                                                alternativeText?: string;
+                                                caption?: string;
+                                                width?: number;
+                                                height?: number;
+                                                formats?: any;
+                                                hash?: string;
+                                                ext?: string;
+                                                mime?: string;
+                                                size?: number;
+                                                url?: string;
+                                                previewUrl?: string;
+                                                provider?: string;
+                                                provider_metadata?: any;
+                                                related?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {};
                                                     }[];
                                                 };
-                                                permissions?: {
+                                                folder?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                folderPath?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {
-                                                            action?: string;
-                                                            subject?: string;
-                                                            properties?: any;
-                                                            conditions?: any;
-                                                            role?: {
+                                                            firstname?: string;
+                                                            lastname?: string;
+                                                            username?: string;
+                                                            email?: string;
+                                                            resetPasswordToken?: string;
+                                                            registrationToken?: string;
+                                                            isActive?: boolean;
+                                                            roles?: {
                                                                 data?: {
                                                                     id?: string;
-                                                                    attributes?: {};
-                                                                };
+                                                                    attributes?: {
+                                                                        name?: string;
+                                                                        code?: string;
+                                                                        description?: string;
+                                                                        users?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            }[];
+                                                                        };
+                                                                        permissions?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {
+                                                                                    action?: string;
+                                                                                    subject?: string;
+                                                                                    properties?: any;
+                                                                                    conditions?: any;
+                                                                                    role?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    createdAt?: string;
+                                                                                    updatedAt?: string;
+                                                                                    createdBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    updatedBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                };
+                                                                            }[];
+                                                                        };
+                                                                        createdAt?: string;
+                                                                        updatedAt?: string;
+                                                                        createdBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                        updatedBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                    };
+                                                                }[];
                                                             };
+                                                            blocked?: boolean;
+                                                            preferedLanguage?: string;
                                                             createdAt?: string;
                                                             updatedAt?: string;
                                                             createdBy?: {
@@ -358,14 +528,6 @@ export type AboutResponse = {
                                                                 };
                                                             };
                                                         };
-                                                    }[];
-                                                };
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
                                                     };
                                                 };
                                                 updatedBy?: {
@@ -377,8 +539,7 @@ export type AboutResponse = {
                                             };
                                         }[];
                                     };
-                                    blocked?: boolean;
-                                    preferedLanguage?: string;
+                                    path?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
                                     createdBy?: {
@@ -394,6 +555,15 @@ export type AboutResponse = {
                                         };
                                     };
                                 };
+                            };
+                        };
+                        folderPath?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
                             };
                         };
                         updatedBy?: {
@@ -985,6 +1155,242 @@ export type FeedbackResponse = {
     };
     meta?: object;
 };
+export type PortfolioMessageListResponse = {
+    data?: {
+        id?: string;
+        attributes?: {
+            name?: string;
+            email?: string;
+            message?: string;
+            createdAt?: string;
+            updatedAt?: string;
+            publishedAt?: string;
+            createdBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {
+                        firstname?: string;
+                        lastname?: string;
+                        username?: string;
+                        email?: string;
+                        resetPasswordToken?: string;
+                        registrationToken?: string;
+                        isActive?: boolean;
+                        roles?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {
+                                    name?: string;
+                                    code?: string;
+                                    description?: string;
+                                    users?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    permissions?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {
+                                                action?: string;
+                                                subject?: string;
+                                                properties?: any;
+                                                conditions?: any;
+                                                role?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                updatedBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                            };
+                                        }[];
+                                    };
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    createdBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    updatedBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                };
+                            }[];
+                        };
+                        blocked?: boolean;
+                        preferedLanguage?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                        updatedBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                    };
+                };
+            };
+            updatedBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {};
+                };
+            };
+        };
+    }[];
+    meta?: {
+        pagination?: {
+            page?: number;
+            pageSize?: number;
+            pageCount?: number;
+            total?: number;
+        };
+    };
+};
+export type PortfolioMessageRequest = {
+    data: {
+        name: string;
+        email: string;
+        message: string;
+    };
+};
+export type PortfolioMessageResponse = {
+    data?: {
+        id?: string;
+        attributes?: {
+            name?: string;
+            email?: string;
+            message?: string;
+            createdAt?: string;
+            updatedAt?: string;
+            publishedAt?: string;
+            createdBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {
+                        firstname?: string;
+                        lastname?: string;
+                        username?: string;
+                        email?: string;
+                        resetPasswordToken?: string;
+                        registrationToken?: string;
+                        isActive?: boolean;
+                        roles?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {
+                                    name?: string;
+                                    code?: string;
+                                    description?: string;
+                                    users?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    permissions?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {
+                                                action?: string;
+                                                subject?: string;
+                                                properties?: any;
+                                                conditions?: any;
+                                                role?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                updatedBy?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                            };
+                                        }[];
+                                    };
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    createdBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    updatedBy?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                };
+                            }[];
+                        };
+                        blocked?: boolean;
+                        preferedLanguage?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                        updatedBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                    };
+                };
+            };
+            updatedBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {};
+                };
+            };
+        };
+    };
+    meta?: object;
+};
 export type PostListResponse = {
     data?: {
         id?: string;
@@ -1013,46 +1419,131 @@ export type PostListResponse = {
                                 attributes?: {};
                             }[];
                         };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
+                        folder?: {
                             data?: {
                                 id?: string;
                                 attributes?: {
-                                    firstname?: string;
-                                    lastname?: string;
-                                    username?: string;
-                                    email?: string;
-                                    resetPasswordToken?: string;
-                                    registrationToken?: string;
-                                    isActive?: boolean;
-                                    roles?: {
+                                    name?: string;
+                                    pathId?: number;
+                                    parent?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    children?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    files?: {
                                         data?: {
                                             id?: string;
                                             attributes?: {
                                                 name?: string;
-                                                code?: string;
-                                                description?: string;
-                                                users?: {
+                                                alternativeText?: string;
+                                                caption?: string;
+                                                width?: number;
+                                                height?: number;
+                                                formats?: any;
+                                                hash?: string;
+                                                ext?: string;
+                                                mime?: string;
+                                                size?: number;
+                                                url?: string;
+                                                previewUrl?: string;
+                                                provider?: string;
+                                                provider_metadata?: any;
+                                                related?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {};
                                                     }[];
                                                 };
-                                                permissions?: {
+                                                folder?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                folderPath?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {
-                                                            action?: string;
-                                                            subject?: string;
-                                                            properties?: any;
-                                                            conditions?: any;
-                                                            role?: {
+                                                            firstname?: string;
+                                                            lastname?: string;
+                                                            username?: string;
+                                                            email?: string;
+                                                            resetPasswordToken?: string;
+                                                            registrationToken?: string;
+                                                            isActive?: boolean;
+                                                            roles?: {
                                                                 data?: {
                                                                     id?: string;
-                                                                    attributes?: {};
-                                                                };
+                                                                    attributes?: {
+                                                                        name?: string;
+                                                                        code?: string;
+                                                                        description?: string;
+                                                                        users?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            }[];
+                                                                        };
+                                                                        permissions?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {
+                                                                                    action?: string;
+                                                                                    subject?: string;
+                                                                                    properties?: any;
+                                                                                    conditions?: any;
+                                                                                    role?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    createdAt?: string;
+                                                                                    updatedAt?: string;
+                                                                                    createdBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    updatedBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                };
+                                                                            }[];
+                                                                        };
+                                                                        createdAt?: string;
+                                                                        updatedAt?: string;
+                                                                        createdBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                        updatedBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                    };
+                                                                }[];
                                                             };
+                                                            blocked?: boolean;
+                                                            preferedLanguage?: string;
                                                             createdAt?: string;
                                                             updatedAt?: string;
                                                             createdBy?: {
@@ -1068,14 +1559,6 @@ export type PostListResponse = {
                                                                 };
                                                             };
                                                         };
-                                                    }[];
-                                                };
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
                                                     };
                                                 };
                                                 updatedBy?: {
@@ -1087,8 +1570,7 @@ export type PostListResponse = {
                                             };
                                         }[];
                                     };
-                                    blocked?: boolean;
-                                    preferedLanguage?: string;
+                                    path?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
                                     createdBy?: {
@@ -1104,6 +1586,15 @@ export type PostListResponse = {
                                         };
                                     };
                                 };
+                            };
+                        };
+                        folderPath?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
                             };
                         };
                         updatedBy?: {
@@ -1289,46 +1780,131 @@ export type PostResponse = {
                                 attributes?: {};
                             }[];
                         };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
+                        folder?: {
                             data?: {
                                 id?: string;
                                 attributes?: {
-                                    firstname?: string;
-                                    lastname?: string;
-                                    username?: string;
-                                    email?: string;
-                                    resetPasswordToken?: string;
-                                    registrationToken?: string;
-                                    isActive?: boolean;
-                                    roles?: {
+                                    name?: string;
+                                    pathId?: number;
+                                    parent?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    children?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    files?: {
                                         data?: {
                                             id?: string;
                                             attributes?: {
                                                 name?: string;
-                                                code?: string;
-                                                description?: string;
-                                                users?: {
+                                                alternativeText?: string;
+                                                caption?: string;
+                                                width?: number;
+                                                height?: number;
+                                                formats?: any;
+                                                hash?: string;
+                                                ext?: string;
+                                                mime?: string;
+                                                size?: number;
+                                                url?: string;
+                                                previewUrl?: string;
+                                                provider?: string;
+                                                provider_metadata?: any;
+                                                related?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {};
                                                     }[];
                                                 };
-                                                permissions?: {
+                                                folder?: {
+                                                    data?: {
+                                                        id?: string;
+                                                        attributes?: {};
+                                                    };
+                                                };
+                                                folderPath?: string;
+                                                createdAt?: string;
+                                                updatedAt?: string;
+                                                createdBy?: {
                                                     data?: {
                                                         id?: string;
                                                         attributes?: {
-                                                            action?: string;
-                                                            subject?: string;
-                                                            properties?: any;
-                                                            conditions?: any;
-                                                            role?: {
+                                                            firstname?: string;
+                                                            lastname?: string;
+                                                            username?: string;
+                                                            email?: string;
+                                                            resetPasswordToken?: string;
+                                                            registrationToken?: string;
+                                                            isActive?: boolean;
+                                                            roles?: {
                                                                 data?: {
                                                                     id?: string;
-                                                                    attributes?: {};
-                                                                };
+                                                                    attributes?: {
+                                                                        name?: string;
+                                                                        code?: string;
+                                                                        description?: string;
+                                                                        users?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            }[];
+                                                                        };
+                                                                        permissions?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {
+                                                                                    action?: string;
+                                                                                    subject?: string;
+                                                                                    properties?: any;
+                                                                                    conditions?: any;
+                                                                                    role?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    createdAt?: string;
+                                                                                    updatedAt?: string;
+                                                                                    createdBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                    updatedBy?: {
+                                                                                        data?: {
+                                                                                            id?: string;
+                                                                                            attributes?: {};
+                                                                                        };
+                                                                                    };
+                                                                                };
+                                                                            }[];
+                                                                        };
+                                                                        createdAt?: string;
+                                                                        updatedAt?: string;
+                                                                        createdBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                        updatedBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                    };
+                                                                }[];
                                                             };
+                                                            blocked?: boolean;
+                                                            preferedLanguage?: string;
                                                             createdAt?: string;
                                                             updatedAt?: string;
                                                             createdBy?: {
@@ -1344,14 +1920,6 @@ export type PostResponse = {
                                                                 };
                                                             };
                                                         };
-                                                    }[];
-                                                };
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
                                                     };
                                                 };
                                                 updatedBy?: {
@@ -1363,8 +1931,7 @@ export type PostResponse = {
                                             };
                                         }[];
                                     };
-                                    blocked?: boolean;
-                                    preferedLanguage?: string;
+                                    path?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
                                     createdBy?: {
@@ -1380,6 +1947,15 @@ export type PostResponse = {
                                         };
                                     };
                                 };
+                            };
+                        };
+                        folderPath?: string;
+                        createdAt?: string;
+                        updatedAt?: string;
+                        createdBy?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
                             };
                         };
                         updatedBy?: {
@@ -1546,46 +2122,131 @@ export type UploadFileListResponse = {
                     attributes?: {};
                 }[];
             };
-            createdAt?: string;
-            updatedAt?: string;
-            createdBy?: {
+            folder?: {
                 data?: {
                     id?: string;
                     attributes?: {
-                        firstname?: string;
-                        lastname?: string;
-                        username?: string;
-                        email?: string;
-                        resetPasswordToken?: string;
-                        registrationToken?: string;
-                        isActive?: boolean;
-                        roles?: {
+                        name?: string;
+                        pathId?: number;
+                        parent?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                        children?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            }[];
+                        };
+                        files?: {
                             data?: {
                                 id?: string;
                                 attributes?: {
                                     name?: string;
-                                    code?: string;
-                                    description?: string;
-                                    users?: {
+                                    alternativeText?: string;
+                                    caption?: string;
+                                    width?: number;
+                                    height?: number;
+                                    formats?: any;
+                                    hash?: string;
+                                    ext?: string;
+                                    mime?: string;
+                                    size?: number;
+                                    url?: string;
+                                    previewUrl?: string;
+                                    provider?: string;
+                                    provider_metadata?: any;
+                                    related?: {
                                         data?: {
                                             id?: string;
                                             attributes?: {};
                                         }[];
                                     };
-                                    permissions?: {
+                                    folder?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        };
+                                    };
+                                    folderPath?: string;
+                                    createdAt?: string;
+                                    updatedAt?: string;
+                                    createdBy?: {
                                         data?: {
                                             id?: string;
                                             attributes?: {
-                                                action?: string;
-                                                subject?: string;
-                                                properties?: any;
-                                                conditions?: any;
-                                                role?: {
+                                                firstname?: string;
+                                                lastname?: string;
+                                                username?: string;
+                                                email?: string;
+                                                resetPasswordToken?: string;
+                                                registrationToken?: string;
+                                                isActive?: boolean;
+                                                roles?: {
                                                     data?: {
                                                         id?: string;
-                                                        attributes?: {};
-                                                    };
+                                                        attributes?: {
+                                                            name?: string;
+                                                            code?: string;
+                                                            description?: string;
+                                                            users?: {
+                                                                data?: {
+                                                                    id?: string;
+                                                                    attributes?: {};
+                                                                }[];
+                                                            };
+                                                            permissions?: {
+                                                                data?: {
+                                                                    id?: string;
+                                                                    attributes?: {
+                                                                        action?: string;
+                                                                        subject?: string;
+                                                                        properties?: any;
+                                                                        conditions?: any;
+                                                                        role?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                        createdAt?: string;
+                                                                        updatedAt?: string;
+                                                                        createdBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                        updatedBy?: {
+                                                                            data?: {
+                                                                                id?: string;
+                                                                                attributes?: {};
+                                                                            };
+                                                                        };
+                                                                    };
+                                                                }[];
+                                                            };
+                                                            createdAt?: string;
+                                                            updatedAt?: string;
+                                                            createdBy?: {
+                                                                data?: {
+                                                                    id?: string;
+                                                                    attributes?: {};
+                                                                };
+                                                            };
+                                                            updatedBy?: {
+                                                                data?: {
+                                                                    id?: string;
+                                                                    attributes?: {};
+                                                                };
+                                                            };
+                                                        };
+                                                    }[];
                                                 };
+                                                blocked?: boolean;
+                                                preferedLanguage?: string;
                                                 createdAt?: string;
                                                 updatedAt?: string;
                                                 createdBy?: {
@@ -1601,14 +2262,6 @@ export type UploadFileListResponse = {
                                                     };
                                                 };
                                             };
-                                        }[];
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
                                         };
                                     };
                                     updatedBy?: {
@@ -1620,8 +2273,7 @@ export type UploadFileListResponse = {
                                 };
                             }[];
                         };
-                        blocked?: boolean;
-                        preferedLanguage?: string;
+                        path?: string;
                         createdAt?: string;
                         updatedAt?: string;
                         createdBy?: {
@@ -1637,6 +2289,15 @@ export type UploadFileListResponse = {
                             };
                         };
                     };
+                };
+            };
+            folderPath?: string;
+            createdAt?: string;
+            updatedAt?: string;
+            createdBy?: {
+                data?: {
+                    id?: string;
+                    attributes?: {};
                 };
             };
             updatedBy?: {
@@ -1680,132 +2341,55 @@ export type UploadFileResponse = {
                     attributes?: {};
                 }[];
             };
-            createdAt?: string;
-            updatedAt?: string;
-            createdBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {
-                        firstname?: string;
-                        lastname?: string;
-                        username?: string;
-                        email?: string;
-                        resetPasswordToken?: string;
-                        registrationToken?: string;
-                        isActive?: boolean;
-                        roles?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    name?: string;
-                                    code?: string;
-                                    description?: string;
-                                    users?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        }[];
-                                    };
-                                    permissions?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {
-                                                action?: string;
-                                                subject?: string;
-                                                properties?: any;
-                                                conditions?: any;
-                                                role?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                                updatedBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                            };
-                                        }[];
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            }[];
-                        };
-                        blocked?: boolean;
-                        preferedLanguage?: string;
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                        updatedBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                    };
-                };
-            };
-            updatedBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-        };
-    };
-    meta?: object;
-};
-export type UsersPermissionsPermissionResponse = {
-    data?: {
-        id?: string;
-        attributes?: {
-            action?: string;
-            role?: {
+            folder?: {
                 data?: {
                     id?: string;
                     attributes?: {
                         name?: string;
-                        description?: string;
-                        "type"?: string;
-                        permissions?: {
+                        pathId?: number;
+                        parent?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            };
+                        };
+                        children?: {
+                            data?: {
+                                id?: string;
+                                attributes?: {};
+                            }[];
+                        };
+                        files?: {
                             data?: {
                                 id?: string;
                                 attributes?: {
-                                    action?: string;
-                                    role?: {
+                                    name?: string;
+                                    alternativeText?: string;
+                                    caption?: string;
+                                    width?: number;
+                                    height?: number;
+                                    formats?: any;
+                                    hash?: string;
+                                    ext?: string;
+                                    mime?: string;
+                                    size?: number;
+                                    url?: string;
+                                    previewUrl?: string;
+                                    provider?: string;
+                                    provider_metadata?: any;
+                                    related?: {
+                                        data?: {
+                                            id?: string;
+                                            attributes?: {};
+                                        }[];
+                                    };
+                                    folder?: {
                                         data?: {
                                             id?: string;
                                             attributes?: {};
                                         };
                                     };
+                                    folderPath?: string;
                                     createdAt?: string;
                                     updatedAt?: string;
                                     createdBy?: {
@@ -1908,40 +2492,7 @@ export type UsersPermissionsPermissionResponse = {
                                 };
                             }[];
                         };
-                        users?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    username?: string;
-                                    email?: string;
-                                    provider?: string;
-                                    resetPasswordToken?: string;
-                                    confirmationToken?: string;
-                                    confirmed?: boolean;
-                                    blocked?: boolean;
-                                    role?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            }[];
-                        };
+                        path?: string;
                         createdAt?: string;
                         updatedAt?: string;
                         createdBy?: {
@@ -1959,6 +2510,7 @@ export type UsersPermissionsPermissionResponse = {
                     };
                 };
             };
+            folderPath?: string;
             createdAt?: string;
             updatedAt?: string;
             createdBy?: {
@@ -1977,845 +2529,39 @@ export type UsersPermissionsPermissionResponse = {
     };
     meta?: object;
 };
-export type UsersPermissionsRoleResponse = {
-    data?: {
-        id?: string;
-        attributes?: {
-            name?: string;
-            description?: string;
-            "type"?: string;
-            permissions?: {
-                data?: {
-                    id?: string;
-                    attributes?: {
-                        action?: string;
-                        role?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    name?: string;
-                                    description?: string;
-                                    "type"?: string;
-                                    permissions?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        }[];
-                                    };
-                                    users?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {
-                                                username?: string;
-                                                email?: string;
-                                                provider?: string;
-                                                resetPasswordToken?: string;
-                                                confirmationToken?: string;
-                                                confirmed?: boolean;
-                                                blocked?: boolean;
-                                                role?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {
-                                                            firstname?: string;
-                                                            lastname?: string;
-                                                            username?: string;
-                                                            email?: string;
-                                                            resetPasswordToken?: string;
-                                                            registrationToken?: string;
-                                                            isActive?: boolean;
-                                                            roles?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {
-                                                                        name?: string;
-                                                                        code?: string;
-                                                                        description?: string;
-                                                                        users?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            }[];
-                                                                        };
-                                                                        permissions?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {
-                                                                                    action?: string;
-                                                                                    subject?: string;
-                                                                                    properties?: any;
-                                                                                    conditions?: any;
-                                                                                    role?: {
-                                                                                        data?: {
-                                                                                            id?: string;
-                                                                                            attributes?: {};
-                                                                                        };
-                                                                                    };
-                                                                                    createdAt?: string;
-                                                                                    updatedAt?: string;
-                                                                                    createdBy?: {
-                                                                                        data?: {
-                                                                                            id?: string;
-                                                                                            attributes?: {};
-                                                                                        };
-                                                                                    };
-                                                                                    updatedBy?: {
-                                                                                        data?: {
-                                                                                            id?: string;
-                                                                                            attributes?: {};
-                                                                                        };
-                                                                                    };
-                                                                                };
-                                                                            }[];
-                                                                        };
-                                                                        createdAt?: string;
-                                                                        updatedAt?: string;
-                                                                        createdBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                        updatedBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                    };
-                                                                }[];
-                                                            };
-                                                            blocked?: boolean;
-                                                            preferedLanguage?: string;
-                                                            createdAt?: string;
-                                                            updatedAt?: string;
-                                                            createdBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                            updatedBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                        };
-                                                    };
-                                                };
-                                                updatedBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                            };
-                                        }[];
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            };
-                        };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                        updatedBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                    };
-                }[];
-            };
-            users?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                }[];
-            };
-            createdAt?: string;
-            updatedAt?: string;
-            createdBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
+export type UsersPermissionsPermissionsTree = {
+    [key: string]: {
+        controllers?: {
+            [key: string]: {
+                [key: string]: {
+                    enabled?: boolean;
+                    policy?: string;
                 };
             };
-            updatedBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-        };
-    };
-    meta?: object;
-};
-export type UsersPermissionsRoleListResponse = {
-    data?: {
-        id?: string;
-        attributes?: {
-            name?: string;
-            description?: string;
-            "type"?: string;
-            permissions?: {
-                data?: {
-                    id?: string;
-                    attributes?: {
-                        action?: string;
-                        role?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    name?: string;
-                                    description?: string;
-                                    "type"?: string;
-                                    permissions?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        }[];
-                                    };
-                                    users?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {
-                                                username?: string;
-                                                email?: string;
-                                                provider?: string;
-                                                resetPasswordToken?: string;
-                                                confirmationToken?: string;
-                                                confirmed?: boolean;
-                                                blocked?: boolean;
-                                                role?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {
-                                                            firstname?: string;
-                                                            lastname?: string;
-                                                            username?: string;
-                                                            email?: string;
-                                                            resetPasswordToken?: string;
-                                                            registrationToken?: string;
-                                                            isActive?: boolean;
-                                                            roles?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {
-                                                                        name?: string;
-                                                                        code?: string;
-                                                                        description?: string;
-                                                                        users?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            }[];
-                                                                        };
-                                                                        permissions?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {
-                                                                                    action?: string;
-                                                                                    subject?: string;
-                                                                                    properties?: any;
-                                                                                    conditions?: any;
-                                                                                    role?: {
-                                                                                        data?: {
-                                                                                            id?: string;
-                                                                                            attributes?: {};
-                                                                                        };
-                                                                                    };
-                                                                                    createdAt?: string;
-                                                                                    updatedAt?: string;
-                                                                                    createdBy?: {
-                                                                                        data?: {
-                                                                                            id?: string;
-                                                                                            attributes?: {};
-                                                                                        };
-                                                                                    };
-                                                                                    updatedBy?: {
-                                                                                        data?: {
-                                                                                            id?: string;
-                                                                                            attributes?: {};
-                                                                                        };
-                                                                                    };
-                                                                                };
-                                                                            }[];
-                                                                        };
-                                                                        createdAt?: string;
-                                                                        updatedAt?: string;
-                                                                        createdBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                        updatedBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                    };
-                                                                }[];
-                                                            };
-                                                            blocked?: boolean;
-                                                            preferedLanguage?: string;
-                                                            createdAt?: string;
-                                                            updatedAt?: string;
-                                                            createdBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                            updatedBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                        };
-                                                    };
-                                                };
-                                                updatedBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                            };
-                                        }[];
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            };
-                        };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                        updatedBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                    };
-                }[];
-            };
-            users?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                }[];
-            };
-            createdAt?: string;
-            updatedAt?: string;
-            createdBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-            updatedBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-        };
-    }[];
-    meta?: {
-        pagination?: {
-            page?: number;
-            pageSize?: number;
-            pageCount?: number;
-            total?: number;
         };
     };
 };
-export type UsersPermissionsRoleRequest = {
-    data: {
-        name: string;
-        description?: string;
-        "type"?: string;
-        permissions?: (number | string)[];
-        users?: (number | string)[];
-    };
+export type UsersPermissionsRole = {
+    id?: number;
+    name?: string;
+    description?: string;
+    "type"?: string;
+    createdAt?: any;
+    updatedAt?: any;
 };
-export type UsersPermissionsUserResponse = {
-    data?: {
-        id?: string;
-        attributes?: {
-            username?: string;
-            email?: string;
-            provider?: string;
-            resetPasswordToken?: string;
-            confirmationToken?: string;
-            confirmed?: boolean;
-            blocked?: boolean;
-            role?: {
-                data?: {
-                    id?: string;
-                    attributes?: {
-                        name?: string;
-                        description?: string;
-                        "type"?: string;
-                        permissions?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    action?: string;
-                                    role?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {
-                                                firstname?: string;
-                                                lastname?: string;
-                                                username?: string;
-                                                email?: string;
-                                                resetPasswordToken?: string;
-                                                registrationToken?: string;
-                                                isActive?: boolean;
-                                                roles?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {
-                                                            name?: string;
-                                                            code?: string;
-                                                            description?: string;
-                                                            users?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                }[];
-                                                            };
-                                                            permissions?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {
-                                                                        action?: string;
-                                                                        subject?: string;
-                                                                        properties?: any;
-                                                                        conditions?: any;
-                                                                        role?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                        createdAt?: string;
-                                                                        updatedAt?: string;
-                                                                        createdBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                        updatedBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                    };
-                                                                }[];
-                                                            };
-                                                            createdAt?: string;
-                                                            updatedAt?: string;
-                                                            createdBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                            updatedBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                        };
-                                                    }[];
-                                                };
-                                                blocked?: boolean;
-                                                preferedLanguage?: string;
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                                updatedBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                            };
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            }[];
-                        };
-                        users?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    username?: string;
-                                    email?: string;
-                                    provider?: string;
-                                    resetPasswordToken?: string;
-                                    confirmationToken?: string;
-                                    confirmed?: boolean;
-                                    blocked?: boolean;
-                                    role?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            }[];
-                        };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                        updatedBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                    };
-                };
-            };
-            createdAt?: string;
-            updatedAt?: string;
-            createdBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-            updatedBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-        };
-    };
-    meta?: object;
+export type UsersPermissionsUser = {
+    id?: number;
+    username?: string;
+    email?: string;
+    provider?: string;
+    confirmed?: boolean;
+    blocked?: boolean;
+    createdAt?: any;
+    updatedAt?: any;
 };
-export type UsersPermissionsUserListResponse = {
-    data?: {
-        id?: string;
-        attributes?: {
-            username?: string;
-            email?: string;
-            provider?: string;
-            resetPasswordToken?: string;
-            confirmationToken?: string;
-            confirmed?: boolean;
-            blocked?: boolean;
-            role?: {
-                data?: {
-                    id?: string;
-                    attributes?: {
-                        name?: string;
-                        description?: string;
-                        "type"?: string;
-                        permissions?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    action?: string;
-                                    role?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {
-                                                firstname?: string;
-                                                lastname?: string;
-                                                username?: string;
-                                                email?: string;
-                                                resetPasswordToken?: string;
-                                                registrationToken?: string;
-                                                isActive?: boolean;
-                                                roles?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {
-                                                            name?: string;
-                                                            code?: string;
-                                                            description?: string;
-                                                            users?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                }[];
-                                                            };
-                                                            permissions?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {
-                                                                        action?: string;
-                                                                        subject?: string;
-                                                                        properties?: any;
-                                                                        conditions?: any;
-                                                                        role?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                        createdAt?: string;
-                                                                        updatedAt?: string;
-                                                                        createdBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                        updatedBy?: {
-                                                                            data?: {
-                                                                                id?: string;
-                                                                                attributes?: {};
-                                                                            };
-                                                                        };
-                                                                    };
-                                                                }[];
-                                                            };
-                                                            createdAt?: string;
-                                                            updatedAt?: string;
-                                                            createdBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                            updatedBy?: {
-                                                                data?: {
-                                                                    id?: string;
-                                                                    attributes?: {};
-                                                                };
-                                                            };
-                                                        };
-                                                    }[];
-                                                };
-                                                blocked?: boolean;
-                                                preferedLanguage?: string;
-                                                createdAt?: string;
-                                                updatedAt?: string;
-                                                createdBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                                updatedBy?: {
-                                                    data?: {
-                                                        id?: string;
-                                                        attributes?: {};
-                                                    };
-                                                };
-                                            };
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            }[];
-                        };
-                        users?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {
-                                    username?: string;
-                                    email?: string;
-                                    provider?: string;
-                                    resetPasswordToken?: string;
-                                    confirmationToken?: string;
-                                    confirmed?: boolean;
-                                    blocked?: boolean;
-                                    role?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    createdAt?: string;
-                                    updatedAt?: string;
-                                    createdBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                    updatedBy?: {
-                                        data?: {
-                                            id?: string;
-                                            attributes?: {};
-                                        };
-                                    };
-                                };
-                            }[];
-                        };
-                        createdAt?: string;
-                        updatedAt?: string;
-                        createdBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                        updatedBy?: {
-                            data?: {
-                                id?: string;
-                                attributes?: {};
-                            };
-                        };
-                    };
-                };
-            };
-            createdAt?: string;
-            updatedAt?: string;
-            createdBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-            updatedBy?: {
-                data?: {
-                    id?: string;
-                    attributes?: {};
-                };
-            };
-        };
-    }[];
-    meta?: {
-        pagination?: {
-            page?: number;
-            pageSize?: number;
-            pageCount?: number;
-            total?: number;
-        };
-    };
-};
-export type UsersPermissionsUserRequest = {
-    data: {
-        username: string;
-        email: string;
-        provider?: string;
-        password?: string;
-        resetPasswordToken?: string;
-        confirmationToken?: string;
-        confirmed?: boolean;
-        blocked?: boolean;
-        role?: number | string;
-    };
+export type UsersPermissionsUserRegistration = {
+    jwt?: string;
+    user?: UsersPermissionsUser;
 };
 export function getAbout({ sort, paginationWithCount, paginationPage, paginationPageSize, paginationStart, paginationLimit, fields, populate }: {
     sort?: string;
@@ -3183,6 +2929,144 @@ export function deleteFeedbacksById(id: string, opts?: Oazapfts.RequestOpts) {
         method: "DELETE"
     });
 }
+export function getPortfolioMessages({ sort, paginationWithCount, paginationPage, paginationPageSize, paginationStart, paginationLimit, fields, populate }: {
+    sort?: string;
+    paginationWithCount?: boolean;
+    paginationPage?: number;
+    paginationPageSize?: number;
+    paginationStart?: number;
+    paginationLimit?: number;
+    fields?: string;
+    populate?: string;
+} = {}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: PortfolioMessageListResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/portfolio-messages${QS.query(QS.form({
+        sort,
+        "pagination[withCount]": paginationWithCount,
+        "pagination[page]": paginationPage,
+        "pagination[pageSize]": paginationPageSize,
+        "pagination[start]": paginationStart,
+        "pagination[limit]": paginationLimit,
+        fields,
+        populate
+    }))}`, {
+        ...opts
+    });
+}
+export function postPortfolioMessages(portfolioMessageRequest: PortfolioMessageRequest, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: PortfolioMessageResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>("/portfolio-messages", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: portfolioMessageRequest
+    }));
+}
+export function getPortfolioMessagesById(id: string, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: PortfolioMessageResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/portfolio-messages/${id}`, {
+        ...opts
+    });
+}
+export function putPortfolioMessagesById(id: string, portfolioMessageRequest: PortfolioMessageRequest, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: PortfolioMessageResponse;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/portfolio-messages/${id}`, oazapfts.json({
+        ...opts,
+        method: "PUT",
+        body: portfolioMessageRequest
+    }));
+}
+export function deletePortfolioMessagesById(id: string, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: number;
+    } | {
+        status: 400;
+        data: Error;
+    } | {
+        status: 401;
+        data: Error;
+    } | {
+        status: 403;
+        data: Error;
+    } | {
+        status: 404;
+        data: Error;
+    } | {
+        status: 500;
+        data: Error;
+    }>(`/portfolio-messages/${id}`, {
+        ...opts,
+        method: "DELETE"
+    });
+}
 export function getPosts({ sort, paginationWithCount, paginationPage, paginationPageSize, paginationStart, paginationLimit, fields, populate }: {
     sort?: string;
     paginationWithCount?: boolean;
@@ -3409,348 +3293,385 @@ export function deleteUploadFilesById(id: string, opts?: Oazapfts.RequestOpts) {
         method: "DELETE"
     });
 }
+/**
+ * Get default generated permissions
+ */
 export function getUsersPermissionsPermissions(opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsPermissionResponse;
+        data: {
+            permissions?: UsersPermissionsPermissionsTree;
+        };
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>("/users-permissions/permissions", {
         ...opts
     });
 }
-export function getUsersPermissionsRolesById(id: string, opts?: Oazapfts.RequestOpts) {
+/**
+ * Get a role
+ */
+export function getUsersPermissionsRolesById({ id }: {
+    id?: any;
+} = {}, opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsRoleResponse;
+        data: {
+            role?: UsersPermissionsRole;
+        };
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>(`/users-permissions/roles/${id}`, {
         ...opts
     });
 }
-export function getUsersPermissionsRoles({ sort, paginationWithCount, paginationPage, paginationPageSize, paginationStart, paginationLimit, fields, populate }: {
-    sort?: string;
-    paginationWithCount?: boolean;
-    paginationPage?: number;
-    paginationPageSize?: number;
-    paginationStart?: number;
-    paginationLimit?: number;
-    fields?: string;
-    populate?: string;
-} = {}, opts?: Oazapfts.RequestOpts) {
+/**
+ * List roles
+ */
+export function getUsersPermissionsRoles(opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsRoleListResponse;
+        data: {
+            roles?: (UsersPermissionsRole & {
+                nb_users?: number;
+            })[];
+        };
     } | {
-        status: 400;
+        status: number;
         data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
-        data: Error;
-    }>(`/users-permissions/roles${QS.query(QS.form({
-        sort,
-        "pagination[withCount]": paginationWithCount,
-        "pagination[page]": paginationPage,
-        "pagination[pageSize]": paginationPageSize,
-        "pagination[start]": paginationStart,
-        "pagination[limit]": paginationLimit,
-        fields,
-        populate
-    }))}`, {
+    }>("/users-permissions/roles", {
         ...opts
     });
 }
-export function postUsersPermissionsRoles(usersPermissionsRoleRequest: UsersPermissionsRoleRequest, opts?: Oazapfts.RequestOpts) {
+/**
+ * Create a role
+ */
+export function postUsersPermissionsRoles(body: {
+    name?: string;
+    description?: string;
+    "type"?: string;
+    permissions?: UsersPermissionsPermissionsTree;
+}, opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsRoleResponse;
+        data: {
+            ok?: true;
+        };
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>("/users-permissions/roles", oazapfts.json({
         ...opts,
         method: "POST",
-        body: usersPermissionsRoleRequest
+        body
     }));
 }
-export function putUsersPermissionsRolesByRole(role: string, usersPermissionsRoleRequest: UsersPermissionsRoleRequest, opts?: Oazapfts.RequestOpts) {
+/**
+ * Update a role
+ */
+export function putUsersPermissionsRolesByRole(body: {
+    name?: string;
+    description?: string;
+    "type"?: string;
+    permissions?: UsersPermissionsPermissionsTree;
+}, { role }: {
+    role?: any;
+} = {}, opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsRoleResponse;
+        data: {
+            ok?: true;
+        };
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>(`/users-permissions/roles/${role}`, oazapfts.json({
         ...opts,
         method: "PUT",
-        body: usersPermissionsRoleRequest
+        body
     }));
 }
-export function deleteUsersPermissionsRolesByRole(role: string, opts?: Oazapfts.RequestOpts) {
+/**
+ * Delete a role
+ */
+export function deleteUsersPermissionsRolesByRole({ role }: {
+    role?: any;
+} = {}, opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: number;
+        data: {
+            ok?: true;
+        };
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>(`/users-permissions/roles/${role}`, {
         ...opts,
         method: "DELETE"
     });
 }
+/**
+ * Get user count
+ */
 export function getUsersCount(opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsUserResponse;
+        data: number;
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>("/users/count", {
         ...opts
     });
 }
-export function getUsers({ sort, paginationWithCount, paginationPage, paginationPageSize, paginationStart, paginationLimit, fields, populate }: {
-    sort?: string;
-    paginationWithCount?: boolean;
-    paginationPage?: number;
-    paginationPageSize?: number;
-    paginationStart?: number;
-    paginationLimit?: number;
-    fields?: string;
-    populate?: string;
-} = {}, opts?: Oazapfts.RequestOpts) {
+/**
+ * Get list of users
+ */
+export function getUsers(opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsUserListResponse;
+        data: UsersPermissionsUser[];
     } | {
-        status: 400;
+        status: number;
         data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
-        data: Error;
-    }>(`/users${QS.query(QS.form({
-        sort,
-        "pagination[withCount]": paginationWithCount,
-        "pagination[page]": paginationPage,
-        "pagination[pageSize]": paginationPageSize,
-        "pagination[start]": paginationStart,
-        "pagination[limit]": paginationLimit,
-        fields,
-        populate
-    }))}`, {
+    }>("/users", {
         ...opts
     });
 }
-export function postUsers(usersPermissionsUserRequest: UsersPermissionsUserRequest, opts?: Oazapfts.RequestOpts) {
+/**
+ * Create a user
+ */
+export function postUsers(body: {
+    email?: string;
+    username?: string;
+    password?: string;
+}, opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
-        status: 200;
-        data: UsersPermissionsUserResponse;
+        status: 201;
+        data: UsersPermissionsUser & {
+            role?: UsersPermissionsRole;
+        };
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>("/users", oazapfts.json({
         ...opts,
         method: "POST",
-        body: usersPermissionsUserRequest
+        body
     }));
 }
+/**
+ * Get authenticated user info
+ */
 export function getUsersMe(opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsUserResponse;
+        data: UsersPermissionsUser;
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>("/users/me", {
         ...opts
     });
 }
-export function getUsersById(id: string, opts?: Oazapfts.RequestOpts) {
+/**
+ * Get a user
+ */
+export function getUsersById({ id }: {
+    id?: any;
+} = {}, opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsUserResponse;
+        data: UsersPermissionsUser;
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>(`/users/${id}`, {
         ...opts
     });
 }
-export function putUsersById(id: string, usersPermissionsUserRequest: UsersPermissionsUserRequest, opts?: Oazapfts.RequestOpts) {
+/**
+ * Update a user
+ */
+export function putUsersById(body: {
+    email?: string;
+    username?: string;
+    password?: string;
+}, { id }: {
+    id?: any;
+} = {}, opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: UsersPermissionsUserResponse;
+        data: UsersPermissionsUser & {
+            role?: UsersPermissionsRole;
+        };
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>(`/users/${id}`, oazapfts.json({
         ...opts,
         method: "PUT",
-        body: usersPermissionsUserRequest
+        body
     }));
 }
-export function deleteUsersById(id: string, opts?: Oazapfts.RequestOpts) {
+/**
+ * Delete a user
+ */
+export function deleteUsersById(opts?: Oazapfts.RequestOpts) {
     return oazapfts.fetchJson<{
         status: 200;
-        data: number;
+        data: UsersPermissionsUser;
     } | {
-        status: 400;
-        data: Error;
-    } | {
-        status: 401;
-        data: Error;
-    } | {
-        status: 403;
-        data: Error;
-    } | {
-        status: 404;
-        data: Error;
-    } | {
-        status: 500;
+        status: number;
         data: Error;
     }>(`/users/${id}`, {
         ...opts,
         method: "DELETE"
     });
+}
+/**
+ * Login with a provider
+ */
+export function getConnect(opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 301;
+    } | {
+        status: number;
+        data: Error;
+    }>("/connect/(.*)", {
+        ...opts
+    });
+}
+/**
+ * Local login
+ */
+export function postAuthLocal(body: {
+    identifier?: string;
+    password?: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: UsersPermissionsUserRegistration;
+    } | {
+        status: number;
+        data: Error;
+    }>("/auth/local", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body
+    }));
+}
+/**
+ * Register a user
+ */
+export function postAuthLocalRegister(body: {
+    username?: string;
+    email?: string;
+    password?: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: UsersPermissionsUserRegistration;
+    } | {
+        status: number;
+        data: Error;
+    }>("/auth/local/register", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body
+    }));
+}
+/**
+ * Default Callback from provider auth
+ */
+export function getAuthByProviderCallback(opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: UsersPermissionsUserRegistration;
+    } | {
+        status: number;
+        data: Error;
+    }>(`/auth/${provider}/callback`, {
+        ...opts
+    });
+}
+/**
+ * Send rest password email
+ */
+export function postAuthForgotPassword(body: {
+    email?: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: {
+            ok?: true;
+        };
+    } | {
+        status: number;
+        data: Error;
+    }>("/auth/forgot-password", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body
+    }));
+}
+/**
+ * Rest user password
+ */
+export function postAuthResetPassword(body: {
+    password?: string;
+    passwordConfirmation?: string;
+    code?: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: UsersPermissionsUserRegistration;
+    } | {
+        status: number;
+        data: Error;
+    }>("/auth/reset-password", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body
+    }));
+}
+/**
+ * Confirm user email
+ */
+export function getAuthEmailConfirmation({ confirmation }: {
+    confirmation?: any;
+} = {}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 301;
+    } | {
+        status: number;
+        data: Error;
+    }>(`/auth/email-confirmation${QS.query(QS.form({
+        confirmation
+    }))}`, {
+        ...opts
+    });
+}
+/**
+ * Send confirmation email
+ */
+export function postAuthSendEmailConfirmation(body: {
+    email?: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: {
+            email?: string;
+            sent?: true;
+        };
+    } | {
+        status: number;
+        data: Error;
+    }>("/auth/send-email-confirmation", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body
+    }));
 }

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { usePointerEvents } from "../lib/hook/usePointerEvents";
+import usePointerHandlers, {
+  handlerType,
+} from "../lib/hook/usePointerHandlers";
 import { neightbourPostType } from "../pages/post/[id]";
 import styles from "./gallery.module.css";
 import GalleryItem from "./galleryItem";
@@ -133,12 +135,41 @@ export default function Gallery({
     [number, number]
   >([0, 0]);
 
-  usePointerEvents(liElements?.at(activeIndex), {
+  const initialPosHandler: handlerType = {
     onDown(e) {
       setInitialPos([e.clientX, e.clientY]);
       console.debug(`initialPos:${initialPos}`);
     },
-    onMove(e) {
+  };
+  const enlargeClickHandler: handlerType = {
+    onUp: (e) => {
+      //same position as down position,toggle detail view
+      if (e.clientX === initialPos[0] && e.clientY === initialPos[1]) {
+        setCumulativeTranslate([0, 0]);
+        playEnlargeAnimation();
+      }
+    },
+  };
+
+  const pageSwipeHandler: handlerType = {
+    onMove: (e) => {
+      //swipe page change
+      if (
+        Math.abs(e.clientX - initialPos[0]) > swipeThreshold &&
+        !inDetail &&
+        imgs
+      ) {
+        setCumulativeTranslate([0, 0]);
+        if (e.clientX < initialPos[0] && activeIndex < imgs.length - 1) {
+          setTarget(activeIndex + 1);
+        } else if (e.clientX > initialPos[0] && activeIndex > 0)
+          setTarget(activeIndex - 1);
+      }
+    },
+  };
+
+  const detailViewPanHandler: handlerType = {
+    onMove: (e) => {
       const liEle = liElements?.at(activeIndex);
       if (liEle && inDetail) {
         const translate = `translate(${
@@ -154,27 +185,10 @@ export default function Gallery({
         ani.play();
       }
     },
-    onUp(e) {
+    onUp: (e) => {
       if (initialPos) {
-        //click,toggle detail view
-        if (e.clientX === initialPos[0] && e.clientY === initialPos[1]) {
-          setCumulativeTranslate([0, 0]);
-          playEnlargeAnimation();
-        }
-        //swipe page change
-        else if (
-          Math.abs(e.clientX - initialPos[0]) > swipeThreshold &&
-          !inDetail &&
-          imgs
-        ) {
-          setCumulativeTranslate([0, 0]);
-          if (e.clientX < initialPos[0] && activeIndex < imgs.length - 1) {
-            setTarget(activeIndex + 1);
-          } else if (e.clientX > initialPos[0] && activeIndex > 0)
-            setTarget(activeIndex - 1);
-        }
         //set new cumulative position
-        else if (inDetail) {
+        if (inDetail) {
           setCumulativeTranslate([
             e.clientX - initialPos[0] + cumulativeTranslate[0],
             e.clientY - initialPos[1] + cumulativeTranslate[1],
@@ -182,8 +196,15 @@ export default function Gallery({
         }
       }
     },
-    onCancel(e) {},
-  });
+  };
+
+  usePointerHandlers(
+    liElements?.at(activeIndex),
+    initialPosHandler,
+    enlargeClickHandler,
+    pageSwipeHandler,
+    detailViewPanHandler
+  );
 
   function useKeyboard() {
     useEffect(() => {
