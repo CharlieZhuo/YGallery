@@ -25,7 +25,7 @@ export default function Post({
   const imgs = post.data?.attributes?.Images?.data?.map((img, index) => {
     const url = img.attributes?.url!;
     return {
-      src: `${assetEndpoint}${url}`,
+      src: `${assetEndpoint}${url}?format=webp&quality=100`,
       width: img.attributes?.width!,
       height: img.attributes?.height!,
       title: img.attributes?.name!,

@@ -13,7 +13,6 @@ import {
 import { checkAndSetEV } from "../lib/strapiUtil";
 import { PhotoAlbum } from "react-photo-album";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { useFragmentScrollPosition } from "../lib/hook/useFragmentScrollPosition";
 
 const Home = ({
@@ -77,7 +76,7 @@ const Home = ({
                     height: p?.attributes?.Images?.data![0].attributes?.height!,
                     width: p?.attributes?.Images?.data![0].attributes?.width!,
                     src: `${assetEndpoint}${p?.attributes?.Images?.data![0]
-                      .attributes?.url!}`,
+                      .attributes?.url!}?format=webp&quality=100`,
                     alt: p?.attributes?.Images?.data![0].attributes
                       ?.alternativeText!,
                     title: p?.attributes?.title!,

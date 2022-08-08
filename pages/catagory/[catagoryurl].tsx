@@ -67,7 +67,7 @@ export default function Catagory({
               height: p?.attributes?.Images?.data![0].attributes?.height!,
               width: p?.attributes?.Images?.data![0].attributes?.width!,
               src: `${assetEndpoint}${p?.attributes?.Images?.data![0].attributes
-                ?.url!}`,
+                ?.url!}?format=webp&quality=100`,
               alt: p?.attributes?.Images?.data![0].attributes?.alternativeText!,
               title: p?.attributes?.title!,
               id: p.id!,
