@@ -64,7 +64,6 @@ const Home = ({
         <Head>
           <title>悠悠画廊</title>
           <meta name="description" content="一个中国画爱好者的网站" />
-          <link rel="icon" href="/favicon.ico" />
         </Head>
 
         {columnNum ? (
