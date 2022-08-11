@@ -109,7 +109,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         headers: { Authorization: `bearer ${process.env.STRAPI_ACCESS_TOKEN}` },
       }
     );
-    const response = await fetch(
+    const postsResponse = await fetch(
       `${process.env
         .STRAPI_ENDPOINT!}/posts?filters[catagory][url][$eq]=${catagoryurl}&populate=*&sort=publishedAt%3Adesc`,
       {
@@ -117,8 +117,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
     );
 
-    if (response.status === 200 && catagoryResponse.status === 200) {
-      const rj = await response.json();
+    if (postsResponse.status === 200 && catagoryResponse.status === 200) {
+      const rj = await postsResponse.json();
       const crj = await catagoryResponse.json();
 
       return {
@@ -131,8 +131,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       };
     } else {
       console.log(
-        `Error code:${response.status} ,Error:${JSON.stringify(
-          await response.json()
+        `Error code:${postsResponse.status} ,Error:${JSON.stringify(
+          await postsResponse.json()
         )}`
       );
     }

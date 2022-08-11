@@ -1,4 +1,9 @@
-import { PostResponse, defaults, getPosts } from "../../lib/strapiLib";
+import {
+  PostResponse,
+  defaults,
+  getPosts,
+  LikeListResponse,
+} from "../../lib/strapiLib";
 
 import { checkAndSetEV } from "../../lib/strapiUtil";
 
@@ -15,11 +20,13 @@ export default function Post({
   post,
   nextPost,
   previousPost,
+  likeCount,
   assetEndpoint,
 }: {
   post: PostResponse;
   nextPost: neightbourPostType | null;
   previousPost: neightbourPostType | null;
+  likeCount: number | undefined;
   assetEndpoint: string;
 }) {
   const imgs = post.data?.attributes?.Images?.data?.map((img, index) => {
@@ -38,6 +45,8 @@ export default function Post({
     publishDate: post.data?.attributes?.publishedAt,
     nextPost,
     previousPost,
+    likeCount,
+    postId: post.data?.id,
   };
   const images = post.data?.attributes?.Images?.data;
   if (images)
@@ -57,7 +66,7 @@ export default function Post({
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id;
   if (typeof id === "string") {
-    const response = await fetch(
+    const postResponse = await fetch(
       `${process.env.STRAPI_ENDPOINT!}/posts/${id}?populate=*`,
       {
         headers: { Authorization: `bearer ${process.env.STRAPI_ACCESS_TOKEN}` },
@@ -66,18 +75,25 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     checkAndSetEV(defaults);
     const allPosts = await getPosts({ sort: `publishedAt:desc` });
+    const likeResponse = await fetch(
+      `${process.env.STRAPI_ENDPOINT!}/likes/?filters[post][id][$eq]=${id}`,
+      {
+        headers: { Authorization: `bearer ${process.env.STRAPI_ACCESS_TOKEN}` },
+      }
+    );
 
     if (
-      response.status === 200 &&
+      postResponse.status === 200 &&
       allPosts.status === 200 &&
       allPosts.data.data
     ) {
-      const post = (await response.json()) as PostResponse;
-
+      const post = (await postResponse.json()) as PostResponse;
+      const likes = (await likeResponse.json()) as LikeListResponse;
+      const likeCount = likes.data?.length;
+      console.log(likeCount);
       const index = allPosts.data.data.findIndex((p) => {
         return p.id === post.data?.id;
       });
-      // console.debug(allPosts.data.data);
       let nextPost: neightbourPostType | null = null;
       let previousPost: neightbourPostType | null = null;
       if (index > 0) {
@@ -94,7 +110,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       if (post.data?.attributes?.publishedAt) {
         const date = parseISO(post.data?.attributes?.publishedAt);
         const formatedDate = format(date, "PPP", { locale: zhCN });
-        // console.log(formatedDate);
         post.data.attributes.publishedAt = formatedDate;
       }
       return {
@@ -102,14 +117,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
           post,
           previousPost,
           nextPost,
+          likeCount,
           assetEndpoint: process.env.STRAPI_ENDPOINT_ASSET,
         },
         revalidate: 600,
       };
     } else {
       console.log(
-        `Error code:${response.status} ,Error:${JSON.stringify(
-          await response.json()
+        `Error code:${postResponse.status} ,Error:${JSON.stringify(
+          await postResponse.json()
         )}`
       );
     }

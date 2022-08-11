@@ -10,7 +10,9 @@ import GalleryItem from "./galleryItem";
 
 interface propType {
   imgs: imgType[] | undefined;
+  likeCount: number | undefined;
   seriesName?: string;
+  postId?: string;
   publishDate?: string;
   keyFrameEffects?: any;
   imperativeHandle?: RefObject<any>;
@@ -91,9 +93,11 @@ const swipeThreshold = 30;
 export default function Gallery({
   imgs,
   seriesName,
+  postId,
   publishDate,
   nextPost,
   previousPost,
+  likeCount,
 }: propType) {
   //Index of image being viewed.
   const [activeIndex, setActive] = useState<number>(0);
@@ -349,7 +353,26 @@ export default function Gallery({
           </div>
           <div className={styles.currentSeriesInfo}>
             <h1 className={styles.seriesName}>{seriesName}</h1>
-            <p>发布于 {publishDate}</p>
+            <p className={styles.date}>发布于 {publishDate}</p>
+
+            <button
+              onClick={(e) => {
+                fetch("./api/like", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: postId,
+                }).catch((e) =>
+                  console.log(`some error happened:${JSON.stringify(e)}`)
+                );
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
+            <p className={styles.likeCount}>{likeCount ?? 0}</p>
           </div>
 
           <div className={styles.previousLink + " " + styles.link}>
