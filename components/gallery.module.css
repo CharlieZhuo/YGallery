@@ -142,12 +142,13 @@
   text-align: center;
 }
 .slideButton {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   z-index: 20;
-  block-size: 40vh;
-  inline-size: max(3rem, 13vw);
+  block-size: 30vh;
+  /* inline-size: max(3rem, 13vw); */
 
   appearance: none;
   background-color: hsla(0, 0%, 0%, 0);
@@ -164,7 +165,23 @@
 .slideButton:hover:not(:active) svg {
   stroke: hsl(0, 0%, 100%);
 }
+.slideThumbnail {
+  block-size: 20vh;
+  inline-size: 20vh;
+  position: relative;
+}
+.buttonNeighbourInfo {
+  opacity: 0;
+  background-color: hsla(0, 0%, 0%, 0);
+  transition: opacity 0.2s linear, background-color 0.2s linear;
+}
+.slideButton:hover:not(:active) .buttonNeighbourInfo {
+  opacity: 1;
+  background-color: hsla(0, 0%, 100%, 0.8);
+}
 .slideButton svg {
+  block-size: 8vw;
+  inline-size: 8vw;
   fill: none;
   stroke: hsl(0, 0%, 70%);
   stroke-width: 1.5px;

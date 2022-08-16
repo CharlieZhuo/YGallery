@@ -7,6 +7,7 @@ import usePointerHandlers, {
 import { neightbourPostType } from "../pages/post/[id]";
 import styles from "./gallery.module.css";
 import GalleryItem from "./galleryItem";
+import Image from "next/image";
 
 interface propType {
   imgs: imgType[] | undefined;
@@ -111,6 +112,7 @@ export default function Gallery({
 
   const router = useRouter();
 
+  //play page animation
   useEffect(() => {
     if (imgs && liElements) {
       if (activeIndex !== targetIndex) {
@@ -300,39 +302,73 @@ export default function Gallery({
             </button>
           </div>
         </header>
-        {imgs && imgs.length > 1 ? (
+        {imgs ? (
           <>
-            {activeIndex < imgs.length - 1 ? (
-              <button
-                className={styles.slideButton + " " + styles.next}
-                onClick={(e) => {
-                  if (imgs && activeIndex < imgs.length - 1 && !inDetail)
+            <button
+              className={styles.slideButton + " " + styles.next}
+              onClick={(e) => {
+                if (imgs && !inDetail) {
+                  if (activeIndex < imgs.length - 1) {
                     setTarget(activeIndex + 1);
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-            ) : (
-              <></>
-            )}
+                  } else if (nextPost) {
+                    router.push(`./${nextPost.id}`);
+                  }
+                }
+              }}
+            >
+              {nextPost && activeIndex === imgs.length - 1 ? (
+                <div className={styles.buttonNeighbourInfo}>
+                  <p>下一组图</p>
+                  <div className={styles.slideThumbnail}>
+                    <Image
+                      src={nextPost.thumbnail.url}
+                      width={200}
+                      height={200}
+                      layout={"intrinsic"}
+                      quality={100}
+                      objectFit={"contain"}
+                    ></Image>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
 
-            {activeIndex > 0 ? (
-              <button
-                className={styles.slideButton + " " + styles.prior}
-                onClick={(e) => {
-                  if (imgs && activeIndex > 0 && !inDetail)
+            <button
+              className={styles.slideButton + " " + styles.prior}
+              onClick={(e) => {
+                if (imgs && !inDetail) {
+                  if (activeIndex > 0) {
                     setTarget(activeIndex - 1);
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-            ) : (
-              <></>
-            )}
+                  } else if (previousPost) {
+                    router.push(`./${previousPost.id}`);
+                  }
+                }
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              {previousPost && activeIndex === 0 ? (
+                <div className={styles.buttonNeighbourInfo}>
+                  <p>上一组图</p>
+                  <div className={styles.slideThumbnail}>
+                    <Image
+                      src={previousPost.thumbnail.url}
+                      layout={"fill"}
+                      quality={100}
+                      objectFit={"cover"}
+                    ></Image>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </button>
           </>
         ) : (
           <></>

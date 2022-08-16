@@ -3,6 +3,7 @@ import {
   defaults,
   getPosts,
   LikeListResponse,
+  PostListResponse,
 } from "../../lib/strapiLib";
 
 import { checkAndSetEV } from "../../lib/strapiUtil";
@@ -14,7 +15,14 @@ import parseISO from "date-fns/parseISO";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
 
-export type neightbourPostType = { title: string; id: string };
+export type neightbourPostType = {
+  title: string;
+  id: string;
+  thumbnail: {
+    url: string;
+    alt: string;
+  };
+};
 
 export default function Post({
   post,
@@ -74,7 +82,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
     );
 
     checkAndSetEV(defaults);
-    const allPosts = await getPosts({ sort: `publishedAt:desc` });
+    const allPosts = await getPosts({
+      sort: `publishedAt:desc`,
+      populate: "*",
+    });
     const likeResponse = await fetch(
       `${process.env.STRAPI_ENDPOINT!}/likes/?filters[post][id][$eq]=${id}`,
       {
@@ -97,14 +108,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
       let nextPost: neightbourPostType | null = null;
       let previousPost: neightbourPostType | null = null;
       if (index > 0) {
-        const title = allPosts.data.data.at(index - 1)?.attributes?.title;
-        const id = allPosts.data.data.at(index - 1)?.id;
-        if (title && id) previousPost = { title, id };
+        previousPost = getNeighbourPostInfo(
+          allPosts.data,
+          index - 1,
+          process.env.STRAPI_ENDPOINT_ASSET!
+        );
       }
       if (index < allPosts.data.data.length - 1) {
-        const title = allPosts.data.data.at(index + 1)?.attributes?.title;
-        const id = allPosts.data.data.at(index + 1)?.id;
-        if (title && id) nextPost = { title, id };
+        nextPost = getNeighbourPostInfo(
+          allPosts.data,
+          index + 1,
+          process.env.STRAPI_ENDPOINT_ASSET!
+        );
       }
 
       if (post.data?.attributes?.publishedAt) {
@@ -134,6 +149,26 @@ export const getStaticProps: GetStaticProps = async (context) => {
     notFound: true,
   };
 };
+
+function getNeighbourPostInfo(
+  allPosts: PostListResponse,
+  index: number,
+  assetEndpoint: string
+) {
+  const title = allPosts.data!.at(index)?.attributes?.title;
+  const id = allPosts.data!.at(index)?.id;
+  const firstImage = allPosts.data!.at(index)?.attributes?.Images?.data?.at(0);
+  if (title && id && firstImage)
+    return {
+      title,
+      id,
+      thumbnail: {
+        url: `${assetEndpoint}${firstImage.attributes?.url}?format=webp&quality=100&resize=200x200`,
+        alt: firstImage.attributes?.alternativeText!,
+      },
+    };
+  else return null;
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   checkAndSetEV(defaults);
