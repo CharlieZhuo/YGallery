@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import CommonLayout from "../components/commonLayout";
 import { checkAndSetEV } from "../lib/strapiUtil";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import styles from "../styles/about.module.css";
 
 import { AboutResponse, defaults } from "../lib/strapiLib";

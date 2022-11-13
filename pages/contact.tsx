@@ -1,6 +1,6 @@
 import CommonLayout from "../components/commonLayout";
 import styles from "../styles/Contact.module.css";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
