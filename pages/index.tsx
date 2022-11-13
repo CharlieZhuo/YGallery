@@ -46,7 +46,7 @@ const Home = ({
         {catagories.data?.map((c) => {
           return (
             <li key={c.id}>
-              <Link href={`/catagory/${c.attributes?.url}`}>
+              <Link href={`/catagory/${c.attributes?.url}`} legacyBehavior>
                 {c.attributes?.name}
               </Link>
             </li>
