@@ -12,10 +12,10 @@
   "dependencies": {
     "date-fns": "^2.29.1",
     "formik": "^2.2.9",
-    "next": "12.1.6",
+    "next": "^13.0.3",
     "plaiceholder": "^2.4.0",
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-photo-album": "^1.14.0",
     "viewerjs": "^1.10.5",
     "yup": "^0.32.11"
@@ -25,7 +25,7 @@
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",
     "eslint": "8.17.0",
-    "eslint-config-next": "12.1.6",
+    "eslint-config-next": "^13.0.3",
     "oazapfts": "^3.6.0",
     "typescript": "4.7.3"
   }
