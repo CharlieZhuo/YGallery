@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 import { createSCSupabaseClient } from "../util/supabase-server";
 import AuthChangeListener from "./authChangeListener";
 
@@ -8,7 +8,7 @@ export const revalidate = 0;
 export default async function RootLayout({
   children,
 }: {
-  children: ReactElement;
+  children: ReactNode;
 }) {
   const supabase = createSCSupabaseClient();
   const tokenFromReq = (await supabase.auth.getSession()).data.session

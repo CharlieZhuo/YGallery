@@ -1,47 +1,43 @@
+"use client";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
-import styles from "../../../styles/LoginRegister.module.css";
-import supabaseBrowser from "../../../util/supabase-browser";
-import LoginInput from "../../../components/inputs/LoginInput";
+import LoginInput from "../../../../components/inputs/LoginInput";
+import supabaseBrowser from "../../../../util/supabase-browser";
+
+import styles from "../../../../styles/LoginRegister.module.css";
 
 const contactValidationSchema = Yup.object().shape({
   email: Yup.string()
     .required("邮箱不能为空")
     .email("输入值不是有效的邮箱地址"),
-  password: Yup.string().required("请输入密码"),
 });
 
-export default function PasswordLogin() {
-  const router = useRouter();
-
+export default function ResetPassword() {
   const [SignInError, setSignInError] = useState("");
+
+  const router = useRouter();
 
   const captchaRef = useRef<HCaptcha | null>(null);
   const [captchaToken, setCaptchaToken] = useState("");
 
   return (
     <main>
-      <h1 className={styles.title}>欢迎</h1>
+      <h1 className={styles.title}>重置密码</h1>
 
       <div className={styles.container}>
         {/* form */}
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: "" }}
           validationSchema={contactValidationSchema}
           onSubmit={(value, helper) => {
             setSignInError("");
             supabaseBrowser.auth
-              .signInWithPassword({
-                email: value.email,
-                password: value.password,
-                options: {
-                  captchaToken: captchaToken,
-                },
+              .resetPasswordForEmail(value.email, {
+                captchaToken: captchaToken,
               })
               .then(({ data, error }) => {
                 if (error) {
@@ -67,12 +63,6 @@ export default function PasswordLogin() {
                 label={"邮箱"}
                 inputType={"email"}
               />
-              <LoginInput
-                formik={formik}
-                id={"password"}
-                label={"密码"}
-                inputType={"password"}
-              />
 
               <p className={styles.formError}>{SignInError}</p>
 
@@ -88,7 +78,7 @@ export default function PasswordLogin() {
                 type={"submit"}
                 disabled={formik.isSubmitting}
               >
-                登录
+                发送重置链接
               </button>
             </form>
           )}

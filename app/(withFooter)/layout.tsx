@@ -1,13 +1,9 @@
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import styles from "./footer.module.css";
 
-export default function layoutWithFooter({
-  children,
-}: {
-  children: ReactElement;
-}) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
