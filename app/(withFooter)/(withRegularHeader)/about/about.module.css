@@ -1,0 +1,14 @@
+.title {
+  margin-block-start: 4rem;
+  text-align: center;
+  font-size: 3rem;
+
+  margin-block-end: 4rem;
+}
+.description {
+  text-align: center;
+  inline-size: 30rem;
+  margin-inline: auto;
+  font-size: 1.2rem;
+  margin-block-end: 6rem;
+}
