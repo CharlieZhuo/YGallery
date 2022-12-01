@@ -1,0 +1,14 @@
+.container {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+
+  background-color: #fafafa;
+  color: #444444;
+
+  border: 2px dashed #eeeeee;
+  border-radius: 2px;
+  outline: none;
+
+  transition: border 0.24s ease-in-out;
+}

@@ -1,6 +1,6 @@
 import { ReactElement, useRef } from "react";
 import LoginOrUser from "./(components)/LoginOrUser";
-import UserAvatar from "./(components)/UserAvatar";
+import UserAvatarDisplay from "../../../components/UserAvatarDisplay";
 
 import Links from "./(components)/Links";
 

@@ -4,21 +4,23 @@ import { HTMLInputTypeAttribute } from "react";
 
 import styles from "../../styles/LoginRegister.module.css";
 
-export default function LoginInput({
+export default function LoginInput<Type, Key extends keyof Type & string>({
   label,
   id,
   formik,
   inputType,
+  requiredMark,
 }: {
   label: string;
-  id: string;
-  formik: FormikProps<any>;
+  id: Key;
+  formik: FormikProps<Type>;
   inputType?: HTMLInputTypeAttribute;
+  requiredMark?: boolean;
 }) {
   return (
     <section className={styles.section}>
       <label className={styles.label} htmlFor={id}>
-        {label}
+        {`${label}${requiredMark === true ? "*" : ""}`}
       </label>
       <input
         type={inputType}

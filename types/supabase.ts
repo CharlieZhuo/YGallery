@@ -115,12 +115,11 @@ export interface Database {
           catagories?: string[] | null
         }
       }
-      profiles: {
+      Profiles: {
         Row: {
           id: string
           updated_at: string | null
           username: string
-          avatar_url: string | null
           website: string | null
           description: string | null
         }
@@ -128,7 +127,6 @@ export interface Database {
           id: string
           updated_at?: string | null
           username: string
-          avatar_url?: string | null
           website?: string | null
           description?: string | null
         }
@@ -136,7 +134,6 @@ export interface Database {
           id?: string
           updated_at?: string | null
           username?: string
-          avatar_url?: string | null
           website?: string | null
           description?: string | null
         }

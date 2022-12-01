@@ -1,5 +1,5 @@
 import SignInButton from "./SignInButton";
-import UserAvatar from "./UserAvatar";
+import UserStatusData from "./userStatusData";
 
 import { createSCSupabaseClient } from "../../../../util/supabase-server";
 
@@ -17,10 +17,10 @@ export default async function LoginOrUser() {
     );
   } else {
     return (
-      <>
+      <div>
         {/* @ts-expect-error Server Component */}
-        <UserAvatar user={data.user}></UserAvatar>
-      </>
+        <UserStatusData user={data.user}></UserStatusData>
+      </div>
     );
   }
 }
