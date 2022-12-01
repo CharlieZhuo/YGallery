@@ -6,7 +6,7 @@ import {
 } from "@supabase/auth-ui-react";
 import { useRouter } from "next/navigation";
 
-import supabaseBrowser from "../../../util/supabase-browser";
+import supabaseBrowser from "../../util/supabase-browser";
 
 export default function SupabaseAuthUI() {
   const router = useRouter();

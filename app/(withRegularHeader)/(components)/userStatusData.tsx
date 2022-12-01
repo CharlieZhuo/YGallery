@@ -1,4 +1,4 @@
-import { createSCSupabaseClient } from "../../../../util/supabase-server";
+import { createSCSupabaseClient } from "../../../util/supabase-server";
 import SignoutButton from "./signoutButton";
 
 import { User } from "@supabase/auth-helpers-nextjs";

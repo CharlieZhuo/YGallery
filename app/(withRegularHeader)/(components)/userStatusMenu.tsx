@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import UserAvatarDisplay from "../../../../components/UserAvatarDisplay";
+import UserAvatarDisplay from "../../../components/UserAvatarDisplay";
 import SignoutButton from "./signoutButton";
 import styles from "./userStatusMenu.module.css";
 

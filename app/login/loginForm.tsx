@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
-import styles from "../../../styles/LoginRegister.module.css";
-import supabaseBrowser from "../../../util/supabase-browser";
-import LoginInput from "../../../components/inputs/LoginInput";
+import styles from "../../styles/loginRegister.module.css";
+import supabaseBrowser from "../../util/supabase-browser";
+import LoginInput from "../../components/inputs/LoginInput";
 
 const contactValidationSchema = Yup.object().shape({
   email: Yup.string()

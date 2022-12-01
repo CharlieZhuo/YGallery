@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { ErrorMessage, FormikProps } from "formik";
 import { HTMLInputTypeAttribute } from "react";
 
-import styles from "../../styles/LoginRegister.module.css";
+import styles from "../../styles/loginRegister.module.css";
 
 export default function LoginInput<Type, Key extends keyof Type & string>({
   label,

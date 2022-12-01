@@ -2,12 +2,12 @@
 import { Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-import supabaseBrowser from "../../../../util/supabase-browser";
+import supabaseBrowser from "../../../util/supabase-browser";
 
-import { Database } from "../../../../types/supabase";
+import { Database } from "../../../types/supabase";
 
-import styles from "../../../../styles/LoginRegister.module.css";
-import LoginInput from "../../../../components/inputs/LoginInput";
+import styles from "../../../styles/loginRegister.module.css";
+import LoginInput from "../../../components/inputs/LoginInput";
 import { useRouter } from "next/navigation";
 
 const ValidationSchema = Yup.object().shape({

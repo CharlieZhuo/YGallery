@@ -1,5 +1,4 @@
 "use client";
-import supabaseBrowser from "../../../../util/supabase-browser";
 
 import { useDropzone } from "react-dropzone";
 import { useEffect, useRef } from "react";

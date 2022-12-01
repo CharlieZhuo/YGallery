@@ -1,7 +1,7 @@
 "use client";
 import { User } from "@supabase/supabase-js";
 import { useState } from "react";
-import UserAvatarDisplay from "../../../../components/UserAvatarDisplay";
+import UserAvatarDisplay from "../../../components/UserAvatarDisplay";
 import AvatarUploader from "./AvatarUploader";
 
 export default function AvatarEditor({

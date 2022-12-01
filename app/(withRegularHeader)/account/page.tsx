@@ -1,7 +1,6 @@
-import { createSCSupabaseClient } from "../../../../util/supabase-server";
+import { createSCSupabaseClient } from "../../../util/supabase-server";
 import ProfileSetupForm from "./ProfileSetupForm";
 
-import UserAvatarDisplay from "../../../../components/UserAvatarDisplay";
 import { redirect } from "next/navigation";
 import AvatarEditor from "./AvatarEditor";
 

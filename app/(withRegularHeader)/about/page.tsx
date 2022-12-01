@@ -1,5 +1,3 @@
-import { GetStaticProps } from "next";
-import Image from "next/legacy/image";
 import styles from "./about.module.css";
 
 export default async function About() {

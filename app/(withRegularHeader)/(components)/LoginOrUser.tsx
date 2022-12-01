@@ -1,7 +1,7 @@
 import SignInButton from "./SignInButton";
 import UserStatusData from "./userStatusData";
 
-import { createSCSupabaseClient } from "../../../../util/supabase-server";
+import { createSCSupabaseClient } from "../../../util/supabase-server";
 
 export default async function LoginOrUser() {
   const supabase = createSCSupabaseClient();
