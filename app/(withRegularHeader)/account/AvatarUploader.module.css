@@ -12,3 +12,11 @@
 
   transition: border 0.24s ease-in-out;
 }
+.preview {
+  max-block-size: 60vh;
+  max-inline-size: 60vw;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+
+  border-radius: 50%;
+}

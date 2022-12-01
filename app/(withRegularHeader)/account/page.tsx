@@ -3,6 +3,10 @@ import ProfileSetupForm from "./ProfileSetupForm";
 
 import { redirect } from "next/navigation";
 import AvatarEditor from "./AvatarEditor";
+import {
+  getUserAvatarUrl,
+  getUserProfile,
+} from "../../../lib/getUserProfileAvatar";
 
 export default async function Account() {
   const supabase = createSCSupabaseClient();
@@ -11,20 +15,20 @@ export default async function Account() {
   if (user.error || !user.data) {
     redirect("/login");
   }
-  const { data, error } = await supabase
-    .from("Profiles")
-    .select()
-    .eq("id", user.data.user.id)
-    .maybeSingle();
-  if (error) throw error;
-  if (!data) {
+
+  const [profile, url] = await Promise.all([
+    getUserProfile(user.data.user.id),
+    getUserAvatarUrl(user.data.user.id),
+  ]);
+
+  if (!profile) {
     return <ProfileSetupForm userId={user.data.user.id}></ProfileSetupForm>;
   } else
     return (
       <main>
-        <h2>欢迎，{data.username}</h2>
+        <h2>欢迎，{profile.username}</h2>
 
-        <AvatarEditor user={user.data.user}></AvatarEditor>
+        <AvatarEditor avatarUrl={url} user={user.data.user}></AvatarEditor>
       </main>
     );
 }

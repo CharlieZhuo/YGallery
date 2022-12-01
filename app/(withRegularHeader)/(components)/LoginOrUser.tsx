@@ -7,7 +7,6 @@ export default async function LoginOrUser() {
   const supabase = createSCSupabaseClient();
 
   const { data, error } = await supabase.auth.getUser();
-  console.log(data.user);
 
   if (error || !data.user) {
     return (

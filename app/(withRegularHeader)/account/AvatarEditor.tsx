@@ -23,7 +23,7 @@ export default function AvatarEditor({
           setEditorOpen(true);
         }}
       ></UserAvatarDisplay>
-      {EditorOpen && <AvatarUploader></AvatarUploader>}
+      {EditorOpen && <AvatarUploader user={user}></AvatarUploader>}
     </div>
   );
 }

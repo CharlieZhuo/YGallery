@@ -17,9 +17,9 @@ export default function UserAvatarDisplay({
 }) {
   return (
     <span onClick={onClick} style={{ cursor: onClick ? "pointer" : "auto" }}>
-      {userAvatarUrl ? (
+      {Boolean(userAvatarUrl) ? (
         <Image
-          src={userAvatarUrl}
+          src={userAvatarUrl!}
           alt={`Avatar of user`}
           width={sizePx}
           height={sizePx}
