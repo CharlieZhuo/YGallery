@@ -3,7 +3,6 @@ import { ReactElement, useRef } from "react";
 import { Link } from "react-feather";
 
 import styles from "../regularHeader.module.css";
-import LoginOrUser from "./LoginOrUser";
 
 export default function DynamicHeaderLayout({
   children,

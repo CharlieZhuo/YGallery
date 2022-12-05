@@ -1,0 +1,55 @@
+.iconContainer {
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  border-radius: var(--border-corner-radius) var(--border-corner-radius) 0 0;
+}
+.menuContainer {
+  --border-corner-radius: 8px;
+  position: relative;
+  display: grid;
+}
+
+.username {
+  word-break: keep-all;
+}
+
+.menu {
+  position: absolute;
+  inset-inline: 0;
+}
+.menuItem {
+  border-color: gray;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+}
+.menuItem:nth-child(2n) {
+  background-color: hsl(0, 0%, 85%);
+}
+.menuItem:last-child {
+  border-radius: 0 0 var(--border-corner-radius) var(--border-corner-radius);
+  border-width: 1px;
+}
+.menulink {
+  display: block;
+  text-align: center;
+  padding: 0.3rem 0;
+
+  inline-size: 100%;
+
+  appearance: none;
+
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: black;
+
+  background-color: hsla(0, 0%, 0%, 0);
+
+  border: none;
+
+  cursor: pointer;
+}

@@ -3,6 +3,8 @@ import React, { ReactNode } from "react";
 import { createSCSupabaseClient } from "../util/supabase-server";
 import AuthChangeListener from "./authChangeListener";
 
+import "./global.css";
+
 import styles from "./footer.module.css";
 
 // do not cache this layout
@@ -21,7 +23,7 @@ export default async function RootLayout({
       <head></head>
       <body>
         <AuthChangeListener token={tokenFromReq}></AuthChangeListener>
-        {children}
+        <main>{children}</main>
         <footer className={styles.footer}>
           <div>
             <p className={styles.footertitle}>悠悠画廊</p>{" "}
