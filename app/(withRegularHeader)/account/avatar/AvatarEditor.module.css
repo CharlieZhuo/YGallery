@@ -1,0 +1,47 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.previewContainer {
+  position: relative;
+}
+
+.preview {
+  inline-size: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.previewContainer > cropper-canvas {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.previewContainer cropper-selection {
+  aspect-ratio: 1/1;
+}
+.outputPreview {
+  inline-size: 200px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+
+  border: 2px solid black;
+  overflow: hidden;
+}
+.outputPreview canvas {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+@media (min-aspect-ratio: 1/1) {
+  .flex {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .previewContainer {
+    width: 70vh;
+  }
+  .restUI {
+  }
+}

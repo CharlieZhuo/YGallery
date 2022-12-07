@@ -46,7 +46,9 @@ export default function PasswordLogin() {
               .then(({ data, error }) => {
                 if (error) {
                   setSignInError(error.message);
-                } else router.push("/");
+                } else {
+                  router.push("/");
+                }
                 helper.setSubmitting(false);
                 const captcha = captchaRef.current;
                 if (captcha) {

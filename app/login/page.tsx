@@ -5,7 +5,7 @@ import SupabaseAuthUI from "./supabaseAuthUI";
 export default function AuthComponent() {
   return (
     <>
-      <SupabaseAuthUI></SupabaseAuthUI>
+      {/* <SupabaseAuthUI></SupabaseAuthUI> */}
       <PasswordLogin></PasswordLogin>
     </>
   );

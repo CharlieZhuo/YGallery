@@ -2,7 +2,7 @@ import { createSCSupabaseClient } from "../../../util/supabase-server";
 import ProfileSetupForm from "./ProfileSetupForm";
 
 import { redirect } from "next/navigation";
-import AvatarEditor from "./AvatarEditor";
+import AvatarLink from "./AvatarLink";
 import {
   getUserAvatarUrl,
   getUserProfile,
@@ -28,7 +28,7 @@ export default async function Account() {
       <main>
         <h2>欢迎，{profile.username}</h2>
 
-        <AvatarEditor avatarUrl={url} user={user.data.user}></AvatarEditor>
+        <AvatarLink avatarUrl={url} user={user.data.user}></AvatarLink>
       </main>
     );
 }
