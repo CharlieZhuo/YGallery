@@ -8,7 +8,7 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import LoginInput from "../../components/inputs/LoginInput";
 import supabaseBrowser from "../../util/supabase-browser";
 
-import styles from "../../styles/loginRegister.module.css";
+import styles from "../../styles/LoginRegister.module.css";
 
 const contactValidationSchema = Yup.object().shape({
   email: Yup.string()

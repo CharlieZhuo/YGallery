@@ -6,7 +6,7 @@ import supabaseBrowser from "../../../util/supabase-browser";
 
 import { Database } from "../../../types/supabase";
 
-import styles from "../../../styles/loginRegister.module.css";
+import styles from "../../../styles/LoginRegister.module.css";
 import LoginInput from "../../../components/inputs/LoginInput";
 import { useRouter } from "next/navigation";
 
