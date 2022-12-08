@@ -43,6 +43,7 @@ export default function AvatarUploader({ user }: { user: User }) {
               console.dir(error);
               setSubmitting(false);
             } else {
+              router.refresh();
               router.push("/account");
             }
           });
