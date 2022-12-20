@@ -19,9 +19,12 @@
   padding-block: 0.4rem;
 
   block-size: 100%;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 
+  color: inherit;
   background-color: transparent;
   transition: background-color 0.2s cubic-bezier(easing.$easing-standard);
 }
@@ -32,4 +35,8 @@
   background-color: var(--color-surface-variant);
 
   cursor: progress;
+}
+
+.progress {
+  block-size: 1em;
 }

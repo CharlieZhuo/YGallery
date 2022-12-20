@@ -1,3 +1,4 @@
+import { CircularProgress } from "@chakra-ui/react";
 import styles from "./SubmitButtonProp.module.scss";
 
 export interface SubmitButtonProp
@@ -8,7 +9,16 @@ export interface SubmitButtonProp
 export default function SubmitButton({ children, ...rest }: SubmitButtonProp) {
   return (
     <button className={styles.button} {...rest}>
-      <div className={styles.overlay}>{children}</div>
+      <div className={styles.overlay}>
+        {children}
+        {rest.disabled && (
+          <CircularProgress
+            size={`1em`}
+            className={styles.progress}
+            isIndeterminate
+          ></CircularProgress>
+        )}
+      </div>
     </button>
   );
 }

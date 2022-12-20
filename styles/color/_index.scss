@@ -106,7 +106,7 @@
   --color-primary: var(--color-primary-light);
 }
 
-[colormode="dark"] * {
+[data-color-mode="dark"] * {
   --color-overlay5: var(--color-overlay5-dark);
   --color-overlay4: var(--color-overlay4-dark);
   --color-overlay3: var(--color-overlay3-dark);

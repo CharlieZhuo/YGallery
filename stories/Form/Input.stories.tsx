@@ -31,13 +31,6 @@ Email.args = {
   inputType: "email",
 };
 
-export const Password = Template.bind({});
-Password.args = {
-  id: "password",
-  name: "Password",
-  inputType: "password",
-};
-
 export const Invalid = Template.bind({});
 Invalid.args = {
   ...Email.args,
