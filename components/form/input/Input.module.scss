@@ -1,0 +1,34 @@
+@use '../../../styles/typography';
+.input {
+  padding-inline: 1rem;
+  padding-block: 0.6rem;
+
+  @include typography.font-body-medium;
+
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+
+  border-color: var(--color-outline);
+  border-width: 1px;
+  border-radius: 0.25rem;
+  border-style: solid;
+
+  outline: none;
+
+  &:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 1px;
+  }
+}
+.input[disabled] {
+  cursor: not-allowed;
+  background-color: var(--color-surface-variant);
+}
+
+.inputWithError {
+  border-color: var(--color-error);
+  &:focus-visible {
+    outline: 3px solid var(--color-error-container);
+    outline-offset: 1px;
+  }
+}

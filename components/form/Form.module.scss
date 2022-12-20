@@ -1,0 +1,11 @@
+@use '../../styles/typography';
+.form {
+  display: flex;
+  flex-direction: column;
+
+  max-inline-size: 32rem;
+}
+.formTitle {
+  text-align: center;
+  @include typography.font-title-large;
+}

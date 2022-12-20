@@ -1,0 +1,152 @@
+// Typography
+$body-small-fontSize: 0.75rem;
+$body-medium-fontSize: 0.875rem;
+$body-large-fontSize: 1rem;
+$label-small-fontSize: 0.6875rem;
+$label-medium-fontSize: 0.75rem;
+$label-large-fontSize: 0.875rem;
+$title-small-fontSize: 0.875rem;
+$title-medium-fontSize: 1rem;
+$title-large-fontSize: 1.375rem;
+$headline-small-fontSize: 1.5rem;
+$headline-medium-fontSize: 1.75rem;
+$headline-large-fontSize: 2rem;
+$display-small-fontSize: 2.25rem;
+$display-medium-fontSize: 2.8125rem;
+$display-large-fontSize: 3.5625rem;
+$body-small-fontWeights: 400;
+$body-medium-fontWeights: 400;
+$body-large-fontWeights: 400;
+$label-small-fontWeights: 500;
+$label-medium-fontWeights: 500;
+$label-large-fontWeights: 500;
+$title-small-fontWeights: 500;
+$title-medium-fontWeights: 500;
+$title-large-fontWeights: 400;
+$headline-small-fontWeights: 400;
+$headline-medium-fontWeights: 400;
+$headline-large-fontWeights: 400;
+$display-small-fontWeights: 400;
+$display-medium-fontWeights: 400;
+$display-large-fontWeights: 400;
+$body-small-lineHeights: 1rem;
+$body-medium-lineHeights: 1.25rem;
+$body-large-lineHeights: 1.5rem;
+$label-small-lineHeights: 1rem;
+$label-medium-lineHeights: 1rem;
+$label-large-lineHeights: 1.25rem;
+$title-small-lineHeights: 1.25rem;
+$title-medium-lineHeights: 1.5rem;
+$title-large-lineHeights: 1.75rem;
+$headline-small-lineHeights: 2rem;
+$headline-medium-lineHeights: 2.25rem;
+$headline-large-lineHeights: 2.5rem;
+$display-small-lineHeights: 2.75rem;
+$display-medium-lineHeights: 3.25rem;
+$display-large-lineHeights: 4rem;
+$body-small-letterSpacings: 0.025rem;
+$body-medium-letterSpacings: 0.015625rem;
+$body-large-letterSpacings: 0.03125rem;
+$label-small-letterSpacings: 0.03125rem;
+$label-medium-letterSpacings: 0.03125rem;
+$label-large-letterSpacings: 0.00625rem;
+$title-small-letterSpacings: 0.00625rem;
+$title-medium-letterSpacings: 0.00625rem;
+$title-large-letterSpacings: 0rem;
+$headline-small-letterSpacings: 0rem;
+$headline-medium-letterSpacings: 0rem;
+$headline-large-letterSpacings: 0rem;
+$display-small-letterSpacings: 0rem;
+$display-medium-letterSpacings: 0rem;
+$display-large-letterSpacings: -0.015625rem;
+
+@mixin font-body-small {
+  font-size: $body-small-fontSize;
+  font-weight: $body-small-fontWeights;
+  letter-spacing: $body-small-letterSpacings;
+  line-height: $body-small-lineHeights;
+}
+@mixin font-body-medium {
+  font-size: $body-medium-fontSize;
+  font-weight: $body-medium-fontWeights;
+  letter-spacing: $body-medium-letterSpacings;
+  line-height: $body-medium-lineHeights;
+}
+@mixin font-body-large {
+  font-size: $body-large-fontSize;
+  font-weight: $body-large-fontWeights;
+  letter-spacing: $body-large-letterSpacings;
+  line-height: $body-large-lineHeights;
+}
+@mixin font-label-small {
+  font-size: $label-small-fontSize;
+  font-weight: $label-small-fontWeights;
+  letter-spacing: $label-small-letterSpacings;
+  line-height: $label-small-lineHeights;
+}
+@mixin font-label-medium {
+  font-size: $label-medium-fontSize;
+  font-weight: $label-medium-fontWeights;
+  letter-spacing: $label-medium-letterSpacings;
+  line-height: $label-medium-lineHeights;
+}
+@mixin font-label-large {
+  font-size: $label-large-fontSize;
+  font-weight: $label-large-fontWeights;
+  letter-spacing: $label-large-letterSpacings;
+  line-height: $label-large-lineHeights;
+}
+@mixin font-title-small {
+  font-size: $title-small-fontSize;
+  font-weight: $title-small-fontWeights;
+  letter-spacing: $title-small-letterSpacings;
+  line-height: $title-small-lineHeights;
+}
+@mixin font-title-medium {
+  font-size: $title-medium-fontSize;
+  font-weight: $title-medium-fontWeights;
+  letter-spacing: $title-medium-letterSpacings;
+  line-height: $title-medium-lineHeights;
+}
+@mixin font-title-large {
+  font-size: $title-large-fontSize;
+  font-weight: $title-large-fontWeights;
+  letter-spacing: $title-large-letterSpacings;
+  line-height: $title-large-lineHeights;
+}
+@mixin font-headline-small {
+  font-size: $headline-small-fontSize;
+  font-weight: $headline-small-fontWeights;
+  letter-spacing: $headline-small-letterSpacings;
+  line-height: $headline-small-lineHeights;
+}
+@mixin font-headline-medium {
+  font-size: $headline-medium-fontSize;
+  font-weight: $headline-medium-fontWeights;
+  letter-spacing: $headline-medium-letterSpacings;
+  line-height: $headline-medium-lineHeights;
+}
+@mixin font-headline-large {
+  font-size: $headline-large-fontSize;
+  font-weight: $headline-large-fontWeights;
+  letter-spacing: $headline-large-letterSpacings;
+  line-height: $headline-large-lineHeights;
+}
+@mixin font-display-small {
+  font-size: $display-small-fontSize;
+  font-weight: $display-small-fontWeights;
+  letter-spacing: $display-small-letterSpacings;
+  line-height: $display-small-lineHeights;
+}
+@mixin font-display-medium {
+  font-size: $display-medium-fontSize;
+  font-weight: $display-medium-fontWeights;
+  letter-spacing: $display-medium-letterSpacings;
+  line-height: $display-medium-lineHeights;
+}
+@mixin font-display-large {
+  font-size: $display-large-fontSize;
+  font-weight: $display-large-fontWeights;
+  letter-spacing: $display-large-letterSpacings;
+  line-height: $display-large-lineHeights;
+}

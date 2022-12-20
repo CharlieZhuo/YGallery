@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
-import LoginInput from "../../components/inputs/LoginInput";
+import FormInput from "../../components/form/FormInput";
 import supabaseBrowser from "../../util/supabase-browser";
 
 import styles from "../../styles/LoginRegister.module.css";
@@ -57,7 +57,7 @@ export default function ResetPassword() {
               onSubmit={formik.handleSubmit}
               className={styles.form}
             >
-              <LoginInput
+              <FormInput
                 formik={formik}
                 id={"email"}
                 label={"邮箱"}

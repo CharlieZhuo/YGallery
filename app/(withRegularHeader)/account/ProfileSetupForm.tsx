@@ -7,7 +7,7 @@ import supabaseBrowser from "../../../util/supabase-browser";
 import { Database } from "../../../types/supabase";
 
 import styles from "../../../styles/LoginRegister.module.css";
-import LoginInput from "../../../components/inputs/LoginInput";
+import FormInput from "../../../components/form/FormInput";
 import { useRouter } from "next/navigation";
 
 const ValidationSchema = Yup.object().shape({
@@ -64,20 +64,20 @@ export default function ProfileSetupForm({ userId }: { userId: string }) {
             onSubmit={formik.handleSubmit}
             className={styles.form}
           >
-            <LoginInput
+            <FormInput
               formik={formik}
               id={"username"}
               label={"用户名"}
               inputType={"text"}
               requiredMark={true}
             />
-            <LoginInput
+            <FormInput
               formik={formik}
               id={"description"}
               label={"介绍"}
               inputType={"text"}
             />
-            <LoginInput
+            <FormInput
               formik={formik}
               id={"website"}
               label={"个人网站"}

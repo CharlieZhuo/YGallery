@@ -7,7 +7,7 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 import styles from "../../styles/LoginRegister.module.css";
 import supabaseBrowser from "../../util/supabase-browser";
-import LoginInput from "../../components/inputs/LoginInput";
+import FormInput from "../../components/form/FormInput";
 
 const contactValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -63,13 +63,13 @@ export default function PasswordLogin() {
               onSubmit={formik.handleSubmit}
               className={styles.form}
             >
-              <LoginInput
+              <FormInput
                 formik={formik}
                 id={"email"}
                 label={"邮箱"}
                 inputType={"email"}
               />
-              <LoginInput
+              <FormInput
                 formik={formik}
                 id={"password"}
                 label={"密码"}

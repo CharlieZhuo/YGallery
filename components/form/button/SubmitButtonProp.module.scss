@@ -1,0 +1,35 @@
+@use '../../../styles/typography';
+@use '../../../styles/easing.scss';
+.button {
+  padding: 0;
+
+  margin-block: 1rem;
+  @include typography.font-body-large;
+
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+
+  border-color: var(--color-outline);
+  border-width: 1px;
+  border-radius: 0.25rem;
+  border-style: solid;
+}
+.overlay {
+  padding-inline: 1rem;
+  padding-block: 0.4rem;
+
+  block-size: 100%;
+  display: grid;
+  place-items: center;
+
+  background-color: transparent;
+  transition: background-color 0.2s cubic-bezier(easing.$easing-standard);
+}
+.button:hover:not(:active, :disabled) .overlay {
+  background-color: var(--color-overlay2);
+}
+.button:disabled {
+  background-color: var(--color-surface-variant);
+
+  cursor: progress;
+}

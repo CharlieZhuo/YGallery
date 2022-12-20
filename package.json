@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "libgen": "supabase gen types typescript --project-id 'pvetbowzwnhjkjhsqwep' --schema public > types/supabase.ts --debug"
+    "libgen": "supabase gen types typescript --project-id 'pvetbowzwnhjkjhsqwep' --schema public > types/supabase.ts --debug",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.4.4",
@@ -29,15 +31,33 @@
     "react-feather": "^2.0.10",
     "react-photo-album": "^1.16.1",
     "server-only": "^0.0.1",
+    "storybook-css-modules": "^1.0.8",
     "viewerjs": "^1.11.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.5.14",
+    "@storybook/addon-interactions": "^6.5.14",
+    "@storybook/addon-links": "^6.5.14",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/jest": "^0.0.10",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.5.14",
+    "@storybook/testing-library": "^0.0.13",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
+    "babel-loader": "^8.3.0",
+    "css-loader": "^6.7.3",
     "eslint": "^8.28.0",
     "eslint-config-next": "^13.0.5",
+    "eslint-plugin-storybook": "^0.6.8",
+    "sass": "^1.56.2",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
     "typescript": "^4.9.3"
   }
 }
